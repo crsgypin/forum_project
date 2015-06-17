@@ -5,6 +5,8 @@ class CreateCategories < ActiveRecord::Migration
     	t.string :name
     	t.string :intro
 
+    	t.integer :article_id
+
       t.timestamps null: false
     end
   end

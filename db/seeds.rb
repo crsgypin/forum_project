@@ -5,3 +5,17 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+10.times do |index|
+	# User.create(:email=>Faker::Internet.email,:username=>Faker::Name.name,:password=>"qwerty1234",:password_confirmation=>"qwerty1234",:confirmed_at=>Time.now)
+
+
+end
+
+Category.destroy_all
+Category.create(:name=>"Baseball",:intro=>"Curry wins Labron")
+Category.create(:name=>"Baskball",:intro=>"Ichiro go 3000 hits")
+Category.create(:name=>"Math",:intro=>"Math is beautiful")
+
+
+

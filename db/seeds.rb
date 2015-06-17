@@ -16,6 +16,8 @@ Category.destroy_all
 Category.create(:name=>"Baseball",:intro=>"Curry wins Labron")
 Category.create(:name=>"Baskball",:intro=>"Ichiro go 3000 hits")
 Category.create(:name=>"Math",:intro=>"Math is beautiful")
-
+Category.create(:name=>"Computer",:intro=>Faker::Lorem.sentences)
+Category.create(:name=>"Physics",:intro=>Faker::Lorem.sentences)
+Category.create(:name=>"English",:intro=>Faker::Lorem.sentences)
 
 

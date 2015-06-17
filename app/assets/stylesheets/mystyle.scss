@@ -1,0 +1,51 @@
+
+
+.gg {
+	background-color: green;
+}
+
+/*nav item*/
+.nav-item {
+	height: 50px;
+	width:100%;
+	background-color: black;
+}
+
+.nav-item-content ul{
+	margin-right: 200px
+}
+
+.nav-item-content li{
+
+	list-style: none;
+	float:right;
+	margin-top: 10px;
+	margin-right: 20px;
+	font-size: 1.2em;
+}
+
+.nav-item-content a{
+		color:white;
+}
+
+.nav-item-content a:hover{
+		text-decoration: none;
+
+}
+
+/*nav user*/
+.nav-user {
+	height:60px;
+	background-color: #efe;
+	border-bottom: #bbb;
+}
+
+.nav-user-info{
+	margin-right:250px;
+	margin-top:15px;
+	font-size:1.2em;
+}
+
+
+
+

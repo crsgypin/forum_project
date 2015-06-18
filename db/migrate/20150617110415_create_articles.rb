@@ -5,7 +5,6 @@ class CreateArticles < ActiveRecord::Migration
     	t.string :title
     	t.text :content
     	t.integer :author_id
-    	t.integer :category_id
 
       t.timestamps null: false
     end

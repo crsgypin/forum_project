@@ -5,8 +5,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_one :user_profile
-  has_many :post_articles, :class=> "Article", :foreign_key => "Author_id"
+  has_many :post_articles, :class_name=> "Article", :foreign_key => "author_id"
   has_many :comments
-  has_many :reply_articles, :class => "Article", :through  => :comments
+  has_many :reply_articles, :class_name => "Article", :through  => :comments
+  has_many :article_views
 
 end

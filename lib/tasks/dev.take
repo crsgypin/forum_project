@@ -1,8 +1,0 @@
-namespace :dev do 
-	task :fake => :environment do 
-		10.times do |index|
-		User.create(:email=>Faker::Internet.email,:username=>Faker::Name.name,:password=>"qwerty1234",:password_confirmation=>"qwerty1234",:confirmed_at=>Time.now)
-
-		end
-	end 
-end 

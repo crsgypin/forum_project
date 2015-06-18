@@ -11,8 +11,9 @@
 <div class="nav-item">
 	<div class="pull-right nav-item-content">
 		<ul>
-			<%  @categories.each do |c| %>
-			<li> <%= link_to c.name, forums_path %></li>
+			<% @categories = Category.all %>
+			<%  @categories.each_with_index do |c,index| %>
+			<li> <%= link_to c.name, forums_path(:category_id=>index+1) %></li>
 			<% end %>
 		</ul>
 	</div><!--items-->

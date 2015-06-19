@@ -18,6 +18,10 @@ class ForumsController < ApplicationController
 
 	end
 
+	def user_profile
+		@user = User.find(params[:id])
+		@user.user_profile = @user.build_user_profile unless @user.user_profile
 
+	end
 
 end

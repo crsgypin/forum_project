@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
+  get 'articles/new'
+
   devise_for :users
   resources :users, only: :show
 
   resources :forums do
-
-    member do
-      get :article
-    end
+    resources :article
   end
 
   root :to => 'forums#index'

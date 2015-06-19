@@ -1,0 +1,15 @@
+
+	<%= form.label :title, "Title" %>
+	<%= form.text_field :title %>
+	<br>
+	<%= form.label :category_id, "Class" %>
+	<%= form.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+
+	<br>
+	<%= form.label :content, "Content" %>
+	<%= form.text_area :content %>
+	<br>
+
+
+
+

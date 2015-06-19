@@ -1,32 +1,67 @@
 
-<div class="row article-info"><div class="col-md-offset-2 col-md-8">
-	<p><%= link_to "Forum",forums_path, :class=>"glyphicon glyphicon-home" %></p>
+<!-- show information -->
+<div class="row article-show-info"><div class="col-md-offset-2 col-md-8">
+	<p><%= link_to "Forum",articles_path, :class=>"glyphicon glyphicon-home" %></p>
 	<h2><%= @article.title %></h2>
 	<h4>Poster: <%=@article.user.username %></h4>
+		<% if @article.user == current_user %>
+		<p><%= link_to "Edit",edit_article_path,:class=>"btn btn-info"%></p>
+		<p><%= link_to "Delete",article_path, :method=>"delete", :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%></p>
+		<% end %>
+
 </div></div>
 
-<div class="row article-content"><div class="col-md-offset-2 col-md-8">
-	<p><%= @article.content %></p>
+
+<!-- show content -->
+<div class="row article-show-content"><div class="col-md-offset-2 col-md-8">
+	<p><%= simple_format(@article.content) %></p>
 </div></div>
 
-<div class="row article-comment"><div class="col-md-offset-2 col-md-8">
-	<div class="article-comment-title">
-		<div class="article-comment-title-word"><h4>Reply</h4></div>
 
-
-		</div>
-	<div class="article-comment-reply "><h4>
-		<%= if current_user 
-					"Comment"
-				else
-					"login to reply"
-				end
-		%></h4>
-	</div>
-	
+<!-- show comment -->
+<div class="row article-show-comment"><div class="col-md-offset-2 col-md-8">
+	<table>
+		<tr class="article-show-comment-title">
+			<td class="article-show-comment-title-word">
+				<h4>Reply</h4>
+			</td>
+		</tr>
+	</table>	
 	<table class="table">
-		<% @article.comments.each do |c| %>
-			<tr><td> <%= link_to c.user.username, user_path(c.user) %></td><td> <%=c.content %> </td></tr>
+		<tr>
+			<th>Poster</th>
+			<th>Comment</th>
+			<th>Post time</th>
+			<th></th>
+		</tr>
+		<% @article.comments.order(:updated_at=>:desc).each do |c| %>
+		<tr>
+			<td> <%= link_to c.user.username, user_path(c.user) %></td>
+			<td> <%=c.content %> </td>
+			<td> <%=c.updated_at %></td>
+			<td> <%= if c.user == current_user 
+						 link_to "Edit", article_path(@article, :comment_id=>c.id) 
+						 end %>
+			</td>
+		</tr>
 		<% end %>
 	</table>
-</div></div>
+
+	<div class="article-show-comment-post">
+		<%= form_for @comment, :url=>comment_path do |form|%>
+			<%= if current_user
+				 form.label :content,("Hi #{link_to current_user.username, user_path(current_user)}, post your comment").html_safe
+				else 
+				  form.label :content, "Post your comment"
+			 end %>
+			<br>
+			<%= form.text_area :content, :class=>"article-show-comment-post-input"%>
+			<br>
+			<%= form.submit "Post", :class=>"article-show-comment-post-submit btn btn-primary"%>
+		<% end %>
+
+	</div><!--article-show-comment-post-->
+</div></div><!--article-show-comment-->
+
+
+

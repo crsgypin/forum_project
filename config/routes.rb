@@ -4,11 +4,13 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: :show
 
-  resources :forums do
-    resources :article
+  resources :articles do
+    member do
+      resource :comment
+    end
   end
 
-  root :to => 'forums#index'
+  root :to => 'articles#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

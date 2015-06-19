@@ -8,12 +8,12 @@
 </head>
 <body>
 
-<div class="nav-item">
-	<div class="pull-right nav-item-content">
+<div class="nav-category">
+	<div class="pull-right nav-category-content">
 		<ul>
 			<% @categories = Category.all %>
 			<%  @categories.each_with_index do |c,index| %>
-			<li> <%= link_to c.name, forums_path(:category_id=>index+1) %></li>
+			<li> <%= link_to c.name, articles_path(:category_id=>index+1) %></li>
 			<% end %>
 		</ul>
 	</div><!--items-->
@@ -24,6 +24,12 @@
 
 	<div class="pull-left nav-user-active_category">
 			<h3><%=@active_category.name %></h3>
+			<p><%=flash[:notice]%></p>
+			<p><%if @new_article %>
+				<%=@new_article.errors.full_messages.inspect %></p>
+	      <%# @person.errors.full_messages.each do |message| %>
+				<% end %>
+
 	</div>
 
 	<div class="pull-right nav-user-info">

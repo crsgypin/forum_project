@@ -1,0 +1,13 @@
+<div class="row"><div class="col-md-offset-2 col-md-8">
+<h2>You're editting the article</h2>
+
+
+<%= form_for @edit_article, :url=>article_path, :method=>:patch do |form| %>
+
+	<%= render :partial => "post_form", :locals =>{:form=>form}%>
+
+	<%= form.submit "Post", :class=>"btn btn-info"%>
+	<%= link_to "Back",article_path, :class=>"btn btn-primary"%>
+<% end %>
+</div></div>
+

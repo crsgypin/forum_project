@@ -5,17 +5,17 @@
 }
 
 /*nav item*/
-.nav-item {
+.nav-category {
 	height: 50px;
 	width:100%;
 	background-color: black;
 }
 
-.nav-item-content ul{
+.nav-category-content ul{
 	margin-right: 200px
 }
 
-.nav-item-content li{
+.nav-category-content li{
 
 	list-style: none;
 	float:right;
@@ -24,11 +24,11 @@
 	font-size: 1.2em;
 }
 
-.nav-item-content a{
+.nav-category-content a{
 		color:white;
 }
 
-.nav-item-content a:hover{
+.nav-category-content a:hover{
 		text-decoration: none;
 
 }
@@ -36,14 +36,14 @@
 /*nav user*/
 .nav-user {
 	height:60px;
-	background-color: #efe;
-	border-bottom: #bbb;
+	background-color: #777;
+	border-bottom: #999;
 }
 
 .nav-user-active_category{
 	width:30%;
 	margin-left:10%;
-	
+
 }
 
 .nav-user-info{
@@ -54,45 +54,78 @@
 }
 
 
-.forum-title{
+.article-title{
 	height:40px;
 }
 
-.forum-content{
+.article-content{
 	
 }
 
 
-/* forum html*/
+/* article index html*/
 
-.forum-content-table-index{width:3%;}
-.forum-content-table-topic{width:47%;}
-.forum-content-table-post-date{width:15%;}
-.forum-content-table-post-user{width:15%;}
-.forum-content-table-comment{width:10%;}
-.forum-content-table-views{width:10%;}
+.article-content-table-index{width:3%;}
+.article-content-table-topic{width:47%;}
+.article-content-table-post-date{width:15%;}
+.article-content-table-post-user{width:15%;}
+.article-content-table-comment{width:10%;}
+.article-content-table-views{width:10%;}
 
 
 
-/* article html*/
-.article-info{
+/* show html*/
+.article-show-info{
 	border-bottom: 1px solid #eee;
 }
 
 
-.article-content{
+.article-show-content{
 	margin-top:20px;
-	min-height:100px;
+	margin-left:10px;
+	margin-right:10px;
+	margin-bottom: 40px;
+	min-height:200px;
+	border: 1px solid #aaa;
 }
 
 
-.article-comment-title{
+.article-show-comment{
+	min-height: 400px;
+}
+
+.article-show-comment-title{
 	width:40px;
 }
 
-.article-comment-reply{
+.article-show-comment-reply{
 	width:100px;
 
+}
+
+.article-show-comment-title{
+	height:70px;
+}
+
+.article-show-comment-title-word{
+	width:200px;
+}
+
+.article-show-comment-post{
+	width:70%;
+	margin-left:auto;
+	margin-right: auto;
+	height:300px;
+}
+
+.article-show-comment-post-input{
+	width:100%;
+	height:100px;
+}
+
+.article-show-comment-post-submit{
+	width:60px;
+	float:right;
 }
 
 

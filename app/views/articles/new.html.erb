@@ -1,2 +1,9 @@
-<h1>Articles#new</h1>
-<p>Find me in app/views/articles/new.html.erb</p>
+<h1>New Article</h1>
+
+<%= form_for @new_article, :url=>articles_path do |form| %>
+
+	<%= render :partial => "post_form", :locals =>{:form=>form}%>
+	<%= form.submit "Post", :class=>"btn btn-info"%>
+	<%= link_to "Home", articles_path,:class=>"btn btn-default"%>
+<% end %>
+

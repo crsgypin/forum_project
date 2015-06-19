@@ -4,4 +4,7 @@ class Article < ActiveRecord::Base
 	has_many :article_categoryships
 	has_many :categories, :through => :article_categoryships
 	has_many :article_views
+	validates_presence_of :author_id
+	validates_presence_of :title
+	validates_presence_of :content
 end

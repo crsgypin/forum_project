@@ -22,7 +22,7 @@
 			<tr>
 				<td><%= @page*@per+index+1 %></td>
 				<td><%= link_to a.title, article_forum_path(a) %></td>
-				<td class="text-center"><%= link_to a.user.username %></td>
+				<td class="text-center"><%= link_to a.user.username, user_path(a.user) %></td>
 				<% date = a.updated_at %>
 				<td class="text-center"><%= "#{date.year}/#{date.month}/#{date.day} #{date.hour}:#{date.min}:#{date.sec}" %></td>
 				<td class="text-center"><%= a.comments.count%></td>

@@ -1,0 +1,25 @@
+
+
+<div class="row"><div class="col-md-offset-2 col-md-8">
+<h4><%= link_to "Home", forums_path %></h4>
+<h4><%= @user.username %></h4>
+</div></div>
+
+<div class="row"><div class="col-md-offset-2 col-md-8">
+	<table class="table">
+		<tr>
+			<td>First Name</td>
+			<td><%= @user.user_profile.try(:first_name)  %></td>
+		</tr>
+		<tr><td>Last Name</td><td><%= @user.user_profile.try(:last_name)		%></td></tr>
+		<tr><td>English Name</td><td><%= @user.user_profile.try(:english_name)%></td></tr>
+		<tr><td>Birthdate</td><td><%= @user.user_profile.try(:birthdate)   %></td></tr>
+		<tr><td>Birthdate</td><td><%= @user.user_profile.try(:intro)   %></td>
+	</table>
+
+</div>
+
+
+
+
+

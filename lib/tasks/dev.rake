@@ -2,11 +2,11 @@ namespace :dev do
 	task :fake => :environment do 
 
 		User.destroy_all
+		UserProfile.destroy_all
 		Article.destroy_all
 		ArticleCategoryship.destroy_all
 		ArticleView.destroy_all
 		Comment.destroy_all
-
 
 
 		total_users = 200
@@ -22,22 +22,37 @@ namespace :dev do
 
 
 		puts "creating users"
-		User.create(:id=>1,
-								:email=>'liwen@gmail.com',
-								:username=>'liwen',
-								:password =>'qwerty1234', 
-								:password_confirmation=>'qwerty1234',
-								:confirmed_at=>Time.now,
-								:role=>"admin")
+		u = User.create(:id=>1,
+										:email=>'liwen@gmail.com',
+										:username=>'liwen',
+										:password =>'qwerty1234', 
+										:password_confirmation=>'qwerty1234',
+										:confirmed_at=>Time.now,
+										:role=>"admin")
+		p = UserProfile.create(:id=>1,
+													 :user_id =>1,			
+													 :first_name=>'liwen',
+													 :last_name =>'chen',
+													 :english_name =>'Rolisa',
+													 :birthdate =>Date.new(1987,8,30),
+													 :intro =>"Hi, i'm liwen")
 
 		(total_users-1).times do |i|
-			User.create(:id=>i+2,
-									:email=>Faker::Internet.free_email,
-									:username=>Faker::Name.name,
-									:password=>"qwerty1234",
-									:password_confirmation=>"qwerty1234",
-									:confirmed_at=>Time.now,
-									:role=>"user")
+			u =	User.create(:id=>i+2,
+										:email=>Faker::Internet.free_email,
+										:username=>Faker::Name.name,
+										:password=>"qwerty1234",
+										:password_confirmation=>"qwerty1234",
+										:confirmed_at=>Time.now,
+										:role=>"user")
+			p = UserProfile.create(:id=>i+2,
+														 :user_id =>i+2,			
+														 :first_name=> Faker::Name.first_name,
+														 :last_name => Faker::Name.last_name,
+														 :english_name => Faker::Name.first_name,
+														 :birthdate => Faker::Date.between(Date.new(1981,1,1),Date.new(1989,1,1)),
+														 :intro =>Faker::Lorem.paragraph(2))
+
 		end
 
 		puts "posting the articles"

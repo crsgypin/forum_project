@@ -19,10 +19,20 @@
 	</div><!--items-->
 </div><!---title-nav-->
 
-<div class="nav-user">
-	<div class="pull-right nav-user-info">
-		<a class="glyphicon glyphicon-user">Login	</a>
 
+<div class="nav-user">
+
+	<div class="pull-left nav-user-active_category">
+			<h3><%=@active_category.name %></h3>
+	</div>
+
+	<div class="pull-right nav-user-info">
+		<% if current_user %>
+			<%= link_to current_user.username,"#", :class=>"glyphicon glyphicon-user" %> &nbsp;&nbsp;&nbsp;
+		  <%= link_to('logout', destroy_user_session_path, :method => :delete) %>
+		<% else %>
+			<%= link_to "login", new_session_path(:user),:class=>"glyphicon glyphicon-user" %>
+		<% end %>
 	</div>
 </div><!-- nav-user -->
 

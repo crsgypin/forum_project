@@ -2,7 +2,7 @@
 
 <div class="row forum-title">
 	<div class="col-md-6">
-
+		
 
 	</div>
 </div><!--forum-title -->
@@ -20,18 +20,18 @@
 			</tr>
 				<% @active_articles.each_with_index do |a, index| %>
 			<tr>
-				<td><%= index+1 %></td>
+				<td><%= @page*@per+index+1 %></td>
 				<td><%= link_to a.title, article_forum_path(a) %></td>
 				<td class="text-center"><%= link_to a.user.username %></td>
 				<% date = a.updated_at %>
-				<td class="text-center"><%= "#{date.year}/#{date.month}/#{date.day}" %></td>
+				<td class="text-center"><%= "#{date.year}/#{date.month}/#{date.day} #{date.hour}:#{date.min}:#{date.sec}" %></td>
 				<td class="text-center"><%= a.comments.count%></td>
 				<td class="text-center"><%= a.article_views.count%></td>				
 			</tr>
 
-			<% end %>
+				<% end %><!-- @ative_artices.each -->
 		</table>
 	</div><!-- col-md-12 -->
-</div><!-- category-content -->
-
+</div><!-- row forum-content -->
+<div class="row"><div class="col-md-12"><%= paginate @active_articles %></div></div>
 

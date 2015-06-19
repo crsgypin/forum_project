@@ -68,10 +68,26 @@
 
 
 /* article html*/
+.article-info{
+	border-bottom: 1px solid #eee;
+}
+
 
 .article-content{
+	margin-top:20px;
 	min-height:100px;
 }
+
+
+.article-comment-title{
+	width:40px;
+}
+
+.article-comment-reply{
+	width:100px;
+
+}
+
 
 
 

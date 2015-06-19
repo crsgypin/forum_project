@@ -1,31 +1,32 @@
 
 
-<div class="row category-title">
+<div class="row forum-title">
 	<div class="col-md-6">
 
 
 	</div>
-</div><!--category-title -->
-<div class="row category-content">
+</div><!--forum-title -->
+<div class="row forum-content">
 	<div class="col-md-12">
 		
 		<table class="table table-hover">
-			<tr>
-				<th class="category-content-table-index"></th>
-				<th class="category-content-table-topic">Topic</th>
-				<th class="category-content-table-post">Post</th>
-				<th class="category-content-table-reply">Replies</th>
-				<th class="category-content-table-view">Views</th>
-				<th class="category-content-table-activity">Activity</th>
+			<tr class="">
+				<th class="forum-content-table-index text-center"></th>
+				<th class="forum-content-table-topic text-center">Topic</th>
+				<th class="forum-content-table-post-user text-center">Post User</th>
+				<th class="forum-content-table-post-date text-center">Post Date</th>
+				<th class="forum-content-table-comment text-center">Comments</th>
+				<th class="forum-content-table-views text-center">views</th>
 			</tr>
 				<% @active_articles.each_with_index do |a, index| %>
 			<tr>
 				<td><%= index+1 %></td>
-				<td><%= link_to a.title, "#" %></td>
-				<td><%= link_to a.user.username %></td>
-				<td>replies</td>
-				<td>views</td>				
-				<td>activities</td>				
+				<td><%= link_to a.title, article_forum_path(a) %></td>
+				<td class="text-center"><%= link_to a.user.username %></td>
+				<% date = a.updated_at %>
+				<td class="text-center"><%= "#{date.year}/#{date.month}/#{date.day}" %></td>
+				<td class="text-center"><%= a.comments.count%></td>
+				<td class="text-center"><%= a.article_views.count%></td>				
 			</tr>
 
 			<% end %>

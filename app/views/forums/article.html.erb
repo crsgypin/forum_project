@@ -1,0 +1,18 @@
+
+<div class="row"><div class="col-md-offset-2 col-md-8 article-info">
+	<p><%= link_to "back to forum",forums_path %></p>
+	<h2><%= @article.title %></h2>
+	<h4>Poster: <%=@article.user.username %></h4>
+</div></div>
+
+<div class="row"><div class="col-md-offset-2 col-md-8 article-content">
+	<p><%= @article.content %></p>
+</div></div>
+
+<div class="row"><div class="col-md-offset-2 col-md-8">
+	<table class="table">
+		<% @article.comments.each do |c| %>
+			<tr><td> <%= c.user.username %>:</td><td> <%=c.content %> </td></tr>
+		<% end %>
+	</table>
+</div></div>

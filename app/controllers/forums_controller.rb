@@ -10,7 +10,12 @@ class ForumsController < ApplicationController
 	end
 
 
+	def article
 
+		@article = Article.find(params[:id])
+		
+
+	end
 
 
 

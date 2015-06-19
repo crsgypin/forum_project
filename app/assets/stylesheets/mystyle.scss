@@ -47,13 +47,33 @@
 }
 
 
-.category-title{
+.forum-title{
 	height:40px;
 }
 
-.category-content{
+.forum-content{
 	
 }
+
+
+/* forum html*/
+
+.forum-content-table-index{width:3%;}
+.forum-content-table-topic{width:47%;}
+.forum-content-table-post-date{width:15%;}
+.forum-content-table-post-user{width:15%;}
+.forum-content-table-comment{width:10%;}
+.forum-content-table-views{width:10%;}
+
+
+
+/* article html*/
+
+.article-content{
+	min-height:100px;
+}
+
+
 
 
 

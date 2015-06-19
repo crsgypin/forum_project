@@ -26,7 +26,7 @@
 	
 	<table class="table">
 		<% @article.comments.each do |c| %>
-			<tr><td> <%= c.user.username %></td><td> <%=c.content %> </td></tr>
+			<tr><td> <%= link_to c.user.username, user_path(c.user) %></td><td> <%=c.content %> </td></tr>
 		<% end %>
 	</table>
 </div></div>

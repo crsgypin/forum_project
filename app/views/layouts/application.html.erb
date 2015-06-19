@@ -29,8 +29,8 @@
 	<div class="pull-right nav-user-info">
 		<% if current_user %>
 			<%= link_to current_user.username,"#", :class=>"glyphicon glyphicon-user" %> &nbsp;&nbsp;&nbsp;
-		  <%= link_to('logout', destroy_user_session_path, :method => :delete) %>
-		  <%= link_to('modify profile', edit_user_registration_path)%>
+		  <%= link_to('logout', destroy_user_session_path, :method => :delete, :class=>"btn btn-primary") %>
+		  <%= link_to('Edit', edit_user_registration_path, :class=>"btn btn-primary")%>
 		<% else %>
 			<%= link_to "login", new_session_path(:user),:class=>"glyphicon glyphicon-user" %>
 		<% end %>

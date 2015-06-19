@@ -1,5 +1,6 @@
 class ForumsController < ApplicationController
 	before_action :authenticate_user!
+	before_action :debug
 
 	def index
 
@@ -14,14 +15,12 @@ class ForumsController < ApplicationController
 	def article
 
 		@article = Article.find(params[:id])
-		
-
 	end
 
-	def user_profile
-		@user = User.find(params[:id])
-		@user.user_profile = @user.build_user_profile unless @user.user_profile
-
+private
+	def debug
+		Rails.logger.debug("=------------=")		
+		# Rails.logger.debug(URI(request.referer).path)
 	end
 
 end

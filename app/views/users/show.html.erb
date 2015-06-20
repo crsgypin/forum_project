@@ -22,8 +22,8 @@
 </div>
 
 <div class="row"><div class="col-md-offset-2 col-md-8 user-show-post">
-	<h4>His(Her) posted articles</h4>
-	<table>
+	<h4>Posted articles</h4>
+	<table class="table">
 		<tr>
 			<th class="user-show-post-table-index"></th>
 			<th class="user-show-post-table-title">Title</th>
@@ -38,10 +38,34 @@
 			<td class="user-show-post-table-update"><%=a.updated_at%></td>
 		</tr>
 		<%end %>
-	</td>
+	</table>
 </div>
 
-
-
+<div class="row"><div class="col-md-offset-2 col-md-8 user-show-comment">
+	<h4>Commented articles</h4>
+	<table class="table">
+		<tr>
+			<th class="user-show-comment-table-index"></th>
+			<th class="user-show-comment-table-article">Article</th>
+			<th class="user-show-comment-table-comment-content">Comment</th>
+			<th class="user-show-comment-table-update">Date Time</th>
+		</tr>
+		<% @user.comments.order(:updated_at => :desc).each_with_index do |c,index| %>
+			<% if c.article %>
+		<tr>
+			<td class="user-show-comment-table-index"><%= index+1 %></td>
+			<td class="user-show-comment-table-article">
+				<%= link_to c.article.title, article_path(c.article) %>
+			</td>
+			<td class="user-show-comment-table-comment-content">
+				<%= link_to c.content, article_path(c.article)%>
+			</td>
+			<td class="user-show-comment-table-update">
+				<%= c.updated_at %>
+			</td>
+		</tr>
+			<% end %><!-- if c.article -->
+		<% end %><!-- @user.comments .order -->
+</div>
 
 

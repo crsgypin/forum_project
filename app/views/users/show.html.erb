@@ -14,8 +14,31 @@
 		<tr><td>Last Name</td><td><%= @user.user_profile.try(:last_name)		%></td></tr>
 		<tr><td>English Name</td><td><%= @user.user_profile.try(:english_name)%></td></tr>
 		<tr><td>Birthdate</td><td><%= @user.user_profile.try(:birthdate)   %></td></tr>
-		<tr><td>Birthdate</td><td><%= @user.user_profile.try(:intro)   %></td>
+		<tr><td>Intro</td><td><%= @user.user_profile.try(:intro)   %></td>
+		<tr><td>Total visit</td><td><%= @user.post_articles.count %></td>
+		<tr><td>Total posting articles</td><td><%= @user.post_articles.count	%></td>
+		<tr><td>Total replying articles</td><td><%= @user.reply_articles.count %></td>
 	</table>
+</div>
+
+<div class="row"><div class="col-md-offset-2 col-md-8 user-show-post">
+	<h4>His(Her) posted articles</h4>
+	<table>
+		<tr>
+			<th class="user-show-post-table-index"></th>
+			<th class="user-show-post-table-title">Title</th>
+			<th class="user-show-post-table-comment">Comment</th>
+			<th class="user-show-post-table-update">Update Date</th>
+		</tr>
+		<% @user.post_articles.order(:updated_at => :desc).each_with_index do |a,index| %>
+		<tr>
+			<td class="user-show-post-table-index"><%= index+1 %></td>
+			<td class="user-show-post-table-title"><%= link_to a.title, article_path(a) %></td>
+			<td class="user-show-post-table-comment"><%= a.comments.count %></td>
+			<td class="user-show-post-table-update"><%=a.updated_at%></td>
+		</tr>
+		<%end %>
+	</td>
 </div>
 
 

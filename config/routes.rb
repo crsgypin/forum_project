@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :users, only: :show
 
   resources :articles do
+    collection do
+      get :about
+    end
     member do
       resource :comment
     end

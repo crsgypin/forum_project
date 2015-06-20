@@ -9,39 +9,53 @@
 <body>
 
 <div class="nav-category">
-	<div class="pull-right nav-category-content">
-		<ul>
-			<% @categories = Category.all %>
-			<%  @categories.each_with_index do |c,index| %>
-			<li> <%= link_to c.name, articles_path(:category_id=>index+1) %></li>
-			<% end %>
-		</ul>
-	</div><!--items-->
+	<table class="nav-category-table"><tr>
+		<td class="nav-category-table-home">
+			<p><%= link_to " Forum",articles_path, :class=>"glyphicon glyphicon-home" %></p>
+		</td>
+
+		<td class="nav-category-table-about">
+			<p><%= link_to "About this forum", about_articles_path %></p>
+		</td>
+
+		<td class="nav-category-table-content">
+			<ul>
+				<% @categories = Category.all %>
+				<%  @categories.each_with_index do |c,index| %>
+				<li> <%= link_to c.name, articles_path(:category_id=>index+1) %></li>
+				<% end %>
+			</ul>
+		</td><!--content-->
+	</tr></table>
 </div><!---title-nav-->
 
 
-<div class="nav-user">
+<div class="nav-info">
+	<table>
+		<tr>
+			<td class="nav-info-category-title">
+				<h3><%=@active_category.name %></h3>
+			</td>
 
-	<div class="pull-left nav-user-active_category">
-			<h3><%=@active_category.name %></h3>
-			<p><%=flash[:notice]%></p>
-			<p><%if @new_article %>
-				<%=@new_article.errors.full_messages.inspect %></p>
-	      <%# @person.errors.full_messages.each do |message| %>
+			<td class="nav-info-message">
+				<h4  class="nav-info-message-notice">abc<%=flash[:notice]%></h4>
+				<p><%if @new_article %>
+					<%=@new_article.errors.full_messages.inspect %></p>
+		      <%# @person.errors.full_messages.each do |message| %>
+					<% end %>				
+			</td>
+			<td class="nav-info-user">
+				<% if current_user %>
+					<%= link_to current_user.username,"#", :class=>"glyphicon glyphicon-user" %> &nbsp;&nbsp;&nbsp;
+				  <%= link_to('logout', destroy_user_session_path, :method => :delete, :class=>"btn btn-primary") %>
+				  <%= link_to('Edit', edit_user_registration_path, :class=>"btn btn-primary")%>
+				<% else %>
+					<%= link_to "login", new_session_path(:user),:class=>"glyphicon glyphicon-user" %>
 				<% end %>
-
-	</div>
-
-	<div class="pull-right nav-user-info">
-		<% if current_user %>
-			<%= link_to current_user.username,"#", :class=>"glyphicon glyphicon-user" %> &nbsp;&nbsp;&nbsp;
-		  <%= link_to('logout', destroy_user_session_path, :method => :delete, :class=>"btn btn-primary") %>
-		  <%= link_to('Edit', edit_user_registration_path, :class=>"btn btn-primary")%>
-		<% else %>
-			<%= link_to "login", new_session_path(:user),:class=>"glyphicon glyphicon-user" %>
-		<% end %>
-	</div>
-</div><!-- nav-user -->
+			</td>
+		</tr>
+	</table>
+</div><!-- nav-info -->
 
 <div class="container">
 <%= yield %>

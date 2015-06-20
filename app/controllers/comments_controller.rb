@@ -18,6 +18,27 @@ class CommentsController < ApplicationController
 		end
 	end
 
+	def update
+		@comment = Comment.find(params[:comment_id])
+		@comment.update(params_comment)
+
+		if @comment.save
+			flash[:notice] = "your comment has been successfully updated"
+			redirect_to article_path(params[:id])
+		else
+			@article = Article.find(params[:id])
+			render :template => 'articles/show'
+		end
+	end
+
+
+	def destroy
+		@comment = Comment.find(params[:comment_id])
+		@comment.destroy
+		flash[:notice] = "You comment has been successfully deleted"
+		redirect_to article_path(params[:id])
+	end
+
 private
 	def params_comment
 		params.require(:comment).permit(:content)

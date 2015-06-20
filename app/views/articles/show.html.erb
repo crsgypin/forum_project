@@ -33,6 +33,7 @@
 			<th>Comment</th>
 			<th>Post time</th>
 			<th></th>
+			<th></th>
 		</tr>
 		<% @article.comments.order(:updated_at=>:desc).each do |c| %>
 		<tr>
@@ -43,12 +44,18 @@
 						 link_to "Edit", article_path(@article, :comment_id=>c.id) 
 						 end %>
 			</td>
+			<td> <%= if c.user == current_user
+						 link_to "Delete", comment_path(@article, :comment_id=>c.id), :method=>"delete", :data=>{:confirm=>"Are you sure?"}
+						 end %>
+
+		  </td>
 		</tr>
 		<% end %>
 	</table>
 
 	<div class="article-show-comment-post">
-		<%= form_for @comment, :url=>comment_path do |form|%>
+		<% method = (@comment.new_record?) ? :post : :patch %>
+		<%= form_for @comment, :url=>comment_path(:comment_id=>@comment.id), :method => method do |form|%>
 			<%= if current_user
 				 form.label :content,("Hi #{link_to current_user.username, user_path(current_user)}, post your comment").html_safe
 				else 

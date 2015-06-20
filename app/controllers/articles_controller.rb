@@ -7,9 +7,6 @@ class ArticlesController < ApplicationController
 		@page = params[:page].to_i
 		@active_articles = @active_category.articles.order(:updated_at => :desc).page(@page).per(@per)
 
-		# Rails.logger.debug("=-----------'")
-		# Rails.logger.debug(@active_articles.inspect)		
-
 	end
 
 	def new

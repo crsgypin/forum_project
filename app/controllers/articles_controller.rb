@@ -49,8 +49,23 @@ class ArticlesController < ApplicationController
 	end
 
 	def show
-		@article = Article.find(params[:id])
-		@comment = params[:comment_id] ? Comment.find(params[:comment_id]) : Comment.new
+		@article_id = params[:id]
+		@article = Article.find(@article_id)
+
+		unless params[:comment_id]
+			@comment = Comment.new
+			unless ArticleView.find_by(article_id: @article_id, user_id: current_user.id)
+				ArticleView.create(article_id: @article_id,user_id: current_user.id)
+			end
+		else
+			@comment = Comment.find(params[:comment_id]) 
+		end
+	end
+
+	def about
+		@total_articles = Article.all.count
+		@total_users = User.all.count
+		@total_comments = Comment.all.count
 	end
 
 private

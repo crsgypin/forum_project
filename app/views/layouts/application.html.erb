@@ -8,17 +8,17 @@
 </head>
 <body>
 
-<div class="nav-category">
-	<table class="nav-category-table"><tr>
-		<td class="nav-category-table-home">
+<div class="nav-top">
+	<table class="nav-top-table"><tr>
+		<td class="nav-top-table-home">
 			<p><%= link_to " Forum",articles_path, :class=>"glyphicon glyphicon-home" %></p>
 		</td>
 
-		<td class="nav-category-table-about">
+		<td class="nav-top-table-about">
 			<p><%= link_to "About this forum", about_articles_path %></p>
 		</td>
 
-		<td class="nav-category-table-content">
+		<td class="nav-top-table-content">
 			<ul>
 				<% @categories = Category.all %>
 				<%  @categories.each_with_index do |c,index| %>

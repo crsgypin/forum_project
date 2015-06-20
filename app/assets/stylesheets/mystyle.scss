@@ -11,7 +11,7 @@
 
 /*nav item*/
 
-.nav-category {
+.nav-top {
 	width:100%;
 	height: 50px;
 	padding-left:10%;
@@ -19,56 +19,74 @@
 	background-color: black;
 }
 
-.nav-category-table{
+.nav-top-table{
 	width:90%;
 }
 
-.nav-category-table-home{
-	margin-top:30px;
+.nav-top-table-home{
+	padding-top:10px;
 	margin-left:10%;
-	width:20%;
-	color:white;
+	width:10%;
 	font-size:1.3em;
 }
 
-.nav-category-table-about{
-	margin-top:15px;
+.nav-top-table-home a{
+	color:white;
+}
+
+.nav-top-table-about{
+	padding-top: 18px;
 	margin-left:10%;
 	width:20%;
 	color:white;
 	font-size:0.8em;
 }
 
-.nav-category-table-content{
-	width:60%;
-}
-
-.nav-category-content a{
+.nav-top-table-about a{
 	color:white;
 }
 
-.nav-category-content a:hover{
+
+.nav-top-table-content{
+	width:60%;
+}
+
+.nav-top-content a{
+	color:white;
+}
+
+.nav-top-content a:hover{
 	text-decoration: none;
 }
 
 
-.nav-category-table-content ul{
+.nav-top-table-content ul{
 	margin-right: 10px;
 	width:auto;
 	margin-left: auto;
+	float:right;
 }
 
-.nav-category-table-content li{
+.nav-top-table-content li{
 
 	list-style: none;
-	float:right;
+	float:left;
 	margin-top: 10px;
 	margin-right: 20px;
 	font-size: 1.2em;
-	color:white;
+
+}
+.nav-top-table-content a{
+	color:white;	
 }
 
-/*nav user*/
+.nav-top-table-content a:hover{
+	text-decoration: none;
+	color:yellow;
+}
+
+
+/*nav info*/
 .nav-info {
 	padding-left:10%;
 	padding-right:10%;
@@ -80,7 +98,6 @@
 .nav-info-category-title{
 	width:30%;
 	margin-left:10%;
-	margin-top:-5px;
 }
 
 .nav-info-message{
@@ -106,8 +123,8 @@
 
 /* article index */
 .article-title{
-	margin-top:10px;
-	margin-bottom: 10px;
+	margin-top:20px;
+	margin-bottom: 20px;
 	height:40px;
 }
 

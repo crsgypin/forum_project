@@ -5,7 +5,27 @@ class ArticlesController < ApplicationController
 
 		@per = 10
 		@page = params[:page].to_i
-		@active_articles = @active_category.articles.order(:updated_at => :desc).page(@page).per(@per)
+		@articles = @active_category? @active_category.articles : Article.all
+
+		if params[:order] == 'comment'
+      @articles = @articles.select('articles.*, count(comments.id) as comment_count')
+      @articles = @articles.joins('left join comments on articles.id=comments.article_id')
+      @articles = @articles.group('articles.id')
+      @articles = @articles.order('comment_count desc')
+			# select articles.*, count(comments.id) as comment_count, comments.id from articles left join comments on articles.id = comments.article_id group by articles.id order by comment_count desc
+
+		elsif params[:order] == 'views'
+      @articles = @articles.select('articles.*, count(article_views.id) as view_count')
+      @articles = @articles.joins('left join article_views on articles.id=article_views.article_id')
+      @articles = @articles.group('articles.id')
+      @articles = @articles.order('view_count desc')			
+
+    else
+    	@articles = @articles.order('updated_at desc')
+
+		end
+
+		@articles = @articles.page(@page).per(@per)
 
 	end
 

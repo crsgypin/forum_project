@@ -20,6 +20,7 @@
 
 		<td class="nav-top-table-content">
 			<ul>
+				<li> <%= link_to "All", articles_path %></li>
 				<% @categories = Category.all %>
 				<%  @categories.each_with_index do |c,index| %>
 				<li> <%= link_to c.name, articles_path(:category_id=>index+1) %></li>
@@ -34,7 +35,7 @@
 	<table>
 		<tr>
 			<td class="nav-info-category-title">
-				<h3><%=@active_category.name %></h3>
+				<h3><%=@active_category ? @active_category.name : "All" %></h3>
 			</td>
 
 			<td class="nav-info-message">

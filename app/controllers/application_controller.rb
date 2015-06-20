@@ -10,8 +10,7 @@ class ApplicationController < ActionController::Base
 protected
 	
 	def set_active_category
-		active_id = (params[:category_id])? params[:category_id] : 1
-		@active_category = Category.find(active_id)
+		@active_category = Category.find(params[:category_id]) if params[:category_id]
 	end
 
 

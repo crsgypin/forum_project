@@ -14,11 +14,17 @@
 				<th class="article-content-table-index text-center"></th>
 				<th class="article-content-table-topic text-center">Topic</th>
 				<th class="article-content-table-post-user text-center">Post User</th>
-				<th class="article-content-table-post-date text-center">Post Date</th>
-				<th class="article-content-table-comment text-center">Comments</th>
-				<th class="article-content-table-views text-center">views</th>
+				<th class="article-content-table-post-date text-center">
+						<%= link_to "Date Time",articles_path(order: :datetime) %>
+				</th>
+				<th class="article-content-table-comment text-center">
+						<%= link_to "Comment",articles_path(order: :comment) %>
+				</th>
+				<th class="article-content-table-views text-center">
+						<%= link_to "Views",articles_path(order: :views)%>
+				</th>
 			</tr>
-				<% @active_articles.each_with_index do |a, index| %>
+				<% @articles.each_with_index do |a, index| %>
 			<tr>
 				<td><%= @page*@per+index+1 %></td>
 				<td><%= link_to a.title, article_path(a) %></td>
@@ -33,5 +39,5 @@
 		</table>
 	</div><!-- col-md-12 -->
 </div><!-- row article-content -->
-<div class="row"><div class="col-md-12"><%= paginate @active_articles %></div></div>
+<div class="row"><div class="col-md-12"><%= paginate @articles %></div></div>
 

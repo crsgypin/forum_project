@@ -40,8 +40,8 @@
 
 			<td class="nav-info-message">
 				<h4  class="nav-info-message-notice">abc<%=flash[:notice]%></h4>
-				<p><%if @new_article %>
-					<%=@new_article.errors.full_messages.inspect %></p>
+				<p><%if @article %>
+					<%=@article.errors.full_messages.inspect %></p>
 		      <%# @person.errors.full_messages.each do |message| %>
 					<% end %>				
 			</td>

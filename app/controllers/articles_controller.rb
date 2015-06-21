@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
 		@per = 10
 		@page = params[:page].to_i
 		@articles = @active_category? @active_category.articles : Article.all
+		@articles = @articles.where("status = 'published'")
 
 		if params[:order] == 'comment'
       @articles = @articles.select('articles.*, count(comments.id) as comment_count')
@@ -30,33 +31,56 @@ class ArticlesController < ApplicationController
 	end
 
 	def new
-		@new_article = Article.new
+		@article = Article.new
 
 	end
 
 	def create
-		@new_article = Article.new(post_article_params)
-		@new_article[:author_id] = current_user.id
+		@article = Article.new(post_article_params)
+		@article[:author_id] = current_user.id
+		if params[:commit] == 'Publish'
+			@article.status = 'published'
+			if @article.save
+				flash[:notice] = "You had posted one article"
+				redirect_to articles_path
+			else
+				@article.status = "draft"
+				render :new
+			end
 
-		if @new_article.save
-			flash[:notice] = "You had posted one article"
-			redirect_to articles_path
-		else
+		elsif params[:commit] == 'Save'
+			@article.status = 'draft'
+			if @article.save
+				flash[:notice] = "You had saved one article, not published yet"
+			end
 			render :new
 		end
+
 	end
 
 	def edit
-		@edit_article = Article.find(params[:id])
+		@article = Article.find(params[:id])
 	end
 
 	def update
-		@edit_article = Article.find(params[:id])
-		if @edit_article.update(post_article_params)
-			flash[:notice] = "You had updated you article"
-			redirect_to article_path(@edit_article)
-		else
-			render :edit
+		@article = Article.find(params[:id])
+		if params[:commit] == 'Publish'
+			@article.status = "published"
+			if @article.update(post_article_params)
+				flash[:notice] = "You had updated your article"
+				redirect_to article_path(@article)
+			else
+				@article.status = "draft"
+				render :edit
+			end
+
+		elsif params[:commit] == 'Save'
+			if @article.update(post_article_params)
+				flash[:notice] = "You had saved your article, not published yet"
+				redirect_to user_path(current_user)
+			else
+				render :edit
+			end
 		end
 	end
 

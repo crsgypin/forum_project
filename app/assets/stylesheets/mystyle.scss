@@ -242,6 +242,30 @@
 	width:15%;
 }
 
+.user-show-draft-index{
+	width: 10%;
+}
+
+.user-show-draft-title{
+	width: 45%;
+}
+
+.user-show-draft-category{
+	width: 30%;
+}
+
+.user-show-draft-category ul{
+	padding-left: 0px;
+}
+
+.user-show-draft-category li{
+	float: left;
+	list-style: none;
+}
+
+.user-show-draft-update{
+	width: 20%;
+}
 
 .user-show-post{
 	padding-left: 0px;
@@ -287,6 +311,16 @@
 
 
 /*article new, edit */
+
+.article-edit-message-published{
+	font-size: 0.8em;
+	color: yellow;
+}
+
+.article-edit-message-draft{
+	font-size: 0.8em;
+	color: blue;
+}
 
 .article-form-table{
 	margin-top: 40px;

@@ -1,15 +1,33 @@
 
-	<%= form.label :title, "Title" %>
-	<%= form.text_field :title %>
-	<br>
-	<%= form.label :category_id, "Class" %>
-	<%= form.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+<table class="article-form-table">
+	<tr>
+		<td class="article-form-category-item">
+			<%= form.label :title, "Title" %>
+		</td>
+		<td class="article-form-category-input">
+			<%= form.text_field :title %>
+		</td>
+	</tr>
 
-	<br>
-	<%= form.label :content, "Content" %>
-	<%= form.text_area :content %>
-	<br>
+	<tr class="article-form-category">
+		<td class="article-form-category-item" >
+			<%= form.label :category_id, "Class" %>
+		</td>
+		<td class="article-form-category-input">
+			<%= form.collection_check_boxes(:category_ids, Category.all, :id, :name,:class=>"article-form-category-checkbok") %>
+		</td>
+	</tr>
 
+
+	<tr>
+		<td class="article-form-category-item">
+			<%= form.label :content, "Content" %>
+		</td>
+		<td class="article-form-category-input">
+			<%= form.text_area :content %>
+		</td>
+	</tr>
+</table>
 
 
 

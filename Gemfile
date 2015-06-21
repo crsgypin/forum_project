@@ -42,6 +42,9 @@ gem 'bootstrap-sass', '~> 3.3.5'
 # pages
 gem 'kaminari'
 
+# gravatar
+gem 'gravatar-ultimate'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

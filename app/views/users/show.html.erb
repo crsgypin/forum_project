@@ -5,6 +5,7 @@
 <h4><%= @user.username %></h4>
 </div></div>
 
+<!-- profile data -->
 <div class="row"><div class="col-md-offset-2 col-md-8">
 	<table class="table">
 		<tr>
@@ -21,9 +22,38 @@
 	</table>
 </div>
 
-<div class="row"><div class="col-md-offset-2 col-md-8 user-show-post">
-	<h4>Posted articles</h4>
+<!-- My favorite articles -->
+<% if @user == current_user %>
+<div class="row"><div class="col-md-offset-1 col-md-10 user-show-post">
+	<h4>My favorite articles</h4>
 	<table class="table">
+		<tr>
+			<th class="user-show-favorite-table-index"></th>
+			<th class="user-show-post-table-title">Title</th>
+			<th class="user-show-post-table-comment">Comment</th>
+			<th class="user-show-post-table-update">Update Date</th>
+		</tr>
+
+		<% @favorite_articles.each_with_index do |fa,index|%>
+		<tr>
+			<td class="user-show-favorite-table-index"><%= index+1 %></td>
+			<td class="user-show-post-table-title"><%= link_to fa.title, article_path(fa)%></td>
+			<td class="user-show-post-table-comment"><%= fa.comments.count %></td>
+			<td class="user-show-post-table-update"><%=fa.updated_at%></td>
+			<td class="user-show-post-table-remove"><%= link_to "Remove", favorite_user_path(current_user.id,:article_id=>fa.id), :method=>:delete, :class=>"btn btn-warning",:data=>{:confirm=>"Are you sure?"} %>
+			</td>
+
+		</tr>
+		<% end %><!-- @user.favorite_articles.each_with_index -->
+	</table>
+
+
+<% end %>
+
+<!-- Posted articles -->
+<div class="row"><div class="user-show-post">
+	<h4>Posted articles</h4>
+	<table class="table user-show-post-table">
 		<tr>
 			<th class="user-show-post-table-index"></th>
 			<th class="user-show-post-table-title">Title</th>
@@ -41,6 +71,8 @@
 	</table>
 </div>
 
+
+<!-- commented articles -->
 <div class="row"><div class="col-md-offset-2 col-md-8 user-show-comment">
 	<h4>Commented articles</h4>
 	<table class="table">

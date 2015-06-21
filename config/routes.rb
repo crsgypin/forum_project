@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   get 'articles/new'
 
   devise_for :users
-  resources :users, only: :show
+  resources :users, only: :show do
+    member do
+      delete :favorite, :action=>:favorite_delete
+    end
+  end
 
   resources :articles do
     collection do
@@ -10,6 +14,8 @@ Rails.application.routes.draw do
     end
     member do
       resource :comment
+      post :favorite, :action=>:favorite_create
+      delete :favorite, :action=>:favorite_delete
     end
   end
 

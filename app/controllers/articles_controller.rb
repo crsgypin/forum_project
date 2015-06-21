@@ -72,6 +72,10 @@ class ArticlesController < ApplicationController
 		@article_id = params[:id]
 		@article = Article.find(@article_id)
 
+		if current_user
+			@favorite = Favorite.find_by(:article_id=>@article_id,:user_id=>current_user.id)
+		end	
+
 		unless params[:comment_id]
 			@comment = Comment.new
 			unless ArticleView.find_by(article_id: @article_id, user_id: current_user.id)
@@ -79,6 +83,27 @@ class ArticlesController < ApplicationController
 			end
 		else
 			@comment = Comment.find(params[:comment_id]) 
+		end
+	end
+
+	def favorite_create
+		@favorite = Favorite.new(:user_id=>params[:user_id],:article_id=>params[:id])
+		if @favorite.save
+			flash[:notice]= "You have saved the favrite to this article"
+			redirect_to article_path(params[:id])
+		else
+			render :show
+		end
+	end
+
+	def favorite_delete
+		@favorite = Favorite.find_by(:user_id=>params[:user_id],:article_id=>params[:id])
+
+		if @favorite.destroy
+			flash[:notice]= "You have removed the favrite to this article"
+			redirect_to article_path(params[:id])
+		else
+			render :show
 		end
 	end
 

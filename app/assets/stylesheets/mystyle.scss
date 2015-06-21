@@ -95,8 +95,12 @@
 	border-bottom: #999;
 }
 
+.nav-info-category-table{
+	width:100%;
+}
+
 .nav-info-category-title{
-	width:30%;
+	width:20%;
 	margin-left:10%;
 }
 
@@ -111,7 +115,6 @@
 
 .nav-info-user{
 	width:30%;
-	margin-right:10%;
 	margin-top:20px;
 	font-size:1.2em;
 }
@@ -149,12 +152,20 @@
 	border-bottom: 1px solid #eee;
 }
 
+.article-show-info-poster{
+	width: 200px;
+}
+
+.article-show-info-favorite{
+	width: 200px;
+}
+
 
 .article-show-content{
 	margin-top:20px;
-	margin-left:10px;
-	margin-right:10px;
 	margin-bottom: 40px;
+	padding-left:10px;
+	padding-right:10px;
 	min-height:200px;
 	border: 1px solid #aaa;
 }
@@ -203,6 +214,13 @@
 
 
 /* User show html */
+.user-show-post{
+	padding-left: 0px;
+}
+
+.user-show-post-table{
+	width:100%;
+}
 
 .user-show-post-table-title{
 	width:5%;

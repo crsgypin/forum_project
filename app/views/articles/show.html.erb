@@ -3,7 +3,18 @@
 <div class="row article-show-info"><div class="col-md-offset-2 col-md-8">
 	<p><%= link_to "Forum",articles_path, :class=>"glyphicon glyphicon-home" %></p>
 	<h2><%= @article.title %></h2>
-	<h4>Poster: <%=@article.user.username %></h4>
+
+	<table><tr>
+		<td class="article-show-info-poster"><p>Poster: <%=@article.user.username %></p></td>
+		<td class="article-show-info-favorite"><p>
+			<% unless @favorite %>
+			<%= link_to "Add to My favorite", favorite_article_path(@article,:user_id=>current_user.id), :method=>:post, :class=>"btn btn-primary" %>
+			<% else %>
+			<%= link_to "Remove from My favorite", favorite_article_path(@article,:user_id=>current_user.id), :method=>:delete, :class=>"btn btn-warning" %>
+			<% end %>
+		</p></td>
+	</tr></table>
+
 		<% if @article.user == current_user %>
 		<p><%= link_to "Edit",edit_article_path,:class=>"btn btn-info"%></p>
 		<p><%= link_to "Delete",article_path, :method=>"delete", :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%></p>
@@ -13,8 +24,10 @@
 
 
 <!-- show content -->
-<div class="row article-show-content"><div class="col-md-offset-2 col-md-8">
-	<p><%= simple_format(@article.content) %></p>
+<div class="row"><div class="col-md-offset-2 col-md-8">
+	<div class="article-show-content">
+		<p><%= simple_format(@article.content) %></p>
+	</div>
 </div></div>
 
 

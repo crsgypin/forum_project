@@ -32,7 +32,7 @@
 
 
 <div class="nav-info">
-	<table>
+	<table class="nav-info-category-table">
 		<tr>
 			<td class="nav-info-category-title">
 				<h3><%=@active_category ? @active_category.name : "All" %></h3>
@@ -47,7 +47,7 @@
 			</td>
 			<td class="nav-info-user">
 				<% if current_user %>
-					<%= link_to current_user.username,"#", :class=>"glyphicon glyphicon-user" %> &nbsp;&nbsp;&nbsp;
+					<%= link_to current_user.username, user_path(current_user), :class=>"glyphicon glyphicon-user" %> &nbsp;&nbsp;&nbsp;
 				  <%= link_to('logout', destroy_user_session_path, :method => :delete, :class=>"btn btn-primary") %>
 				  <%= link_to('Edit', edit_user_registration_path, :class=>"btn btn-primary")%>
 				<% else %>

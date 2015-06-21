@@ -13,6 +13,7 @@
 			<tr class="">
 				<th class="article-content-table-index text-center"></th>
 				<th class="article-content-table-topic text-center">Topic</th>
+				<th class="article-content-table-category text-center">Category</th>
 				<th class="article-content-table-post-user text-center">Post User</th>
 				<th class="article-content-table-post-date text-center">
 						<%= link_to "Date Time",articles_path(order: :datetime) %>
@@ -26,8 +27,16 @@
 			</tr>
 				<% @articles.each_with_index do |a, index| %>
 			<tr>
-				<td><%= @page*@per+index+1 %></td>
+				<td>
+					<%= @page*@per+index+1 %></td>
 				<td><%= link_to a.title, article_path(a) %></td>
+				<td class="text-center">
+					<% category = ''%>
+					<% a.categories.each do |c| %>
+					<%	category += c.name+' ' %>
+					<% Rails.logger.debug(c.name) %>
+					<% end %>
+					<p><%=category %></p>
 				<td class="text-center"><%= link_to a.user.username, user_path(a.user) %></td>
 				<% date = a.updated_at %>
 				<td class="text-center"><%= "#{date.year}/#{date.month}/#{date.day} #{date.hour}:#{date.min}:#{date.sec}" %></td>

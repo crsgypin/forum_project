@@ -12,7 +12,6 @@ class Article < ActiveRecord::Base
 	validates_presence_of :content, unless: :status_draft?
 
 	def status_draft?
-		puts status == "draft"
 		status == "draft"
 	end
 

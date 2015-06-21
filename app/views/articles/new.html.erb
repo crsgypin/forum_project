@@ -4,12 +4,12 @@
 </div></div>
 
 <div class="row"><div class="col-md-offset-1 col-md-10">
-<%= form_for @new_article, :url=>articles_path do |form| %>
+<%= form_for @article, :url=>articles_path do |form| %>
 
 	<%= render :partial => "post_form", :locals =>{:form=>form}%>
 
 	<br>
-	<%= form.submit "Post", :class=>"btn btn-warning"%>
+	<%= form.submit "Publish", :class=>"btn btn-warning"%>
 	<%= form.submit "Save", :class=>"btn btn-info"%>
 	<%= link_to " Cancel", articles_path,:class=>"btn btn-default"%>
 <% end %>

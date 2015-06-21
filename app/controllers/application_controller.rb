@@ -11,7 +11,14 @@ class ApplicationController < ActionController::Base
 protected
 	
 	def set_active_category
-		@active_category = Category.find(params[:category_id]) if params[:category_id]
+    @categories = Category.all
+    if params[:category_id]
+
+      @active_category_id = params[:category_id].to_i
+      @active_category = Category.find(@active_category_id)
+    else
+      @active_category_id = 0
+    end
 	end
 
   def configure_permitted_parameters

@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
 		@per = 10
 		@page = params[:page].to_i
 		@articles = @active_category? @active_category.articles : Article.all
+		@articles = @articles.where("status = 'published'")
 
 		if params[:order] == 'comment'
       @articles = @articles.select('articles.*, count(comments.id) as comment_count')
@@ -37,9 +38,8 @@ class ArticlesController < ApplicationController
 	def create
 		@new_article = Article.new(post_article_params)
 		@new_article[:author_id] = current_user.id
-
-		if params[:commit] = 'Publish'
-			@new_article.status = 'Published'
+		if params[:commit] == 'Publish'
+			@new_article.status = 'published'
 			if @new_article.save
 				flash[:notice] = "You had posted one article"
 				redirect_to articles_path
@@ -47,10 +47,12 @@ class ArticlesController < ApplicationController
 				render :new
 			end
 
-		elsif params[:commit] = 'save'
+		elsif params[:commit] == 'Save'
 			@new_article.status = 'draft'
-			
-
+			if @new_article.save
+				flash[:notice] = "You had saved one article, not published yet"
+			end
+			render :new
 		end
 
 	end
@@ -61,11 +63,21 @@ class ArticlesController < ApplicationController
 
 	def update
 		@edit_article = Article.find(params[:id])
-		if @edit_article.update(post_article_params)
-			flash[:notice] = "You had updated you article"
-			redirect_to article_path(@edit_article)
-		else
-			render :edit
+		if params[:commit] == 'Publish'
+			@new_article.status = "published"
+			if @edit_article.update(post_article_params)
+				flash[:notice] = "You had updated your article"
+				redirect_to article_path(@edit_article)
+			else
+				render :edit
+			end
+		elsif params[:commit] == 'Save'
+			if @edit_article.update(post_article_params)
+				flash[:notice] = "You had saved your article, not published yet"
+				redirect_to user_path(current_user)
+			else
+				render :edit
+			end
 		end
 	end
 

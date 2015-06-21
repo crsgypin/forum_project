@@ -45,12 +45,48 @@
 			<td class="user-show-favorite-table-update"><%=fa.updated_at%></td>
 			<td class="user-show-favorite-table-remove"><%= link_to "Remove", favorite_user_path(current_user.id,:article_id=>fa.id), :method=>:delete, :class=>"btn btn-warning",:data=>{:confirm=>"Are you sure?"} %>
 			</td>
-
 		</tr>
 		<% end %><!-- @user.favorite_articles.each_with_index -->
 	</table>
-<% end %>
+<% end %><!-- if @user == current_user -->
 </div></div>
+
+
+
+<!-- My draft articles -->
+<% if @user == current_user %>
+<div class="row"><div class="col-md-offset-1 col-md-10 user-show-draft">
+	<h4>My favorite articles</h4>
+	<table>
+		<tr>
+			<th class="user-show-draft-index"></th>
+			<th class="user-show-draft-title">Title</th>
+			<th class="user-show-draft-category">Category</th>
+			<th class="user-show-draft-update">Update Date</th>
+		</tr>
+			<% @draft_articles.each_with_index do |da,index| %>
+		<tr>
+			<td class="user-show-draft-index">
+				<%= index +1 %>
+			</td>
+			<td class="user-show-draft-title">
+				<%= link_to da.title, edit_article_path(da) %>
+			</td>
+			<td class="user-show-draft-category">
+				<ul>
+					<% da.categories.each do |c| %>
+					<li><%= c.name %></li>
+					<% end %>
+				</ul>
+			</td>
+			<td class="user-show-draft-update">
+				<%= da.updated_at %>
+			</td>
+			<% end %><!-- @draft_articles.each_with_index -->
+	</table>
+</div></div>
+<% end %><!-- @user == current_user -->
+
 
 <!-- Posted articles -->
 <div class="row"><div class="col-md-offset-1 col-md-10 user-show-post">
@@ -62,7 +98,7 @@
 			<th class="user-show-post-table-comment">Comment</th>
 			<th class="user-show-post-table-update">Update Date</th>
 		</tr>
-		<% @user.post_articles.order(:updated_at => :desc).each_with_index do |a,index| %>
+		<% @post_articles.each_with_index do |a,index| %>
 		<tr>
 			<td class="user-show-post-table-index"><%= index+1 %></td>
 			<td class="user-show-post-table-title"><%= link_to a.title, article_path(a) %></td>
@@ -84,7 +120,7 @@
 			<th class="user-show-comment-table-comment-content">Comment</th>
 			<th class="user-show-comment-table-update">Date Time</th>
 		</tr>
-		<% @user.comments.order(:updated_at => :desc).each_with_index do |c,index| %>
+		<% @comments.each_with_index do |c,index| %>
 			<% if c.article %>
 		<tr>
 			<td class="user-show-comment-table-index"><%= index+1 %></td>

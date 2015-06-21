@@ -9,5 +9,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :reply_articles, :through  => :comments, :source=>:article
   has_many :article_views
+  has_many :favorites
+  has_many :favorite_articles, :through =>:favorites, :source=>:article
 
 end

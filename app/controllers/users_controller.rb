@@ -2,7 +2,8 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
-		@favorite_articles = @user.favorite_articles.order(:updated_at => :desc)
+
+		@favorite_articles = @user.favorite_articles.order("favorites.updated_at desc")
 	end
 
 	def favorite_delete

@@ -1,9 +1,17 @@
-<h1>New Article</h1>
 
+<div class="row article-new-title"><div class="col-md-offset-1 col-md-10">
+	<h1>New Article</h1>
+</div></div>
+
+<div class="row"><div class="col-md-offset-1 col-md-10">
 <%= form_for @new_article, :url=>articles_path do |form| %>
 
 	<%= render :partial => "post_form", :locals =>{:form=>form}%>
-	<%= form.submit "Post", :class=>"btn btn-info"%>
-	<%= link_to "Home", articles_path,:class=>"btn btn-default"%>
+
+	<br>
+	<%= form.submit "Publish", :class=>"btn btn-warning"%>
+	<%= form.submit "Save", :class=>"btn btn-info"%>
+	<%= link_to " Cancel", articles_path,:class=>"btn btn-default"%>
 <% end %>
 
+</div></div>

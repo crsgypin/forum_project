@@ -38,12 +38,21 @@ class ArticlesController < ApplicationController
 		@new_article = Article.new(post_article_params)
 		@new_article[:author_id] = current_user.id
 
-		if @new_article.save
-			flash[:notice] = "You had posted one article"
-			redirect_to articles_path
-		else
-			render :new
+		if params[:commit] = 'Publish'
+			@new_article.status = 'Published'
+			if @new_article.save
+				flash[:notice] = "You had posted one article"
+				redirect_to articles_path
+			else
+				render :new
+			end
+
+		elsif params[:commit] = 'save'
+			@new_article.status = 'draft'
+			
+
 		end
+
 	end
 
 	def edit

@@ -15,43 +15,45 @@
 		<tr><td>Last Name</td><td><%= @user.user_profile.try(:last_name)		%></td></tr>
 		<tr><td>English Name</td><td><%= @user.user_profile.try(:english_name)%></td></tr>
 		<tr><td>Birthdate</td><td><%= @user.user_profile.try(:birthdate)   %></td></tr>
-		<tr><td>Intro</td><td><%= @user.user_profile.try(:intro)   %></td>
-		<tr><td>Total visit</td><td><%= @user.post_articles.count %></td>
-		<tr><td>Total posting articles</td><td><%= @user.post_articles.count	%></td>
-		<tr><td>Total replying articles</td><td><%= @user.reply_articles.count %></td>
+		<tr><td>Intro</td><td><%= @user.user_profile.try(:intro)   %></td></tr>
+		<tr><td>Total visit</td><td><%= @user.post_articles.count %></td></tr>
+		<tr><td>Total posting articles</td><td><%= @user.post_articles.count	%></td></tr>
+		<tr><td>Total replying articles</td><td><%= @user.reply_articles.count %></td></tr>
 	</table>
-</div>
+</div></div>
 
 <!-- My favorite articles -->
 <% if @user == current_user %>
-<div class="row"><div class="col-md-offset-1 col-md-10 user-show-post">
+<div class="row"><div class="col-md-offset-1 col-md-10 user-show-favorite">
 	<h4>My favorite articles</h4>
 	<table class="table">
 		<tr>
 			<th class="user-show-favorite-table-index"></th>
-			<th class="user-show-post-table-title">Title</th>
-			<th class="user-show-post-table-comment">Comment</th>
-			<th class="user-show-post-table-update">Update Date</th>
+			<th class="user-show-favorite-table-title">Title</th>
+			<th class="user-show-favorite-table-poster">Poster</th>
+			<th class="user-show-favorite-table-comment">Comment</th>
+			<th class="user-show-favorite-table-update">Update Date</th>
+			<th class="user-show-favorite-table-remove"></th>
 		</tr>
 
 		<% @favorite_articles.each_with_index do |fa,index|%>
 		<tr>
 			<td class="user-show-favorite-table-index"><%= index+1 %></td>
-			<td class="user-show-post-table-title"><%= link_to fa.title, article_path(fa)%></td>
-			<td class="user-show-post-table-comment"><%= fa.comments.count %></td>
-			<td class="user-show-post-table-update"><%=fa.updated_at%></td>
-			<td class="user-show-post-table-remove"><%= link_to "Remove", favorite_user_path(current_user.id,:article_id=>fa.id), :method=>:delete, :class=>"btn btn-warning",:data=>{:confirm=>"Are you sure?"} %>
+			<td class="user-show-favorite-table-title"><%= link_to fa.title, article_path(fa)%></td>
+			<td class="user-show-favorite-table-poster"><%= link_to fa.user.username, user_path(fa.user)%></td>
+			<td class="user-show-favorite-table-comment"><%= fa.comments.count %></td>
+			<td class="user-show-favorite-table-update"><%=fa.updated_at%></td>
+			<td class="user-show-favorite-table-remove"><%= link_to "Remove", favorite_user_path(current_user.id,:article_id=>fa.id), :method=>:delete, :class=>"btn btn-warning",:data=>{:confirm=>"Are you sure?"} %>
 			</td>
 
 		</tr>
 		<% end %><!-- @user.favorite_articles.each_with_index -->
 	</table>
-
-
 <% end %>
+</div></div>
 
 <!-- Posted articles -->
-<div class="row"><div class="user-show-post">
+<div class="row"><div class="col-md-offset-1 col-md-10 user-show-post">
 	<h4>Posted articles</h4>
 	<table class="table user-show-post-table">
 		<tr>
@@ -73,7 +75,7 @@
 
 
 <!-- commented articles -->
-<div class="row"><div class="col-md-offset-2 col-md-8 user-show-comment">
+<div class="row"><div class="col-md-offset-1 col-md-10 user-show-comment">
 	<h4>Commented articles</h4>
 	<table class="table">
 		<tr>

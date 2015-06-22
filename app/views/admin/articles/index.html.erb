@@ -12,15 +12,24 @@
 			<td><%= c.name %></td>
 			<td><%= c.articles.count %></td>
 			<td><% if c.articles.count ==0 %>
-					<%= link_to "edit",""%>
+					<%= link_to "edit", admin_articles_path(:category_id=>c.id), :class=>"btn btn-info"%>
+					<%= link_to "delete", admin_category_path(:category_id=>c.id), :method=>:delete, :data=>{:confirm=>"Are you sure"}, :class=>"btn btn-danger"%>
 					<% end %>
 		</tr>
 		<% end %>
 	</table>
-	<%= form_for @category, url: admin_category_path(:category_id => @category.id) do |f| %>
+	<%= form_for @category, url: admin_category_path do |f| %>
 	<%= f.label :name, "New category"%>	
 	<%= f.text_field :name %>
-	<%= f.submit "Add"%>
+	<% unless @category.new_record? %>
+		<%= f.hidden_field :id, value: @category.id%>
+		<%= f.submit "Update", :class=>"btn btn-info"%>
+		<%= link_to "Cancel", admin_articles_path, :class=>"btn btn-info"%>
+	<% else %>
+		<%= f.submit "Add",:class=>"btn btn-primary"%>
+	<% end %>
+
+
 	<% end %>
 </div>
 

@@ -5,7 +5,11 @@ class Admin::ArticlesController < ApplicationController
 
 	def index
 		@articles = Article.all
-		@category = Category.new
+		unless params[:category_id]
+			@category = Category.new
+		else
+			@category = Category.find(params[:category_id])
+		end
 	end
 
 

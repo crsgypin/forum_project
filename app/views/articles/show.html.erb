@@ -37,6 +37,12 @@
 				<p>publised at <%= @article.updated_at %></p>
 			</div>
 
+	<% if @article.user == current_user %>
+	<p class="article-show-info-edit"><%= link_to "Edit",edit_article_path,:class=>"btn btn-info"%></p>
+	<% end %>
+	<% if @article.user == current_user || current_user.role = "admin" %>
+	<p class="article-show-info-delete"><%= link_to "Delete",article_path, :method=>"delete", :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%></p>
+	<% end %>
 
 		</div><!-- user-info -->
 

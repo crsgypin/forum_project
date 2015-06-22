@@ -52,8 +52,11 @@ class ArticlesController < ApplicationController
 			@article.status = 'draft'
 			if @article.save
 				flash[:notice] = "You had saved one article, not published yet"
+				redirect_to user_path(current_user)
+			else
+				render :new				
 			end
-			render :new
+
 		end
 
 	end
@@ -64,10 +67,19 @@ class ArticlesController < ApplicationController
 
 	def update
 		@article = Article.find(params[:id])
-		if params[:commit] == 'Publish'
-			@article.status = "published"
+
+		if params[:commit] == "Update"
 			if @article.update(post_article_params)
 				flash[:notice] = "You had updated your article"
+				redirect_to article_path(@article)
+			else
+				render :edit
+			end
+		elsif params[:commit] == 'Publish'
+			@article.status = "published"
+			if @article.update(post_article_params)
+
+				flash[:notice] = "You had posted your article"
 				redirect_to article_path(@article)
 			else
 				@article.status = "draft"

@@ -21,7 +21,6 @@ class CommentsController < ApplicationController
 	def update
 		@comment = Comment.find(params[:comment_id])
 		@comment.update(params_comment)
-
 		if @comment.save
 			flash[:notice] = "your comment has been successfully updated"
 			redirect_to article_path(params[:id])

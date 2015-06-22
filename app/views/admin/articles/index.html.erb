@@ -1,0 +1,30 @@
+<p>Hello <%= current_user.username %></p>
+
+<div>
+	<p>Today post articles</p>
+
+</div>
+<div>
+	<p>Category</p>
+	<table>
+		<% @categories.each do |c|%>
+		<tr>
+			<td><%= c.name %></td>
+			<td><%= c.articles.count %></td>
+			<td><% if c.articles.count ==0 %>
+					<%= link_to "edit",""%>
+					<% end %>
+		</tr>
+		<% end %>
+	</table>
+	<%= form_for @category, url: admin_category_path(:category_id => @category.id) do |f| %>
+	<%= f.label :name, "New category"%>	
+	<%= f.text_field :name %>
+	<%= f.submit "Add"%>
+	<% end %>
+</div>
+
+<br>
+
+
+

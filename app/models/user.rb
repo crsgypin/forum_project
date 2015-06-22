@@ -11,5 +11,10 @@ class User < ActiveRecord::Base
   has_many :article_views
   has_many :favorites
   has_many :favorite_articles, :through =>:favorites, :source=>:article
+  has_many :create_categories, :class_name => "Category", :foreign_key => :creator_id
+
+  def admin?
+    self.role == "admin"
+  end
 
 end

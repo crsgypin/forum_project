@@ -19,6 +19,12 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :admin do
+    resources :articles
+    resource :category
+  end
+
+
   root :to => 'articles#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

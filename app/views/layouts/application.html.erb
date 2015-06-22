@@ -8,27 +8,32 @@
 </head>
 <body>
 
-<div class="nav-top">
-		<div class="nav-top-home">
-			<p><%= link_to " Forum",articles_path, :class=>"glyphicon glyphicon-home" %></p>
+<div class="nav-box">
+	<div class="nav-top">
+		<div class="home">
+			<p><%= link_to "",articles_path, :class=>"glyphicon glyphicon-home" %></p>
 		</div>
 
-		<div class="nav-top-about">
-			<p><%= link_to "About this forum", about_articles_path %></p>
+		<div class="about">
+			<p><%= link_to "About", about_articles_path %></p>
 		</div>
 
-		<div class="nav-top-message">
-			<h4  class="nav-top-message-notice">abc<%=flash[:notice]%></h4>
+		<div class="message">
+			<h4  class="notice">abc<%=flash[:notice]%></h4>
 			<p><%if @article %>
 				<%=@article.errors.full_messages.inspect %></p>
 	      <%# @person.errors.full_messages.each do |message| %>
 				<% end %>				
 		</div>
 
-		<div class="nav-top-user">
-			
+		<div class="user">
 			<% if current_user %>
-				<%= link_to current_user.username, user_path(current_user), :class=>"glyphicon glyphicon-user" %> &nbsp;&nbsp;&nbsp;
+				<%= link_to current_user.username, user_path(current_user), :class=>"glyphicon glyphicon-user" %>
+			<% end %>			
+		</div>
+
+		<div class="login">
+			<% if current_user %>
 			  <%= link_to('logout', destroy_user_session_path, :method => :delete, :class=>"btn btn-info") %>
 			  <%= link_to('Edit', edit_user_registration_path, :class=>"btn btn-info")%>
 			<% else %>
@@ -36,27 +41,31 @@
 			<% end %>
 		</div>
 
-</div><!--nav top-->
-
-<div class="nav-category">
-		<ul>
-			<%= @active_category_id ==0 ? "<li class='nav-category-hightlighted'>".html_safe : "<li>".html_safe%> 
-				<%= link_to "All", articles_path %>
-			</li>
-			<%  @categories.each_with_index do |c,index| %>
-
-				<%= @active_category_id ==index+1 ? "<li class='nav-category-hightlighted'>".html_safe : "<li>".html_safe%> 
-				<%= link_to c.name, articles_path(:category_id=>index+1) %>
-			</li>
-			<% end %>
-		</ul>
-	</div><!--content-->
-
-</div><!-- nav-info -->
-
-<div class="container">
-<%= yield %>
-
+	</div><!--nav top-->
 </div>
+
+<div class="content-body">
+		<div class="content-left">
+			<ul>
+				<%= @active_category_id ==0 ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
+					<%= link_to "All", articles_path %>
+				</li>
+				<%  @categories.each_with_index do |c,index| %>
+
+					<%= @active_category_id ==index+1 ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
+					<%= link_to c.name, articles_path(:category_id=>index+1) %>
+				</li>
+				<% end %>
+			</ul>
+		</div><!--nav-category -->
+
+
+		<div class="content-middle">
+			<div class="container">
+			<%= yield %>
+			</div><!-- container -->
+		</div><!-- content right -->
+</div><!-- content-body -->
+
 </body>
 </html>

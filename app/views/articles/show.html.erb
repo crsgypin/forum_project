@@ -1,31 +1,32 @@
 
 <!-- show information -->
-<div class="row article-show-info"><div class="col-md-offset-2 col-md-8">
-	<p><%= link_to "Forum",articles_path, :class=>"glyphicon glyphicon-home" %></p>
+<div class="row article-show-info"><div class="col-md-8">
+	<p><%= link_to "Back to Forum",articles_path%></p>
 	<h2><%= @article.title %></h2>
 
-	<table><tr>
-		<td class="article-show-info-poster"><p>Poster: <%=@article.user.username %></p></td>
-		<td class="article-show-info-favorite"><p>
-			
-			<% unless @favorite %>
-			<%= link_to "Add to My favorite", favorite_article_path(@article,:user_id=>current_user.id), :method=>:post, :class=>"btn btn-primary" %>
-			<% else %>
-			<%= link_to "Remove from My favorite", favorite_article_path(@article,:user_id=>current_user.id), :method=>:delete, :class=>"btn btn-warning" %>
-			<% end %>
-		</p></td>
-	</tr></table>
+<!-- poster -->
+	<p class="article-show-info-poster">Poster: <%=@article.user.username %></p>
 
-		<% if @article.user == current_user %>
-		<p><%= link_to "Edit",edit_article_path,:class=>"btn btn-info"%></p>
-		<p><%= link_to "Delete",article_path, :method=>"delete", :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%></p>
+<!-- add or remove favroite -->
+	<p class="article-show-info-favorite">
+		<% unless @favorite %>
+		<%= link_to "Add to My favorite", favorite_article_path(@article,:user_id=>current_user.id), :method=>:post, :class=>"btn btn-primary" %>
+		<% else %>
+		<%= link_to "Remove from My favorite", favorite_article_path(@article,:user_id=>current_user.id), :method=>:delete, :class=>"btn btn-warning" %>
 		<% end %>
+	</p>
+
+<!-- Edit and delete -->
+	<% if @article.user == current_user %>
+	<p class="article-show-info-edit"><%= link_to "Edit",edit_article_path,:class=>"btn btn-info"%></p>
+	<p class="article-show-info-delete"><%= link_to "Delete",article_path, :method=>"delete", :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%></p>
+	<% end %>
 
 </div></div>
 
 
 <!-- show content -->
-<div class="row"><div class="col-md-offset-2 col-md-8">
+<div class="row"><div class="col-md-8">
 	<div class="article-show-content">
 		<p><%= simple_format(@article.content) %></p>
 	</div>
@@ -33,7 +34,7 @@
 
 
 <!-- show comment -->
-<div class="row article-show-comment"><div class="col-md-offset-2 col-md-8">
+<div class="row article-show-comment"><div class="col-md-8">
 	<table>
 		<tr class="article-show-comment-title">
 			<td class="article-show-comment-title-word">

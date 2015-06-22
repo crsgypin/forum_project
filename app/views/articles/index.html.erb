@@ -1,13 +1,21 @@
 
 
 <div class="row article-title">
-	<div class="col-md-6">
-		<%= link_to "Post Article", new_article_path, :class=>"btn btn-primary" %>
+	<div class="col-md-6"><h1>
+		<% if @active_category %>
+		<%= @active_category.name %>
+		<% else %>
+		All
+		<% end %>
+		</h1>
+	</div>
+	<div class="col-md-3">
+		<%= link_to "Post Article", new_article_path, :class=>"btn btn-primary article-title-post" %>
 
 	</div>
 </div><!--article-title -->
 <div class="row article-content">
-	<div class="col-md-12">
+	<div class="col-md-9">
 		
 		<table class="table table-hover">
 			<tr class="">

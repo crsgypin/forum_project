@@ -33,7 +33,34 @@
 	<% end %>
 </div>
 
-<br>
 
+<!-- user list -->
+<div class="admin-user">
+	<table class="table">
+		<thead><tr>
+			<th>Username</th>
+			<th>email	</th>
+			<th>First name	</th>
+			<th>Last name	</th>
+			<th>Birtthdate	</th>
+			</tr></thead>
+		<tbody>
+			<% @users.each do |u| %>
+				<tr>
+					<td><%=u.username %></td>
+					<td><%=u.try(:email) %></td>
+					<td><%=u.user_profile.try(:first_name) %></td>
+					<td><%=u.user_profile.try(:last_name) %></td>
+					<td><%=u.user_profile.try(:birthdate) %></td>
+				</tr>
+			<% end %>
+		</tbody>
+		
+
+
+	</table>
+</div>
+
+<%= paginate @users %>
 
 

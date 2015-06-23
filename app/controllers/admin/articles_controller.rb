@@ -5,6 +5,7 @@ class Admin::ArticlesController < ApplicationController
 
 	def index
 		@articles = Article.all
+		@users = User.all.page(params[:page]).per(20)
 		unless params[:category_id]
 			@category = Category.new
 		else

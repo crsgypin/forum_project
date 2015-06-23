@@ -19,16 +19,16 @@
 }
 
 .nav-top {
-	width:1200px;
+	min-width:1000px;
+	width:80%;
 	height: 50px;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: 30px;
-	padding-right: 30px;
+	margin-left: 10%;
+	margin-right: 10%;
 }
 
 .nav-top .home{
 	padding-top:10px;
+	margin-left: 10px;
 	width:30px;
 	height: 50px;
 	font-size:1.3em;
@@ -57,15 +57,21 @@
 .nav-top .message{
 	width:50%;
 	min-width:300px;
-	max-width:760px;
+	max-width:400px;
 	height: 50px;
 	margin-left:30px;
 	float:left;
+	text-align: center;
 }
 
 .nav-top .message .notice{
 	color:#5f5;
 	font-size: 1.2em;
+}
+
+.nav-top .user-info{
+	float: right;
+	overflow: hidden;
 }
 
 .nav-top .user{
@@ -84,7 +90,7 @@
 
 .nav-top .login{
 	padding: 5px;
-	width: 150px;
+	width: 200px;
 	float: left;
 }
 

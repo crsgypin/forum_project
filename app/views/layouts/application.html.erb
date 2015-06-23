@@ -26,19 +26,27 @@
 				<% end %>				
 		</div>
 
-		<div class="user">
-			<% if current_user %>
-				<%= link_to current_user.username, user_path(current_user), :class=>"glyphicon glyphicon-user" %>
-			<% end %>			
-		</div>
+		<div class="user-info">
+			<div class="user">
+				<% if current_user %>
+					<%= link_to current_user.username, user_path(current_user), :class=>"glyphicon glyphicon-user" %>
+				<% end %>			
+			</div>
 
-		<div class="login">
-			<% if current_user %>
-			  <%= link_to('logout', destroy_user_session_path, :method => :delete, :class=>"btn btn-info") %>
-			  <%= link_to('Edit', edit_user_registration_path, :class=>"btn btn-info")%>
-			<% else %>
-				<%= link_to "login", new_session_path(:user),:class=>"glyphicon glyphicon-user" %>
-			<% end %>
+			<div class="login">
+				<% if current_user %>
+				  <%= link_to('logout', destroy_user_session_path, :method => :delete, :class=>"btn btn-info") %>
+				  <%= link_to('Edit', edit_user_registration_path, :class=>"btn btn-info")%>
+
+					<% if current_user.role == "admin" %>
+					<%= link_to 'admin',admin_articles_path,:class=>"btn btn-warning"%>
+
+					<% end %>
+
+				<% else %>
+					<%= link_to "login", new_session_path(:user),:class=>"glyphicon glyphicon-user" %>
+				<% end %>
+			</div>
 		</div>
 
 	</div><!--nav top-->

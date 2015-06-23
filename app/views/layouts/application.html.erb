@@ -45,26 +45,9 @@
 </div>
 
 <div class="content-body">
-		<div class="content-left">
-			<ul>
-				<%= @active_category_id ==0 ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
-					<%= link_to "All", articles_path %>
-				</li>
-				<%  @categories.each_with_index do |c,index| %>
 
-					<%= @active_category_id ==index+1 ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
-					<%= link_to c.name, articles_path(:category_id=>index+1) %>
-				</li>
-				<% end %>
-			</ul>
-		</div><!--nav-category -->
+	<%= yield %>
 
-
-		<div class="content-middle">
-			<div class="container">
-			<%= yield %>
-			</div><!-- container -->
-		</div><!-- content right -->
 </div><!-- content-body -->
 
 </body>

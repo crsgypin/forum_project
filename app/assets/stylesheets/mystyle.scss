@@ -13,6 +13,8 @@
 
 .nav-box {
 	width: 100%;
+	height: 50px;
+	float: left;
 	background-color: black;
 }
 
@@ -87,37 +89,54 @@
 }
 
 
-/*nav category*/
+
 .content-body{
-	min-width: 1200px;
-	max-width:1400px;
+	min-width: 1000px;
+	width:80%;
 	min-height: 500px;
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: 10%;
+	margin-right: 10%;
+	float: left;
 }
 
+/* articles index */
 .content-left{
 	min-width:200px;
-	min-height: 500px;
+	width:20%;
+	margin-left: 0px;
+	margin-right: 0px;
+	min-height: 1000px;
 	border-bottom: #999;
 	float: left;
 }
 
-.content-left ul{
-	width:200px;
-	margin-top:50px;
-	margin-left:auto;
-	margin-right:auto;
+.content-left .post{
+	min-width: 200px;
+	width: 60%;
+	margin: 40px auto 40px auto;
+	text-align: center;
 }
 
+.content-left .post a{
+	color:white;
+	display: block;
+	margin:auto;
+	width:150px;
+	height: 40px;
+}
 
-.content-left li{
+.content-left .list{
+	min-width:200px;
+	width:100%;
+	margin: 40px auto 40px auto;
+}
+
+.content-left .list li{
 	list-style: none;
-	display: inline-block;
-	margin-top: 5px;
-	margin-right: 0px;
-	width:80px;
-	font-size: 1.2em;
+	min-width:140px;
+	width:60%;
+	margin: 10px auto 10px 10px;
+	font-size: 1.4em;
 }
 
 .content-left a{
@@ -136,14 +155,57 @@
 
 /* content right */
 
-.content-middle {
+.content-center {
+	min-width: 800px;
+	width:80%;
+	margin-left: 0px;
+	margin-right: 0px;
 	padding-top: 40px;
-	max-width: 900px;
 	background-color: #eee;
-	min-height: 1200px;
+	min-height: 1000px;
 	float: left;
 }
 
+.content-center .article-title{
+	width:400px;
+	margin-left:5%;
+	margin-bottom: 40px;
+}
+
+.content-center .article-content{
+	width:90%;
+	margin-left:5%;
+	margin-right: 5%;
+	
+}
+
+.content-center .article-content .index{
+	width:5%;
+}
+
+.content-center .article-content .topic{
+	width:30%;
+}
+
+.content-center .article-content .category{
+	width:15%;
+}
+
+.content-center .article-content .poster{
+	width:20%;
+}
+
+.content-center .article-content .date{
+	width:20%;
+}
+
+.content-center .article-content .comment{
+	width:5%;
+}
+
+.content-center .article-content .index{
+	width:5%;
+}
 
 /* article index */
 .article-title{

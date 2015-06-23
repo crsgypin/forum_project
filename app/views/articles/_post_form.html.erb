@@ -1,33 +1,30 @@
 
-<table class="article-form-table">
-	<tr>
-		<td class="article-form-category-item">
+	<div class="unit title">
+		<div class="key">
 			<%= form.label :title, "Title" %>
-		</td>
-		<td class="article-form-category-input">
+		</div>
+		<div class="value">
 			<%= form.text_field :title %>
-		</td>
-	</tr>
+		</div>
+	</div>
 
-	<tr class="article-form-category">
-		<td class="article-form-category-item" >
-			<%= form.label :category_id, "Class" %>
-		</td>
-		<td class="article-form-category-input">
-			<%= form.collection_check_boxes(:category_ids, Category.all, :id, :name,:class=>"article-form-category-checkbok") %>
-		</td>
-	</tr>
+	<div class="unit category">
+		<div class="key">
+		<%= form.label :category_id, "Class" %>
+		</div>
+		<div class="value">
+		<%= form.collection_check_boxes(:category_ids, Category.all, :id, :name,:class=>"article-form-category-checkbok") %>
+		</div>
+	</div>
 
-
-	<tr>
-		<td class="article-form-category-item">
-			<%= form.label :content, "Content" %>
-		</td>
-		<td class="article-form-category-input">
-			<%= form.text_area :content %>
-		</td>
-	</tr>
-</table>
+	<div class="unit content">
+		<div class="key">
+		<%= form.label :content, "Content" %>
+		</div>
+		<div class="value">
+		<%= form.text_area :content %>
+		</div>
+	</div>
 
 
 

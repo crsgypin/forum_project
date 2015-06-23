@@ -1,43 +1,69 @@
 
 
-<div class="row article-title">
-	<div class="col-md-6"><h1>
-		<% if @active_category %>
-		<%= @active_category.name %>
-		<% else %>
-		All
-		<% end %>
-		</h1>
-	</div>
-	<div class="col-md-3">
-		<%= link_to "Post Article", new_article_path, :class=>"btn btn-primary article-title-post" %>
 
+<div class="content-left">
+	<div class="do-it">
+		<%= link_to "Post Article", new_article_path, :class=>"btn btn-primary" %>
 	</div>
-</div><!--article-title -->
-<div class="row article-content">
-	<div class="col-md-9">
-		
+
+	<ul class="list">
+		<%= @active_category_id ==0 ? "<li class='content-left-hightlighted separate'>".html_safe : "<li>".html_safe%> 
+			<%= link_to "All", articles_path %>
+
+		</li>
+		<%  @categories.each_with_index do |c,index| %>
+
+			<%= @active_category_id ==index+1 ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
+			<%= link_to c.name, articles_path(:category_id=>index+1) %>
+		</li>
+		<% end %>
+	</ul>
+</div><!-- content-left -->
+
+
+<div class="content-center">
+
+	<div class="article-title">
+		<h1>
+			<% if @active_category %>
+			<%= @active_category.name %>
+			<% else %>
+			All
+			<% end %>
+		</h1>
+	</div><!--article-title -->
+
+	<div class="article-content">
+		<div class="paginate">
+			<%= paginate @articles %>
+		</div>
 		<table class="table table-hover">
 			<tr class="">
-				<th class="article-content-table-index text-center"></th>
-				<th class="article-content-table-topic text-center">Topic</th>
-				<th class="article-content-table-category text-center">Category</th>
-				<th class="article-content-table-post-user text-center">Post User</th>
-				<th class="article-content-table-post-date text-center">
+				<th class="index text-center"></th>
+				<th class="topic text-center">Topic</th>
+				<th class="category text-center">Category</th>
+				<th class="poster text-center">Post User</th>
+				<th class="date text-center">
 						<%= link_to "Date Time",articles_path(order: :datetime) %>
 				</th>
-				<th class="article-content-table-comment text-center">
+				<th class="comment text-center">
 						<%= link_to "Comment",articles_path(order: :comment) %>
 				</th>
-				<th class="article-content-table-views text-center">
+				<th class="views text-center">
 						<%= link_to "Views",articles_path(order: :views)%>
 				</th>
 			</tr>
+
 				<% @articles.each_with_index do |a, index| %>
 			<tr>
 				<td>
-					<%= @page*@per+index+1 %></td>
-				<td><%= link_to a.title, article_path(a) %></td>
+					<%= @page*@per+index+1 %>
+				</td>
+
+				<td>
+					<%= link_to a.title, article_path(a) %>
+				</td>
+
 				<td class="text-center">
 					<% category = ''%>
 					<% a.categories.each do |c| %>
@@ -45,16 +71,25 @@
 					<% Rails.logger.debug(c.name) %>
 					<% end %>
 					<p><%=category %></p>
-				<td class="text-center"><%= link_to a.user.username, user_path(a.user) %></td>
-				<% date = a.updated_at %>
-				<td class="text-center"><%= "#{date.year}/#{date.month}/#{date.day} #{date.hour}:#{date.min}:#{date.sec}" %></td>
-				<td class="text-center"><%= a.comments.count%></td>
-				<td class="text-center"><%= a.article_views.count%></td>				
-			</tr>
+				</td>
 
-				<% end %><!-- @ative_artices.each -->
+				<td class="text-center"><%= link_to a.user.username, user_path(a.user) %>
+				</td>
+
+				<td class="text-center">
+					<% date = a.updated_at %>
+					<%= "#{date.year}/#{date.month}/#{date.day} #{date.hour}:#{date.min}:#{date.sec}" %>
+				</td>
+
+				<td class="text-center"><%= a.comments.count%>
+				</td>
+
+				<td class="text-center"><%= a.article_views.count%>
+				</td>				
+
+			</tr>
+				<% end %><!-- @articles.each -->
 		</table>
-	</div><!-- col-md-12 -->
-</div><!-- row article-content -->
-<div class="row"><div class="col-md-12"><%= paginate @articles %></div></div>
+	</div><!-- article-content -->
+</div>
 

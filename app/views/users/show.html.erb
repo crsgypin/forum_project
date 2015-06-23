@@ -1,142 +1,167 @@
 
 
-<div class="row"><div class="col-md-offset-2 col-md-8">
-<h4><%= link_to "Back", :back %></h4>
-<h4><%= @user.username %></h4>
-<div><%= image_tag avatar_url(@user)%></div>
-</div></div>
+<div class="content-left">
+	<div class="do-it user-back">
+		<%= link_to "Back", :back, :class=>"btn btn-info"%>
+	</div>
+	<ul class="list">
+		<%  @topic_list.each_with_index do |t,index| %>
+			<% if index<3 || @user == current_user %>
+			<%= @topic_index ==index ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
+			<%= link_to @topic_list[index], user_path(@user,:topic_id=>index) %>
+			<% end %>
+		</li>
+		<% end %>
+	</ul>
+</div><!-- content-left -->
 
-<!-- profile data -->
-<div class="row"><div class="col-md-offset-2 col-md-8">
-	<table class="table">
-		<tr>
-			<td>First Name</td>
-			<td><%= @user.user_profile.try(:first_name)  %></td>
-		</tr>
-		<tr><td>Last Name</td><td><%= @user.user_profile.try(:last_name)		%></td></tr>
-		<tr><td>English Name</td><td><%= @user.user_profile.try(:english_name)%></td></tr>
-		<tr><td>Birthdate</td><td><%= @user.user_profile.try(:birthdate)   %></td></tr>
-		<tr><td>Intro</td><td><%= @user.user_profile.try(:intro)   %></td></tr>
-		<tr><td>Total visit</td><td><%= @user.post_articles.count %></td></tr>
-		<tr><td>Total posting articles</td><td><%= @user.post_articles.count	%></td></tr>
-		<tr><td>Total replying articles</td><td><%= @user.reply_articles.count %></td></tr>
-	</table>
-</div></div>
+<div class="content-center">
+	<div class="user-info">
+		<div><%= image_tag avatar_url(@user)%></div>
+		<h3><%= @user.username %></h4>
+	</div>
 
-<!-- My favorite articles -->
-<% if @user == current_user %>
-<div class="row"><div class="col-md-offset-1 col-md-10 user-show-favorite">
-	<h4>My favorite articles</h4>
-	<table class="table">
-		<tr>
-			<th class="user-show-favorite-table-index"></th>
-			<th class="user-show-favorite-table-title">Title</th>
-			<th class="user-show-favorite-table-poster">Poster</th>
-			<th class="user-show-favorite-table-comment">Comment</th>
-			<th class="user-show-favorite-table-update">Update Date</th>
-			<th class="user-show-favorite-table-remove"></th>
-		</tr>
+	<!-- profile data -->
+	<% if @topic_index == 0 %>
+	<div class="user-content user-profile">
+		<h4><%= @user.username%> 's profile</h4>
+		<table class="table">
+			<tr>
+				<td>First Name</td>
+				<td><%= @user.user_profile.try(:first_name)  %></td>
+			</tr>
+			<tr><td>Last Name</td><td><%= @user.user_profile.try(:last_name)		%></td></tr>
+			<tr><td>English Name</td><td><%= @user.user_profile.try(:english_name)%></td></tr>
+			<tr><td>Birthdate</td><td><%= @user.user_profile.try(:birthdate)   %></td></tr>
+			<tr><td>Intro</td><td><%= @user.user_profile.try(:intro)   %></td></tr>
+			<tr><td>Total visit</td><td><%= @user.post_articles.count %></td></tr>
+			<tr><td>Total posting articles</td><td><%= @user.post_articles.count	%></td></tr>
+			<tr><td>Total replying articles</td><td><%= @user.reply_articles.count %></td></tr>
+		</table>
+	</div>
+	<% end %>
+	
 
-		<% @favorite_articles.each_with_index do |fa,index|%>
-		<tr>
-			<td class="user-show-favorite-table-index"><%= index+1 %></td>
-			<td class="user-show-favorite-table-title"><%= link_to fa.title, article_path(fa)%></td>
-			<td class="user-show-favorite-table-poster"><%= link_to fa.user.username, user_path(fa.user)%></td>
-			<td class="user-show-favorite-table-comment"><%= fa.comments.count %></td>
-			<td class="user-show-favorite-table-update"><%=fa.updated_at%></td>
-			<td class="user-show-favorite-table-remove"><%= link_to "Remove", favorite_user_path(current_user.id,:article_id=>fa.id), :method=>:delete, :class=>"btn btn-warning",:data=>{:confirm=>"Are you sure?"} %>
-			</td>
-		</tr>
-		<% end %><!-- @user.favorite_articles.each_with_index -->
-	</table>
-<% end %><!-- if @user == current_user -->
-</div></div>
+	<!-- Posted articles -->
+	<% if @topic_index == 1 %>
+	<div class="user-content user-articles">
+		<h4>Posted articles (<%= @post_articles.count %>)</h4>
+		<table class="table">
+			<tr>
+				<th class="index"></th>
+				<th class="title">Title</th>
+				<th class="comment">Comment</th>
+				<th class="update">Update Date</th>
+			</tr>
+			<% @post_articles.each_with_index do |a,index| %>
+			<tr>
+				<td class="index"><%= index+1 %></td>
+				<td class="title"><%= link_to a.title, article_path(a) %></td>
+				<td class="comment"><%= a.comments.count %></td>
+				<td class="update"><%=a.updated_at%></td>
+			</tr>
+			<%end %>
+		</table>
+	</div>
+	<% end %><!-- posted-articles -->
+
+
+	<!-- comments -->
+	<% if @topic_index == 2 %>
+	<div class="user-content user-comments">
+		<h4>Comments (<%=@comments.count %>)</h4>
+		<table class="table">
+			<tr>
+				<th class="user-show-comment-table-index"></th>
+				<th class="user-show-comment-table-article">Article</th>
+				<th class="user-show-comment-table-comment-content">Comment</th>
+				<th class="user-show-comment-table-update">Date Time</th>
+			</tr>
+			<% @comments.each_with_index do |c,index| %>
+				<% if c.article %>
+			<tr>
+				<td class="user-show-comment-table-index"><%= index+1 %></td>
+				<td class="user-show-comment-table-article">
+					<%= link_to c.article.title, article_path(c.article) %>
+				</td>
+				<td class="user-show-comment-table-comment-content">
+					<%= link_to c.content, article_path(c.article)%>
+				</td>
+				<td class="user-show-comment-table-update">
+					<%= c.updated_at %>
+				</td>
+			</tr>
+				<% end %><!-- if c.article -->
+			<% end %><!-- @user.comments .order -->
+	</div>
+	<% end %><!-- comments -->
+
+
+	<!-- My favorite articles -->
+	<% if @topic_index == 3 && @user == current_user%>
+	<div class="user-content user-favorite">
+		<h4>My favorite articles (<%= @favorite_articles.count %>)</h4>
+		<table class="table">
+			<tr>
+				<th class="inde"></th>
+				<th class="title">Title</th>
+				<th class="poster">Poster</th>
+				<th class="comment">Comment</th>
+				<th class="update">Update Date</th>
+				<th class="remove"></th>
+			</tr>
+
+			<% @favorite_articles.each_with_index do |fa,index|%>
+			<tr>
+				<td class="index"><%= index+1 %></td>
+				<td class="title"><%= link_to fa.title, article_path(fa)%></td>
+				<td class="poster"><%= link_to fa.user.username, user_path(fa.user)%></td>
+				<td class="comment"><%= fa.comments.count %></td>
+				<td class="update"><%=fa.updated_at%></td>
+				<td class="remove"><%= link_to "Remove", favorite_user_path(current_user.id,:article_id=>fa.id), :method=>:delete, :class=>"btn btn-warning",:data=>{:confirm=>"Are you sure?"} %>
+				</td>
+			</tr>
+			<% end %><!-- @user.favorite_articles.each_with_index -->
+		</table>
+	</div>
+	<% end %><!-- if @topic == "favorite" && @user == current_use -->
 
 
 
-<!-- My draft articles -->
-<% if @user == current_user %>
-<div class="row"><div class="col-md-offset-1 col-md-10 user-show-draft">
-	<h4>My draft articles</h4>
-	<table>
-		<tr>
-			<th class="user-show-draft-index"></th>
-			<th class="user-show-draft-title">Title</th>
-			<th class="user-show-draft-category">Category</th>
-			<th class="user-show-draft-update">Update Date</th>
-		</tr>
+	<!-- My draft articles -->
+	<% if @topic_index == 4 && @user == current_user %>
+	<div class="user-content user-draft">
+		<h4>My draft articles (<%=@draft_articles.count%>)</h4>
+		<table class="table">
+			<tr>
+				<th class="index"></th>
+				<th class="title">Title</th>
+				<th class="category">Category</th>
+				<th class="update">Update Date</th>
+			</tr>
+
 			<% @draft_articles.each_with_index do |da,index| %>
-		<tr>
-			<td class="user-show-draft-index">
-				<%= index +1 %>
-			</td>
-			<td class="user-show-draft-title">
-				<%= link_to da.title, edit_article_path(da) %>
-			</td>
-			<td class="user-show-draft-category">
-				<ul>
-					<% da.categories.each do |c| %>
-					<li><%= c.name %></li>
-					<% end %>
-				</ul>
-			</td>
-			<td class="user-show-draft-update">
-				<%= da.updated_at %>
-			</td>
-			<% end %><!-- @draft_articles.each_with_index -->
-	</table>
-</div></div>
-<% end %><!-- @user == current_user -->
-
-
-<!-- Posted articles -->
-<div class="row"><div class="col-md-offset-1 col-md-10 user-show-post">
-	<h4>Posted articles</h4>
-	<table class="table user-show-post-table">
-		<tr>
-			<th class="user-show-post-table-index"></th>
-			<th class="user-show-post-table-title">Title</th>
-			<th class="user-show-post-table-comment">Comment</th>
-			<th class="user-show-post-table-update">Update Date</th>
-		</tr>
-		<% @post_articles.each_with_index do |a,index| %>
-		<tr>
-			<td class="user-show-post-table-index"><%= index+1 %></td>
-			<td class="user-show-post-table-title"><%= link_to a.title, article_path(a) %></td>
-			<td class="user-show-post-table-comment"><%= a.comments.count %></td>
-			<td class="user-show-post-table-update"><%=a.updated_at%></td>
-		</tr>
-		<%end %>
-	</table>
-</div>
-
-
-<!-- commented articles -->
-<div class="row"><div class="col-md-offset-1 col-md-10 user-show-comment">
-	<h4>Commented articles</h4>
-	<table class="table">
-		<tr>
-			<th class="user-show-comment-table-index"></th>
-			<th class="user-show-comment-table-article">Article</th>
-			<th class="user-show-comment-table-comment-content">Comment</th>
-			<th class="user-show-comment-table-update">Date Time</th>
-		</tr>
-		<% @comments.each_with_index do |c,index| %>
-			<% if c.article %>
-		<tr>
-			<td class="user-show-comment-table-index"><%= index+1 %></td>
-			<td class="user-show-comment-table-article">
-				<%= link_to c.article.title, article_path(c.article) %>
-			</td>
-			<td class="user-show-comment-table-comment-content">
-				<%= link_to c.content, article_path(c.article)%>
-			</td>
-			<td class="user-show-comment-table-update">
-				<%= c.updated_at %>
-			</td>
-		</tr>
-			<% end %><!-- if c.article -->
-		<% end %><!-- @user.comments .order -->
-</div>
+			<tr>
+				<td class="index">
+					<%= index +1 %>
+				</td>
+				<td class="title">
+					<%= link_to da.title, edit_article_path(da) %>
+				</td>
+				<td class="category">
+						<% category = '' %>
+						<% da.categories.each do |c| %>
+							<% category += c.name + ' ' %>
+						<% end %>
+						<%= category %>
+				</td>
+				<td class="update">
+					<%= da.updated_at %>
+				</td>
+				<% end %><!-- @draft_articles.each_with_index -->
+			</tr>
+		</table>
+	</div>
+	<% end %><!-- @user == current_user -->
 
 

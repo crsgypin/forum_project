@@ -1,26 +1,68 @@
 
-<div class="row article-edit-title"><div class="col-md-offset-1 col-md-10">
-	<h1>You're editting the article</h1>
-	<% if @article.status == "published" %>
-	<p class="article-edit-message-published"> Published at <%= @article.updated_at %> </p>
-	<% else %>
-	<p class="article-edit-message-draft"> Not published yet </p>
-	<% end %>
-</div></div>
+<div class="content-left">
+	<div class="do-it">
+		<%= link_to "Back to Forum",articles_path, :class=>"btn btn-primary" %>
+	</div>
 
-<div class="row"><div class="col-md-offset-1 col-md-10">
-	<%= form_for @article, :url=>article_path, :method=>:patch do |form| %>
+	<ul class="list">
+		<%= @active_category_id ==0 ? "<li class='content-left-hightlighted separate'>".html_safe : "<li>".html_safe%> 
+			<%= link_to "All", articles_path %>
 
-		<%= render :partial => "post_form", :locals =>{:form=>form}%>
+		</li>
+		<%  @categories.each_with_index do |c,index| %>
 
-		<% if @article.status == "published" %>
-			<%= form.submit "Update", :class=>"btn btn-warning"%>
-	
-		<% elsif @article.status == "draft" %>
-			<%= form.submit "Publish", :class=>"btn btn-warning"%>
-			<%= form.submit "Save", :class=>"btn btn-info"%>
+			<%= @active_category_id ==index+1 ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
+			<%= link_to c.name, articles_path(:category_id=>index+1) %>
+		</li>
 		<% end %>
-		<%= link_to "cancel",article_path, :class=>"btn btn-primary"%>
-	<% end %>
-</div></div>
+	</ul>
+</div><!-- content-left -->
+
+
+<div class="content-center">
+	
+	<div class="article-meta">
+		<div class="info">
+			<!-- show information -->	
+			<h2 class="title">You're editting the article</h2>
+
+			<!-- poster -->
+			<div class="user">
+				<div><%= image_tag avatar_url(current_user)%></div>
+				<p class="poster">Poster: <%=current_user.username %></p>
+			</div>
+		
+			<div class="status">
+				<% if @article.status == "published" %>
+				<p> Published at <%= @article.updated_at %> </p>
+				<% else %>
+				<p> Not published yet </p>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="edit-it">
+		</div><!-- edit-it -->
+	</div><!-- article-meta -->
+
+	<div class="single-article-content">
+		<%= form_for @article, :url=>article_path, :method=>:patch do |form| %>
+
+			<%= render :partial => "post_form", :locals =>{:form=>form}%>
+
+		<div class="do-it">
+			<% if @article.status == "published" %>
+				<%= form.submit "Update", :class=>"btn btn-warning"%>
+		
+			<% elsif @article.status == "draft" %>
+				<%= form.submit "Publish", :class=>"btn btn-warning"%>
+				<%= form.submit "Save", :class=>"btn btn-info"%>
+			<% end %>
+			<%= link_to "cancel",article_path, :class=>"btn btn-primary"%>
+		</div>
+		<% end %><!-- form -->
+	<div><!-- article-content -->
+
+</div><!-- content-center -->
+
 

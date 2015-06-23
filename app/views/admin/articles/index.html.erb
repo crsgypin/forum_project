@@ -1,66 +1,97 @@
-<p>Hello <%= current_user.username %></p>
 
-<div>
-	<p>Today post articles</p>
 
-</div>
-<div>
-	<p>Category</p>
-	<table>
-		<% @categories.each do |c|%>
-		<tr>
-			<td><%= c.name %></td>
-			<td><%= c.articles.count %></td>
-			<td><% if c.articles.count ==0 %>
-					<%= link_to "edit", admin_articles_path(:category_id=>c.id), :class=>"btn btn-info"%>
-					<%= link_to "delete", admin_category_path(:category_id=>c.id), :method=>:delete, :data=>{:confirm=>"Are you sure"}, :class=>"btn btn-danger"%>
-					<% end %>
-		</tr>
+<div class="content-left">
+	<div class="do-it user-back">
+		<%= link_to "Back to Forum",articles_path, :class=>"btn btn-primary" %>
+
+	</div>
+	<ul class="list">
+		<%  @action_list.each_with_index do |t,index| %>
+			<%= @action_index ==index ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
+			<%= link_to @action_list[index], admin_articles_path(:action_id=>index) %>
+		</li>
 		<% end %>
-	</table>
-	<%= form_for @category, url: admin_category_path do |f| %>
-	<%= f.label :name, "New category"%>	
-	<%= f.text_field :name %>
-	<% unless @category.new_record? %>
-		<%= f.hidden_field :id, value: @category.id%>
-		<%= f.submit "Update", :class=>"btn btn-info"%>
-		<%= link_to "Cancel", admin_articles_path, :class=>"btn btn-info"%>
-	<% else %>
-		<%= f.submit "Add",:class=>"btn btn-primary"%>
+	</ul>
+</div><!-- content-left -->
+
+<div class="content-center">
+	<div class="user-info">
+		<h3>Hello <%= current_user.username %></h3>
+		</div>
+
+
+	<% if @action_index == 0 %>
+	<div class="admin-content">
+		<h3>Today post articles</h3>
+
+	</div>
 	<% end %>
 
-
-	<% end %>
-</div>
-
-
-<!-- user list -->
-<div class="admin-user">
-	<table class="table">
-		<thead><tr>
-			<th>Username</th>
-			<th>email	</th>
-			<th>First name	</th>
-			<th>Last name	</th>
-			<th>Birtthdate	</th>
-			</tr></thead>
-		<tbody>
-			<% @users.each do |u| %>
-				<tr>
-					<td><%=u.username %></td>
-					<td><%=u.try(:email) %></td>
-					<td><%=u.user_profile.try(:first_name) %></td>
-					<td><%=u.user_profile.try(:last_name) %></td>
-					<td><%=u.user_profile.try(:birthdate) %></td>
-				</tr>
+	<!-- category -->
+	<% if @action_index == 1 %>
+	<div class="admin-content">
+		<h3>Category</h3>
+		<table class="table">
+			<% @categories.each do |c|%>
+			<tr>
+				<td><%= c.name %></td>
+				<td><%= c.articles.count %></td>
+				<td><% if c.articles.count ==0 %>
+						<%= link_to "edit", admin_articles_path(:category_id=>c.id), :class=>"btn btn-info"%>
+						<%= link_to "delete", admin_category_path(:category_id=>c.id), :method=>:delete, :data=>{:confirm=>"Are you sure"}, :class=>"btn btn-danger"%>
+						<% end %>
+						</td>
+			</tr>
 			<% end %>
-		</tbody>
-		
+		</table>
+		<%= form_for @category, url: admin_category_path do |f| %>
+		<%= f.label :name, "New category"%>	
+		<%= f.text_field :name %>
+		<% unless @category.new_record? %>
+			<%= f.hidden_field :id, value: @category.id%>
+			<%= f.submit "Update", :class=>"btn btn-info"%>
+			<%= link_to "Cancel", admin_articles_path, :class=>"btn btn-info"%>
+		<% else %>
+			<%= f.submit "Add",:class=>"btn btn-primary"%>
+		<% end %>
 
 
-	</table>
+		<% end %>
+	</div>
+	<% end %><!--  if @action_index == 0 -->
+
+
+
+
+	<!-- user list -->
+	<% if @action_index == 2 %>
+	<div class="admin-content admin-user">
+		<table class="table">
+			<thead><tr>
+				<th>Username</th>
+				<th>email	</th>
+				<th>First name	</th>
+				<th>Last name	</th>
+				<th>Birtthdate	</th>
+			</tr></thead>
+			<tbody>
+				<% @users.each do |u| %>
+					<tr>
+						<td><%=u.username %></td>
+						<td><%=u.try(:email) %></td>
+						<td><%=u.user_profile.try(:first_name) %></td>
+						<td><%=u.user_profile.try(:last_name) %></td>
+						<td><%=u.user_profile.try(:birthdate) %></td>
+					</tr>
+				<% end %>
+			</tbody>
+			
+
+
+		</table>
+	</div>
+
+	<%= paginate @users %>
+	<% end %>
 </div>
-
-<%= paginate @users %>
-
 

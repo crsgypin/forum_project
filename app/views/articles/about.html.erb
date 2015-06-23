@@ -1,9 +1,29 @@
 
+<div class="content-left">
+	<div class="do-it">
+		<%= link_to "Back to Forum",articles_path, :class=>"btn btn-primary" %>
+	</div>
 
-<table>
-	<tr><td>Total users</td><td><%=@total_users%></td></tr>
-	<tr><td>Total articles</td><td><%=@total_articles%></td></tr>
-	<tr><td>Total comments</td><td><%=@total_comments%></td></tr>
-</table>
+	<ul class="list">
+		<%= @active_category_id ==0 ? "<li class='content-left-hightlighted separate'>".html_safe : "<li>".html_safe%> 
+			<%= link_to "All", articles_path %>
 
+		</li>
+		<%  @categories.each_with_index do |c,index| %>
 
+			<%= @active_category_id ==index+1 ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
+			<%= link_to c.name, articles_path(:category_id=>index+1) %>
+		</li>
+		<% end %>
+	</ul>
+</div><!-- content-left -->
+
+<div class="content-center" id="about-content">
+	<div class="about-box">
+		<table class="table">
+			<tr><td>Total users</td><td><%=@total_users%></td></tr>
+			<tr><td>Total articles</td><td><%=@total_articles%></td></tr>
+			<tr><td>Total comments</td><td><%=@total_comments%></td></tr>
+		</table>
+	</div>
+</div>

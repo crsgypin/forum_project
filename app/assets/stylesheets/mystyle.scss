@@ -306,6 +306,7 @@
 	width:30px;
 	margin-top: 5px;
 	float: left;
+}
 
 .content-center .article-meta .info .user .poster{
 	height: 40px;
@@ -410,12 +411,29 @@
 	float: right;
 }
 
+/* about page */
+#about-content{
+	background-color: #ece;
+}
+
+.content-center .about-box{
+	width:90%;
+	margin-left:5%;
+	margin-right: 5%;	
+	margin-top: 40px;	
+	min-height: 300px;
+
+}
+
+
 /* admin */
 .admin-user{
 	margin-top: 40px;
 	width:78%;
 	min-width: 800px;
 }
+
+
 
 
 

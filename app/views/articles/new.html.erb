@@ -1,17 +1,64 @@
 
-<div class="row article-new-title"><div class="col-md-offset-1 col-md-10">
-	<h1>New Article</h1>
-</div></div>
 
-<div class="row"><div class="col-md-offset-1 col-md-10">
-<%= form_for @article, :url=>articles_path do |form| %>
+<div class="content-left">
+	<div class="do-it">
+		<%= link_to "Back to Forum",articles_path, :class=>"btn btn-primary" %>
+	</div>
 
-	<%= render :partial => "post_form", :locals =>{:form=>form}%>
+	<ul class="list">
+		<%= @active_category_id ==0 ? "<li class='content-left-hightlighted separate'>".html_safe : "<li>".html_safe%> 
+			<%= link_to "All", articles_path %>
 
-	<br>
-	<%= form.submit "Publish", :class=>"btn btn-warning"%>
-	<%= form.submit "Save", :class=>"btn btn-info"%>
-	<%= link_to " Cancel", articles_path,:class=>"btn btn-default"%>
-<% end %>
+		</li>
+		<%  @categories.each_with_index do |c,index| %>
 
-</div></div>
+			<%= @active_category_id ==index+1 ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
+			<%= link_to c.name, articles_path(:category_id=>index+1) %>
+		</li>
+		<% end %>
+	</ul>
+</div><!-- content-left -->
+
+
+<div class="content-center">
+	
+	<div class="article-meta">
+		<div class="info">
+			<!-- show information -->
+			<h2 class="title"> New Article</h2>
+
+				<!-- poster -->
+			<div class="user">
+				<div><%= image_tag avatar_url(current_user)%></div>
+				<p class="poster">Poster: <%=current_user.username %></p>
+			</div>
+
+		</div><!-- user_info -->
+
+		<div class="status">
+			<p>New article</p>
+		</div>
+
+		<div class="edit-it">
+		</div><!-- edit-it -->
+	</div><!-- article-meta -->
+
+
+	<div class="single-article-content">
+		<%= form_for @article, :url=>articles_path do |form| %>
+
+		<%= render :partial => "post_form", :locals =>{:form=>form}%>
+	
+		
+		<div class="do-it">
+			<%= form.submit "Publish", :class=>"btn btn-warning"%>
+			<%= form.submit "Save", :class=>"btn btn-info"%>
+			<%= link_to " Cancel", articles_path,:class=>"btn btn-default"%>
+		</div>
+
+		<% end %><!-- form -->
+	</div><!-- article-content -->
+
+</div><!-- content-center -->
+
+

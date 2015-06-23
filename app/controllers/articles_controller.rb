@@ -107,6 +107,8 @@ class ArticlesController < ApplicationController
 	def show
 		@article_id = params[:id]
 		@article = Article.find(@article_id)
+		@poster = @article.user
+		@comments = @article.comments
 
 		if current_user
 			@favorite = Favorite.find_by(:article_id=>@article_id,:user_id=>current_user.id)

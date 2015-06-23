@@ -6,6 +6,14 @@ class UsersController < ApplicationController
 		@favorite_articles = @user.favorite_articles.order("favorites.updated_at desc")
 		@comments = @user.comments.order(:updated_at => :desc)
 		@draft_articles = @user.post_articles.where("status = 'draft'").order(:updated_at => :desc)
+		
+		@topic_list = ["Profile","Articles","Comments","Favroites","Draft"]
+		if params[:topic_id]
+			@topic_index = params[:topic_id].to_i
+		else
+			@topic_index =0
+		end
+
 	end
 
 	def favorite_delete

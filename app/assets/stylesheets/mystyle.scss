@@ -110,19 +110,24 @@
 	float: left;
 }
 
-.content-left .post{
+.content-left .do-it{
 	min-width: 200px;
 	width: 60%;
-	margin: 40px auto 40px auto;
+	height: 160px;
+	margin: 0px auto 0px auto;
+	padding: 40px 20px 40px 20px;
 	text-align: center;
+	border-bottom: 1px solid #aaa;
 }
 
-.content-left .post a{
+
+.content-left .do-it a{
 	color:white;
 	display: block;
-	margin:auto;
+	margin: 20px auto 20px auto;
 	width:150px;
 	height: 40px;
+	font-size: 1.2em;
 }
 
 .content-left .list{
@@ -152,6 +157,10 @@
 	color: red;
 }
 
+
+.content-left .list .separate{
+	border-bottom: 1px solid #888;
+}
 
 /* content right */
 
@@ -207,18 +216,42 @@
 	width:5%;
 }
 
-/* article index */
-.article-title{
-	margin-top:0px;
-	margin-bottom: 20px;
-	height:40px;
 
+/* user show */
+.content-left .do-it a{
+	background-color: green;
+	display: block;
 }
 
-.article-title h1{
-	margin-top: -5px;
+.content-center .user-info{
+	height: 60px;
+	width:500px;
+	margin-left: 5%;
 }
 
+.content-center .user-info>*{
+	height: 40px;
+	margin: 10px 10px 10px 0px;
+	float: left;
+}
+
+.content-center .user-info img{
+	width:40px;
+}
+
+.content-center .user-info h3{
+	width:400px;
+	padding-top:5px;
+}
+
+.content-center .user-content{
+	width:90%;
+	margin:0 5% 0 5%;
+}
+
+.content-center .user-content h4{
+	margin-bottom:30px;
+}
 
 /* article index html*/
 

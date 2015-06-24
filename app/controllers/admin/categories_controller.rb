@@ -6,7 +6,7 @@ class Admin::CategoriesController < ApplicationController
 		@category.creator_id = current_user.id
 		if @category.save
 			flash[:notice] = "Category #{@category.name} has been created successfully"
-			redirect_to admin_articles_path
+			redirect_to admin_articles_path(:action_id =>1)
 		else
 			render :template => 'admin/articles/index'
 		end
@@ -17,7 +17,7 @@ class Admin::CategoriesController < ApplicationController
 		@category = Category.find(params[:category][:id])
 		if @category.update(category_params)
 			flash[:notice] = "Category #{@category.name} has been updated successfully"
-			redirect_to admin_articles_path			
+			redirect_to admin_articles_path(:action_id =>1)
 		else
 			render :template => 'admin/articles/index'
 		end
@@ -28,7 +28,7 @@ class Admin::CategoriesController < ApplicationController
 		@category = Category.find(params[:category_id])
 		if @category.destroy
 			flash[:notice] = "Category #{@category.name} has been deleted successfully"			
-			redirect_to admin_articles_path			
+			redirect_to admin_articles_path(:action_id =>1)
 		else
 			render :template => 'admin/articles/index'
 		end

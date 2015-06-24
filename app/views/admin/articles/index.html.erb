@@ -1,6 +1,6 @@
 
 
-<div class="content-left">
+<div class="content-left admin-content-left">
 	<div class="do-it user-back">
 		<%= link_to "Back to Forum",articles_path, :class=>"btn btn-primary" %>
 
@@ -14,7 +14,7 @@
 	</ul>
 </div><!-- content-left -->
 
-<div class="content-center">
+<div class="content-center admin-content-center">
 	<div class="user-info">
 		<h3>Hello <%= current_user.username %></h3>
 		</div>
@@ -77,7 +77,7 @@
 			<tbody>
 				<% @users.each do |u| %>
 					<tr>
-						<td><%=u.username %></td>
+						<td><%=link_to u.username, user_path(u) %></td>
 						<td><%=u.try(:email) %></td>
 						<td><%=u.user_profile.try(:first_name) %></td>
 						<td><%=u.user_profile.try(:last_name) %></td>
@@ -89,9 +89,10 @@
 
 
 		</table>
+	<%= paginate @users %>
 	</div>
 
-	<%= paginate @users %>
+
 	<% end %>
 </div>
 

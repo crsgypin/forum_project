@@ -1,0 +1,87 @@
+
+<%= render :partial => "side_bar/admin", :locals =>{:action_index=>@action_index, :action_list=>@action_list}%>
+
+
+<div class="content-center admin-content-center">
+	<div class="user-info">
+		<div><%= image_tag avatar_url(@user)%></div>
+		<h3><%= @user.username %></h4>
+	</div>
+
+	<div class="user-content user-profile">
+		<h4><%= @user.username%> 's profile</h4>
+
+		<%= form_for @user, url: admin_user_path(@user), method: :patch do |f| %>
+				<%= f.fields_for :user_profile, @user.user_profile do |u| %>
+		<%= f.submit "Update", :class=>"btn btn-info" %>
+		<%= link_to "Cancel", admin_user_path(@user), :class=>"btn btn-primary"%>
+
+				
+		<table class="table">
+			<tr>
+				<td><%= f.label :username, "Username"%></td>
+				<td><%= f.text_field :username %></td>
+			</tr>
+
+			<tr>
+				<td><%= u.label :first_name, "First Name"%></td>
+				<td><%= u.text_field :first_name %> </td>
+			</tr>
+			<tr>
+				<td><%= u.label :last_name, "Last Name"%> </td>
+				<td><%= u.text_field :last_name %></td>
+			</tr>
+			<tr>
+				<td><%= u.label :english_name, "Last Name"%></td>
+				<td><%= u.text_field :english_name %></td>
+			</tr>
+			<tr>
+				<td><%= u.label :birthdate, "Birthdate"%></td>
+				<td><%= u.text_field :birthdate %></td>
+			</tr>
+			<tr>
+				<td><%= u.label :intro, "Intro" %></td>
+				<td><%= u.text_field :intro %></td>
+			<tr>
+			<tr>
+				<td>Total visits</td>
+				<td><%= @user.sign_in_count %></td>
+			</tr>
+			<tr>
+				<td>Total posting articles</td>
+				<td><%= @user.post_articles.count	%></td>
+			</tr>
+			<tr>
+				<td>Total posting articles</td>
+				<td><%= @user.post_articles.count	%></td>
+			</tr>
+			<tr>
+				<td>Total replying articles</td>
+				<td><%= @user.reply_articles.count %></td>
+			</tr>
+
+			<tr>
+				<td>Update date</td>
+				<td><%= @user.updated_at%></td>
+			</tr>
+			<tr>
+				<td>Last sign in</td>
+				<td><%= @user.last_sign_in_at%></td>
+			</tr>
+
+			<tr>
+				<td><%= f.label :role, "Role" %></td>
+				<td><%= f.text_field :role %></td>
+			</tr>
+
+		</table>
+				<% end %><!-- fields for -->
+		<% end %><!-- form for -->
+	</div>
+	
+
+
+
+
+
+

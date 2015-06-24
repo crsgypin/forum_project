@@ -4,7 +4,9 @@ class Admin::ArticlesController < ApplicationController
 
 
 	def index
-		@articles = Article.all
+		@page = params[:page].to_i ||= 0
+		@per = 20
+		@articles = Article.all.page(@page).per(@per)
 
 	end
 

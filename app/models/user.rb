@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :favorites
   has_many :favorite_articles, :through =>:favorites, :source=>:article
   has_many :create_categories, :class_name => "Category", :foreign_key => :creator_id
+  accepts_nested_attributes_for :user_profile, :allow_destroy => true, :reject_if => :all_blank
 
   def admin?
     self.role == "admin"

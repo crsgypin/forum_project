@@ -1,0 +1,37 @@
+<%= render :partial => "side_bar/user", :locals =>{}%>
+
+
+<div class="content-center">
+	<div class="user-info">
+		<div><%= image_tag avatar_url(@user)%></div>
+		<h3><%= @user.username %></h3>
+	</div>
+
+	<div class="user-content user-comments">
+		<h4>Comments (<%=@comments.count %>)</h4>
+		<table class="table">
+			<tr>
+				<th class="user-show-comment-table-index"></th>
+				<th class="user-show-comment-table-article">Article</th>
+				<th class="user-show-comment-table-comment-content">Comment</th>
+				<th class="user-show-comment-table-update">Date Time</th>
+			</tr>
+			<% @comments.each_with_index do |c,index| %>
+				<% if c.article %>
+			<tr>
+				<td class="user-show-comment-table-index"><%= index+1 %></td>
+				<td class="user-show-comment-table-article">
+					<%= link_to c.article.title, article_path(c.article) %>
+				</td>
+				<td class="user-show-comment-table-comment-content">
+					<%= link_to c.content, article_path(c.article)%>
+				</td>
+				<td class="user-show-comment-table-update">
+					<%= c.updated_at %>
+				</td>
+			</tr>
+				<% end %><!-- if c.article -->
+			<% end %><!-- @user.comments .order -->
+		</table>
+	</div>
+</div>

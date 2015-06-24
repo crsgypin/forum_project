@@ -1,0 +1,32 @@
+<%= render :partial => "side_bar/user", :locals =>{}%>
+
+
+<div class="content-center">
+	<div class="user-info">
+		<div><%= image_tag avatar_url(@user)%></div>
+		<h3><%= @user.username %></h3>
+	</div>
+
+	<div class="user-content user-articles">
+		<h4>Posted articles (<%= @post_articles.count %>)</h4>
+		<table class="table">
+			<tr>
+				<th class="index"></th>
+				<th class="title">Title</th>
+				<th class="comment">Comment</th>
+				<th class="update">Update Date</th>
+			</tr>
+			<% @post_articles.each_with_index do |a,index| %>
+			<tr>
+				<td class="index"><%= index+1 %></td>
+				<td class="title"><%= link_to a.title, article_path(a) %></td>
+				<td class="comment"><%= a.comments.count %></td>
+				<td class="update"><%=a.updated_at%></td>
+			</tr>
+			<%end %>
+		</table>
+	</div>
+</div>
+
+
+

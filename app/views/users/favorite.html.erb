@@ -1,0 +1,34 @@
+<%= render :partial => "side_bar/user", :locals =>{}%>
+
+<div class="content-center">
+	<div class="user-info">
+		<div><%= image_tag avatar_url(@user)%></div>
+		<h3><%= @user.username %></h3>
+	</div>
+
+	<div class="user-content user-favorite">
+		<h4>My favorite articles (<%= @favorite_articles.count %>)</h4>
+		<table class="table">
+			<tr>
+				<th class="inde"></th>
+				<th class="title">Title</th>
+				<th class="poster">Poster</th>
+				<th class="comment">Comment</th>
+				<th class="update">Update Date</th>
+				<th class="remove"></th>
+			</tr>
+
+			<% @favorite_articles.each_with_index do |fa,index|%>
+			<tr>
+				<td class="index"><%= index+1 %></td>
+				<td class="title"><%= link_to fa.title, article_path(fa)%></td>
+				<td class="poster"><%= link_to fa.user.username, user_path(fa.user)%></td>
+				<td class="comment"><%= fa.comments.count %></td>
+				<td class="update"><%=fa.updated_at%></td>
+				<td class="remove"><%= link_to "Remove", favorite_user_path(current_user.id,:article_id=>fa.id), :method=>:delete, :class=>"btn btn-warning",:data=>{:confirm=>"Are you sure?"} %>
+				</td>
+			</tr>
+			<% end %><!-- @user.favorite_articles.each_with_index -->
+		</table>
+	</div>
+</div>

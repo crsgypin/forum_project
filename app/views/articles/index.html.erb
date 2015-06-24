@@ -1,24 +1,5 @@
 
-
-
-<div class="content-left">
-	<div class="do-it">
-		<%= link_to "Post Article", new_article_path, :class=>"btn btn-primary" %>
-	</div>
-
-	<ul class="list">
-		<%= @active_category_id ==0 ? "<li class='content-left-hightlighted separate'>".html_safe : "<li>".html_safe%> 
-			<%= link_to "All", articles_path %>
-
-		</li>
-		<%  @categories.each_with_index do |c,index| %>
-
-			<%= @active_category_id ==index+1 ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
-			<%= link_to c.name, articles_path(:category_id=>index+1) %>
-		</li>
-		<% end %>
-	</ul>
-</div><!-- content-left -->
+<%= render :partial => "side_bar/category", :locals =>{:path=>"post"}%>
 
 
 <div class="content-center">
@@ -68,12 +49,14 @@
 					<% category = ''%>
 					<% a.categories.each do |c| %>
 					<%	category += c.name+' ' %>
-					<% Rails.logger.debug(c.name) %>
 					<% end %>
 					<p><%=category %></p>
 				</td>
 
-				<td class="text-center"><%= link_to a.user.username, user_path(a.user) %>
+				<td class="text-center">
+					<% if a.user %>
+					<%= link_to a.user.username, user_path(a.user) %>
+					<% end %>
 				</td>
 
 				<td class="text-center">

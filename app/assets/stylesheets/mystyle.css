@@ -162,9 +162,6 @@
 	color:#f19;
 }
 
-.content-left-hightlighted a{
-	color: red;
-}
 
 .content-left-admin{
 	width: 100px;
@@ -477,6 +474,10 @@
 
 
 
+/* component */
+#highlighted{
+	color: red;
+}
 
 
 

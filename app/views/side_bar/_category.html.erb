@@ -1,4 +1,24 @@
 
+<div class="content-left">
+	<div class="do-it">
+		<% if path == "post" %>
+			<%= link_to "Post Article", new_article_path, :class=>"btn btn-primary" %>
+		<% elsif path == "back" %>
+			<%= link_to "Back to Forum",articles_path, :class=>"btn btn-primary" %>
+		<% end %>
+	</div>
+
+	<ul class="list">
+		<li>
+			<%= link_to "All", articles_path, :id=> @category == nil ? "highlighted" : "" %>
+		</li>
+		<%  @categories.each_with_index do |c,index| %>
+			<li>
+			<%= link_to c.name, articles_path(:category_id=>c.id), :id=> @category == c ? "highlighted" : "" %>
+		</li>
+		<% end %>
+	</ul>
+</div><!-- content-left -->
 
 
 

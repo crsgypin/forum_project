@@ -1,18 +1,7 @@
 
 
-<div class="content-left admin-content-left">
-	<div class="do-it user-back">
-		<%= link_to "Back to Forum",articles_path, :class=>"btn btn-primary" %>
+<%= render :partial => "side_bar/admin", :locals =>{:action_index=>@action_index, :action_list=>@action_list}%>
 
-	</div>
-	<ul class="list">
-		<%  @action_list.each_with_index do |t,index| %>
-			<%= @action_index ==index ? "<li class='content-left-hightlighted'>".html_safe : "<li>".html_safe%> 
-			<%= link_to @action_list[index], admin_articles_path(:action_id=>index) %>
-		</li>
-		<% end %>
-	</ul>
-</div><!-- content-left -->
 
 <div class="content-center admin-content-center">
 	<div class="user-info">
@@ -65,32 +54,7 @@
 
 	<!-- user list -->
 	<% if @action_index == 2 %>
-	<div class="admin-content admin-user">
-		<table class="table">
-			<thead><tr>
-				<th>Username</th>
-				<th>email	</th>
-				<th>First name	</th>
-				<th>Last name	</th>
-				<th>Birtthdate	</th>
-			</tr></thead>
-			<tbody>
-				<% @users.each do |u| %>
-					<tr>
-						<td><%=link_to u.username, user_path(u) %></td>
-						<td><%=u.try(:email) %></td>
-						<td><%=u.user_profile.try(:first_name) %></td>
-						<td><%=u.user_profile.try(:last_name) %></td>
-						<td><%=u.user_profile.try(:birthdate) %></td>
-					</tr>
-				<% end %>
-			</tbody>
-			
 
-
-		</table>
-	<%= paginate @users %>
-	</div>
 
 
 	<% end %>

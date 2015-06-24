@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :articles
-    resource :category
+    resources :categories
     resources :users
   end
 

@@ -5,4 +5,5 @@ class Category < ActiveRecord::Base
 	belongs_to :user, :foreign_key => :creator_id
 
 	validates_presence_of :name	
+	validates_presence_of :intro
 end

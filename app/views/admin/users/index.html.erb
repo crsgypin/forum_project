@@ -1,0 +1,31 @@
+
+<%= render :partial => "side_bar/admin", :locals =>{:action_index=>@action_index, :action_list=>@action_list}%>
+
+<div class="content-center admin-content-center">
+	<div class="admin-content admin-user">
+		<table class="table">
+			<thead><tr>
+				<th>	</th>
+				<th>Username</th>
+				<th>email	</th>
+				<th>First name	</th>
+				<th>Last name	</th>
+				<th>Birtthdate	</th>
+			</tr></thead>
+			<tbody>
+				<% @users.each_with_index do |u,index| %>
+					<tr>
+						<td> <%= @page*@per+index+1 %> </td>
+						<td> <%=link_to u.username, admin_user_path(u) %></td>
+						<td><%=u.try(:email) %></td>
+						<td><%=u.user_profile.try(:first_name) %></td>
+						<td><%=u.user_profile.try(:last_name) %></td>
+						<td><%=u.user_profile.try(:birthdate) %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<%= paginate @users %>
+	</div>
+</div>
+

@@ -21,9 +21,14 @@
 		<div class="message">
 			<h4  class="notice">abc<%=flash[:notice]%></h4>
 			<p><%if @article %>
-				<%=@article.errors.full_messages.inspect %></p>
+				<%=@article.errors.full_messages.inspect %>
 	      <%# @person.errors.full_messages.each do |message| %>
 				<% end %>				
+			</p>
+			<p><%if @category %>
+				<%=@category.errors.full_messages.inspect %>
+				<% end %>
+			</p>
 		</div>
 
 		<div class="user-info">
@@ -51,6 +56,8 @@
 
 	</div><!--nav top-->
 </div>
+
+
 
 <div class="content-body">
 

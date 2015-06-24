@@ -1,5 +1,3 @@
-
-
 <div class="content-left">
 	<div class="do-it">
 		<%= link_to "Back to Forum",articles_path, :class=>"btn btn-primary" %>
@@ -30,13 +28,12 @@
 			<!-- poster -->
 			<div class="user">
 				<div><%= image_tag avatar_url(@article.user)%></div>
-				<p class="poster">Poster: <%=@poster.username %></p>
+				<p class="poster"><%=@poster.username %></p>
 			</div>
 
 			<div class="status">
 				<p>publised at <%= @article.updated_at %></p>
 			</div>
-
 
 		</div><!-- user-info -->
 
@@ -54,8 +51,12 @@
 			<!-- Edit and delete -->	
 			<% if @article.user == current_user %>
 			<p class="edit"><%= link_to "Edit",edit_article_path,:class=>"btn btn-info"%></p>
-			<p class="delete"><%= link_to "Delete",article_path, :method=>"delete", :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%></p>
 			<% end %>
+
+			<% if @article.user == current_user || current_user.role = "admin" %>
+			<p class="article-show-info-delete"><%= link_to "Delete",article_path, :method=>"delete", :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%></p>
+			<% end %>
+
 		</div><!-- edit-it -->
 	</div><!-- article-meta -->
 

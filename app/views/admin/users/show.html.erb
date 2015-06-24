@@ -1,0 +1,63 @@
+
+<%= render :partial => "side_bar/admin", :locals =>{:action_index=>@action_index, :action_list=>@action_list}%>
+
+
+<div class="content-center admin-content-center">
+	<div class="user-info">
+		<div><%= image_tag avatar_url(@user)%></div>
+		<h3><%= @user.username %></h3>
+	</div>
+
+	<div class="user-content user-profile">
+		<h4><%= @user.username%> 's profile</h4>
+		<%= link_to "Edit", edit_admin_user_path(@user), :class=>"btn btn-info"%>
+		<%= link_to "Delete", admin_user_path(@user), :method=>:delete, :class=>"btn btn-danger",:data=>{:confirm=>"Are you sure?"}%>
+
+		<table class="table">
+			<tr>
+				<td>Username</td>
+				<td><%=@user.username%></td>
+			</tr>
+			<tr>
+				<td>First Name</td>
+				<td><%= @user.user_profile.try(:first_name)  %></td>
+			</tr>
+			<tr>
+				<td>Last Name</td><td><%= @user.user_profile.try(:last_name)		%></td>
+			</tr>
+			<tr>
+				<td>English Name</td><td><%= @user.user_profile.try(:english_name)%></td>
+			</tr>
+			<tr>
+				<td>Birthdate</td><td><%= @user.user_profile.try(:birthdate)   %></td>
+			</tr>
+			<tr>
+				<td>Intro</td><td><%= @user.user_profile.try(:intro)   %></td>
+			</tr>
+			<tr>
+				<td>Total visits</td><td><%= @user.sign_in_count %></td>
+			</tr>
+			<tr>
+				<td>Total posting articles</td><td><%= @user.post_articles.count	%></td>
+			</tr>
+			<tr>
+				<td>Total replying articles</td><td><%= @user.reply_articles.count %></td>
+			</tr>
+			<tr>
+				<td>Sign in count</td><td><%= @user.role%></td>
+			</tr>
+			<tr>
+				<td>Last sign in</td><td><%= @user.last_sign_in_at%></td>
+			</tr>
+			<tr>
+				<td>Update date</td><td><%= @user.updated_at%></td>
+			</tr>
+			<tr>
+				<td>Role</td><td><%= @user.role%></td>
+			</tr>
+			<tr>
+		</table>
+	</div>
+	
+
+

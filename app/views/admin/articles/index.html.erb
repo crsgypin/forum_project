@@ -1,0 +1,62 @@
+
+
+<%= render :partial => "side_bar/admin", :locals =>{:action_index=>@action_index, :action_list=>@action_list}%>
+
+
+<div class="content-center admin-content-center">
+	<div class="user-info">
+		<h3>Hello <%= current_user.username %></h3>
+		</div>
+
+
+	<% if @action_index == 0 %>
+	<div class="admin-content">
+		<h3>Today post articles</h3>
+
+	</div>
+	<% end %>
+
+	<!-- category -->
+	<% if @action_index == 1 %>
+	<div class="admin-content">
+		<h3>Category</h3>
+		<table class="table">
+			<% @categories.each do |c|%>
+			<tr>
+				<td><%= c.name %></td>
+				<td><%= c.articles.count %></td>
+				<td><% if c.articles.count ==0 %>
+						<%= link_to "edit", admin_articles_path(:category_id=>c.id), :class=>"btn btn-info"%>
+						<%= link_to "delete", admin_category_path(:category_id=>c.id), :method=>:delete, :data=>{:confirm=>"Are you sure"}, :class=>"btn btn-danger"%>
+						<% end %>
+						</td>
+			</tr>
+			<% end %>
+		</table>
+		<%= form_for @category, url: admin_category_path do |f| %>
+		<%= f.label :name, "New category"%>	
+		<%= f.text_field :name %>
+		<% unless @category.new_record? %>
+			<%= f.hidden_field :id, value: @category.id%>
+			<%= f.submit "Update", :class=>"btn btn-info"%>
+			<%= link_to "Cancel", admin_articles_path, :class=>"btn btn-info"%>
+		<% else %>
+			<%= f.submit "Add",:class=>"btn btn-primary"%>
+		<% end %>
+
+
+		<% end %>
+	</div>
+	<% end %><!--  if @action_index == 0 -->
+
+
+
+
+	<!-- user list -->
+	<% if @action_index == 2 %>
+
+
+
+	<% end %>
+</div>
+

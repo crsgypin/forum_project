@@ -34,5 +34,9 @@ protected
 
   end
 
-
+  def authenticate_admin 
+    unless current_user.admin? 
+      raise ActiveRecord::RecordNotFound
+    end
+  end
 end

@@ -1,0 +1,52 @@
+
+<%= render :partial => "side_bar/admin", :locals =>{:action_index=>@action_index, :action_list=>@action_list}%>
+
+<div class="content-center admin-content-center">
+	<div class="admin-content">
+		<h3>Category</h3>
+		<table class="table category-table">
+			<tr>
+				<th>Name</th>
+				<th>Intro</th>
+				<th>Articles</th>
+				<th></th>
+			</tr>
+			<% @categories.each do |c|%>
+			<tr>
+				<td class="name"><%= c.name %></td>
+				<td class="intro"><%=c.intro %></td>
+				<td class="articles"><%= c.articles.count %></td>
+				<td class="edit-it"><% if c.articles.count ==0 %>
+						<%= link_to "edit", admin_categories_path(:edit_id=>c.id), :class=>"btn btn-info"%>
+						<%= link_to "delete", admin_category_path(c), :method=>:delete, :data=>{:confirm=>"Are you sure"}, :class=>"btn btn-danger"%>
+						<% end %>
+						</td>
+			</tr>
+			<% end %>
+		</table>
+	
+		<% if @category.new_record? %>
+			<%= form_for @category, :url=>admin_categories_path do |f| %>
+			<%= f.label :name, "New category"%>	
+			<%= f.text_field :name %>
+			<%= f.label :intro, "Intro" %>
+			<%= f.text_area :intro %>
+			<%= f.submit "Add",:class=>"btn btn-primary"%>
+			<% end %>
+		<% else %>
+			<%= form_for @category, :url=>admin_category_path(@category), :method=>:patch do |f| %>
+			<%= f.label :name, "Update category"%>	
+			<%= f.text_field :name %>
+			<%= f.label :intro, "Intro" %>
+			<%= f.text_area :intro %>
+			<%= f.submit "Update",:class=>"btn btn-primary"%>
+			<%= link_to "Cancel", admin_categories_path, :class=>"btn btn-info"%>
+			<% end %>
+		<% end %>
+
+
+	</div>
+</div>
+
+
+

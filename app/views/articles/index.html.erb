@@ -6,8 +6,8 @@
 
 	<div class="article-title">
 		<h1>
-			<% if @active_category %>
-			<%= @active_category.name %>
+			<% if @category %>
+			<%= @category.name %>
 			<% else %>
 			All
 			<% end %>
@@ -25,7 +25,10 @@
 				<th class="category text-center">Category</th>
 				<th class="poster text-center">Post User</th>
 				<th class="date text-center">
-						<%= link_to "Date Time",articles_path(order: :datetime) %>
+						<%= link_to "Posted date",articles_path(order: :updated_at) %>
+				</th>
+				<th class="last_comment text-center">
+						<%= link_to "Last comment",articles_path(order: :last_comment) %>
 				</th>
 				<th class="comment text-center">
 						<%= link_to "Comment",articles_path(order: :comment) %>
@@ -60,14 +63,22 @@
 				</td>
 
 				<td class="text-center">
-					<% date = a.updated_at %>
-					<%= "#{date.year}/#{date.month}/#{date.day} #{date.hour}:#{date.min}:#{date.sec}" %>
+					<%= a.updated_at %>
 				</td>
 
-				<td class="text-center"><%= a.comments.count%>
+				<td class="text-center">
+					<% if a.try(:last_comment) %>
+					<%= a.last_comment %>
+			     <%#{date.year}/#{date.month}/#{date.day} #{date.hour}:#{date.min}:#{date.sec}"%>
+					<% end %>
 				</td>
 
-				<td class="text-center"><%= a.article_views.count%>
+				<td class="text-center">
+					<%= a.comments.count%>
+				</td>
+
+				<td class="text-center">
+					<%= a.article_views.count%>
 				</td>				
 
 			</tr>

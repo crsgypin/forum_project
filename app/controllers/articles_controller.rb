@@ -143,6 +143,9 @@ private
 	def set_article_list
 		@articles = @category? @category.articles : Article.all
 		@articles = @articles.where("status = 'published'")
+    @articles = @articles.select('articles.*, max(comments.updated_at) as last_comment')
+    @articles = @articles.joins('left join comments on articles.id=comments.article_id')
+    @articles = @articles.group('articles.id')    	
 
 		if params[:order] == 'comment'
       @articles = @articles.select('articles.*, count(comments.id) as comment_count')
@@ -157,6 +160,8 @@ private
       @articles = @articles.group('articles.id')
       @articles = @articles.order('view_count desc')			
 
+    elsif params[:order] == 'last_comment'
+    	@articles = @articles.order('last_comment desc')
     else
     	@articles = @articles.order('updated_at desc')
 

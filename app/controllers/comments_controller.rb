@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-
+	before_action :authenticate_user!
 	def create
 		if current_user
 			@comment = Comment.new(params_comment)

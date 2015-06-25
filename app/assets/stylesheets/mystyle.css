@@ -192,6 +192,18 @@
 	float: left;
 }
 
+.content-center .devise-box{
+	margin: 0 auto;
+	width: 200px;
+	/*text-align: center;*/
+}
+
+.content-center .devise-box .field{
+	margin-bottom: 20px;
+}
+
+
+
 .content-center .article-title{
 	width:400px;
 	margin-left:5%;

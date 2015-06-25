@@ -2,7 +2,11 @@
 <div class="content-left">
 	<div class="do-it">
 		<% if path == "post" %>
-			<%= link_to "Post Article", new_article_path, :class=>"btn btn-primary" %>
+			<% if current_user %>
+				<%= link_to "Post Article", new_article_path, :class=>"btn btn-primary" %>
+			<% else %>
+				<%= link_to "Login to Post", new_session_path(:user), :class=>"btn btn-primary" %>
+			<% end %>
 		<% elsif path == "back" %>
 			<%= link_to "Back to Forum",articles_path, :class=>"btn btn-primary" %>
 		<% end %>

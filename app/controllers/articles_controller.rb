@@ -1,6 +1,5 @@
 class ArticlesController < ApplicationController
-	before_action :authenticate_user!
-	before_action :set_category
+	before_action :authenticate_user!, :except=>[:index, :show, :about]
 
 	def index
 		@per = 10
@@ -92,16 +91,17 @@ class ArticlesController < ApplicationController
 
 		if current_user
 			@favorite = Favorite.find_by(:article_id=>@article_id,:user_id=>current_user.id)
+
+			unless params[:comment_id]
+				@comment = Comment.new
+				unless ArticleView.find_by(article_id: @article_id, user_id: current_user.id)
+					ArticleView.create(article_id: @article_id,user_id: current_user.id)
+				end
+			else
+				@comment = Comment.find(params[:comment_id]) 
+			end
 		end	
 
-		unless params[:comment_id]
-			@comment = Comment.new
-			unless ArticleView.find_by(article_id: @article_id, user_id: current_user.id)
-				ArticleView.create(article_id: @article_id,user_id: current_user.id)
-			end
-		else
-			@comment = Comment.find(params[:comment_id]) 
-		end
 	end
 
 	def favorite_create
@@ -139,13 +139,6 @@ private
 	def check_article_category_ship
 		params[:category_ids].present?
 	end	
-
-	def set_category
-    @categories = Category.all
-    if params[:category_id]
-	    @category = Category.find(params[:category_id].to_i)
-   end
-	end
 
 	def set_article_list
 		@articles = @category? @category.articles : Article.all

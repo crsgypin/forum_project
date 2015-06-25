@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	before_action :authenticate_user!, except: [:show, :show_profile, :posted_articles, :posted_comments]
 	before_action :set_user 
 	def show
 		redirect_to profile_user_path(@user)
@@ -17,8 +18,7 @@ class UsersController < ApplicationController
 
 	def update_profile
 		p = params.require(:user).permit(:username,
-										:user_profile_attributes => [:first_name, :last_name, :english_name, :birthdate, :intro])
-
+										:user_profile => [:first_name, :last_name, :english_name, :birthdate, :intro])
 		if @user.update(p)
 			flash[:notice] = "You've updated your profile data successfully"
 			redirect_to profile_user_path(@user)
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
 	end
 
 private
-
+	
 	def set_user
 		@user = User.find(params[:id])
 	end

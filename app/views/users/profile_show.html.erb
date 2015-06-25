@@ -8,11 +8,16 @@
 
 	<div class="user-content user-profile">
 		<h4><%= @user.username%> 's profile</h4>
+		<% if @user == current_user  %>
+		<%= link_to "Edit",edit_profile_user_path(@user), :class=>"btn btn-info"%>
+		<% end %>
+
 		<table class="table">
 			<tr>
 				<td>First Name</td>
 				<td><%= @user.user_profile.try(:first_name)  %></td>
 			</tr>
+			<tr><td>Username</td><td><%= @user.username %></td></tr>
 			<tr><td>Last Name</td><td><%= @user.user_profile.try(:last_name)		%></td></tr>
 			<tr><td>English Name</td><td><%= @user.user_profile.try(:english_name)%></td></tr>
 			<tr><td>Birthdate</td><td><%= @user.user_profile.try(:birthdate)   %></td></tr>

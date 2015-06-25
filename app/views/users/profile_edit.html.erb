@@ -1,9 +1,51 @@
 <%= render :partial => "side_bar/user", :locals =>{}%>
 
-
 <div class="content-center">
 	<div class="user-info">
 		<div><%= image_tag avatar_url(@user)%></div>
-		<h3><%= @user.username %></h4>
+		<h3><%= @user.username %></h3>
 	</div>
+
+	<div class="user-content user-profile">
+		<h4><%= @user.username%> 's profile</h4>
+		<% if @user == current_user  %>
+		<%= link_to "Back to user",profile_user_path(@user)%>
+		<% end %>
+
+	<%= form_for @user, :url=>profile_user_path(@user), :method=>:patch do |f|%>
+		<%= f.fields_for :user_profile, @user.user_profile do |u| %>
+		<table class="table">
+			<tr>
+				<td><%= f.label :username, "username" %> </td>
+				<td><%= f.text_field :username %> </td>
+			</tr>
+			<tr>
+				<td><%= u.label :first_name, "First Name" %> </td>
+				<td><%= u.text_field :first_name %> </td>
+			</tr>
+			<tr>
+				<td><%= u.label :last_name, "Last Name" %> </td>
+				<td><%= u.text_field :last_name %> </td>
+			</tr>
+			<tr>
+				<td><%= u.label :english_name, "English Name" %> </td>
+				<td><%= u.text_field :english_name %> </td>
+			</tr>
+			<tr>
+				<td><%= u.label :birthdate, "Birth Date" %> </td>
+				<td><%= u.text_field :birthdate %> </td>
+			</tr>
+			<tr>
+				<td><%= u.label :intro, "Intro" %> </td>
+				<td><%= u.text_area :intro %> </td>
+			</tr>
+			<tr><td>Total visit</td><td><%= @user.post_articles.count %></td></tr>
+			<tr><td>Total posting articles</td><td><%= @user.post_articles.count	%></td></tr>
+			<tr><td>Total replying articles</td><td><%= @user.reply_articles.count %></td></tr>
+		</table>
+		<%= f.submit "Update" %>
+		<% end %><!-- fields_for -->
+	<% end %><!-- form for -->
+	</div>
+</div>
 

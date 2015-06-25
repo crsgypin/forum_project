@@ -67,7 +67,10 @@
 		<% if @comments.count>0 %>
 			<% @comments.each do |c| %>
 			<tr>
-				<td> <%= link_to c.user.username, user_path(c.user) %></td>
+				<td> <% if c.user %> 
+					<%= link_to c.user.username, user_path(c.user) %>
+					<% end %>
+				</td>
 				<td> <%=c.content %> </td>
 				<td> <%=c.updated_at %></td>
 				<td> <%= if c.user == current_user 

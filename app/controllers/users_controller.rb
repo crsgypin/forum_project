@@ -11,10 +11,20 @@ class UsersController < ApplicationController
 	end
 
 	def edit_profile
-
+		@user_profile = @user.user_profile ||= @user.build_user_profile
+		render :template =>"users/profile_edit"
 	end
 
 	def update_profile
+		p = params.require(:user).permit(:username,
+										:user_profile_attributes => [:first_name, :last_name, :english_name, :birthdate, :intro])
+
+		if @user.update(p)
+			flash[:notice] = "You've updated your profile data successfully"
+			redirect_to profile_user_path(@user)
+		else
+			render "users/profile_edit"
+		end
 
 	end
 

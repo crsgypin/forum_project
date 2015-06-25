@@ -1,26 +1,62 @@
 class UsersController < ApplicationController
-
+	before_action :authenticate_user!, except: [:show, :show_profile, :posted_articles, :posted_comments]
+	before_action :set_user 
 	def show
-		@user = User.find(params[:id])
-		@post_articles = @user.post_articles.where("status = 'published'").order(:updated_at => :desc)
-		@favorite_articles = @user.favorite_articles.order("favorites.updated_at desc")
-		@comments = @user.comments.order(:updated_at => :desc)
-		@draft_articles = @user.post_articles.where("status = 'draft'").order(:updated_at => :desc)
+		redirect_to profile_user_path(@user)
+	end
 
-		@topic_list = ["Profile","Articles","Comments","Favroites","Draft"]
-		if params[:topic_id]
-			@topic_index = params[:topic_id].to_i
+
+	def show_profile
+		@user_profile = @user.user_profile
+		render :template =>"users/profile_show"		
+	end
+
+	def edit_profile
+		@user_profile = @user.user_profile ||= @user.build_user_profile
+		render :template =>"users/profile_edit"
+	end
+
+	def update_profile
+		p = params.require(:user).permit(:username,
+										:user_profile => [:first_name, :last_name, :english_name, :birthdate, :intro])
+		if @user.update(p)
+			flash[:notice] = "You've updated your profile data successfully"
+			redirect_to profile_user_path(@user)
 		else
-			@topic_index =0
+			render "users/profile_edit"
 		end
+
+	end
+
+	def posted_articles
+		@post_articles = @user.post_articles.where("status = 'published'").order(:updated_at => :desc)
+		render :template =>"users/articles"
+	end
+
+	def posted_comments
+		@comments = @user.comments.order(:updated_at => :desc)
+		render :template =>"users/comments"
+	end
+
+	def draft
+		@draft_articles = @user.post_articles.where("status = 'draft'").order(:updated_at => :desc)
+	end
+
+	def favorite
+		@favorite_articles = @user.favorite_articles.order("favorites.updated_at desc")
 
 	end
 
 	def favorite_delete
 		@favorite_article = Favorite.find_by(:user_id=>params[:id],:article_id=>params[:article_id])
 		@favorite_article.destroy
-		flash[:notice]="You've remove the article from your favorite"
-		redirect_to user_path(params[:id])
+		flash[:notice]="You've removed the article from your favorite"
+		redirect_to :favorite
 	end
 
+private
+	
+	def set_user
+		@user = User.find(params[:id])
+	end
 end

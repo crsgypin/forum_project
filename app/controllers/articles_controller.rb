@@ -1,31 +1,10 @@
 class ArticlesController < ApplicationController
-	before_action :authenticate_user!
+	before_action :authenticate_user!, :except=>[:index, :show, :about]
 
 	def index
-
 		@per = 10
 		@page = params[:page].to_i
-		@articles = @active_category? @active_category.articles : Article.all
-		@articles = @articles.where("status = 'published'")
-
-		if params[:order] == 'comment'
-      @articles = @articles.select('articles.*, count(comments.id) as comment_count')
-      @articles = @articles.joins('left join comments on articles.id=comments.article_id')
-      @articles = @articles.group('articles.id')
-      @articles = @articles.order('comment_count desc')
-			# select articles.*, count(comments.id) as comment_count, comments.id from articles left join comments on articles.id = comments.article_id group by articles.id order by comment_count desc
-
-		elsif params[:order] == 'views'
-      @articles = @articles.select('articles.*, count(article_views.id) as view_count')
-      @articles = @articles.joins('left join article_views on articles.id=article_views.article_id')
-      @articles = @articles.group('articles.id')
-      @articles = @articles.order('view_count desc')			
-
-    else
-    	@articles = @articles.order('updated_at desc')
-
-		end
-
+		set_article_list
 		@articles = @articles.page(@page).per(@per)
 
 	end
@@ -112,16 +91,17 @@ class ArticlesController < ApplicationController
 
 		if current_user
 			@favorite = Favorite.find_by(:article_id=>@article_id,:user_id=>current_user.id)
+
+			unless params[:comment_id]
+				@comment = Comment.new
+				unless ArticleView.find_by(article_id: @article_id, user_id: current_user.id)
+					ArticleView.create(article_id: @article_id,user_id: current_user.id)
+				end
+			else
+				@comment = Comment.find(params[:comment_id]) 
+			end
 		end	
 
-		unless params[:comment_id]
-			@comment = Comment.new
-			unless ArticleView.find_by(article_id: @article_id, user_id: current_user.id)
-				ArticleView.create(article_id: @article_id,user_id: current_user.id)
-			end
-		else
-			@comment = Comment.find(params[:comment_id]) 
-		end
 	end
 
 	def favorite_create
@@ -153,8 +133,34 @@ class ArticlesController < ApplicationController
 
 private
 	def post_article_params	
-		params.require(:article).permit(:title,:content,:category_ids => [])
+			params.require(:article).permit(:title,:content,:category_ids => [])
+	end
 
+	def check_article_category_ship
+		params[:category_ids].present?
+	end	
+
+	def set_article_list
+		@articles = @category? @category.articles : Article.all
+		@articles = @articles.where("status = 'published'")
+
+		if params[:order] == 'comment'
+      @articles = @articles.select('articles.*, count(comments.id) as comment_count')
+      @articles = @articles.joins('left join comments on articles.id=comments.article_id')
+      @articles = @articles.group('articles.id')
+      @articles = @articles.order('comment_count desc')
+			# select articles.*, count(comments.id) as comment_count, comments.id from articles left join comments on articles.id = comments.article_id group by articles.id order by comment_count desc
+
+		elsif params[:order] == 'views'
+      @articles = @articles.select('articles.*, count(article_views.id) as view_count')
+      @articles = @articles.joins('left join article_views on articles.id=article_views.article_id')
+      @articles = @articles.group('articles.id')
+      @articles = @articles.order('view_count desc')			
+
+    else
+    	@articles = @articles.order('updated_at desc')
+
+		end
 	end
 
 end

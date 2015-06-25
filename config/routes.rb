@@ -4,6 +4,13 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: :show do
     member do
+      get :profile, :action=>:show_profile
+      get :edit_profile, :action=>:edit_profile
+      patch :profile, :action=>:update_profile
+      get :articles, :action=>:posted_articles
+      get :comments, :action=>:posted_comments
+      get :draft, :action=>:draft
+      get :favorite, :action=>:favorite
       delete :favorite, :action=>:favorite_delete
     end
   end

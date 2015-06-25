@@ -162,9 +162,6 @@
 	color:#f19;
 }
 
-.content-left-hightlighted a{
-	color: red;
-}
 
 .content-left-admin{
 	width: 100px;
@@ -194,6 +191,18 @@
 	min-height: 1000px;
 	float: left;
 }
+
+.content-center .devise-box{
+	margin: 0 auto;
+	width: 200px;
+	/*text-align: center;*/
+}
+
+.content-center .devise-box .field{
+	margin-bottom: 20px;
+}
+
+
 
 .content-center .article-title{
 	width:400px;
@@ -477,6 +486,10 @@
 
 
 
+/* component */
+#highlighted{
+	color: red;
+}
 
 
 

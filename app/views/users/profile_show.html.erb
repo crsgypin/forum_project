@@ -1,0 +1,31 @@
+<%= render :partial => "side_bar/user", :locals =>{}%>
+
+<div class="content-center">
+	<div class="user-info">
+		<div><%= image_tag avatar_url(@user)%></div>
+		<h3><%= @user.username %></h3>
+	</div>
+
+	<div class="user-content user-profile">
+		<h4><%= @user.username%> 's profile</h4>
+		<% if @user == current_user  %>
+		<%= link_to "Edit",edit_profile_user_path(@user), :class=>"btn btn-info"%>
+		<% end %>
+
+		<table class="table">
+			<tr>
+				<td>First Name</td>
+				<td><%= @user.user_profile.try(:first_name)  %></td>
+			</tr>
+			<tr><td>Username</td><td><%= @user.username %></td></tr>
+			<tr><td>Last Name</td><td><%= @user.user_profile.try(:last_name)		%></td></tr>
+			<tr><td>English Name</td><td><%= @user.user_profile.try(:english_name)%></td></tr>
+			<tr><td>Birthdate</td><td><%= @user.user_profile.try(:birthdate)   %></td></tr>
+			<tr><td>Intro</td><td><%= @user.user_profile.try(:intro)   %></td></tr>
+			<tr><td>Total visit</td><td><%= @user.post_articles.count %></td></tr>
+			<tr><td>Total posting articles</td><td><%= @user.post_articles.count	%></td></tr>
+			<tr><td>Total replying articles</td><td><%= @user.reply_articles.count %></td></tr>
+		</table>
+	</div>
+</div>
+

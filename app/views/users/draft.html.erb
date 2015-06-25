@@ -1,0 +1,42 @@
+<%= render :partial => "side_bar/user", :locals =>{}%>
+
+
+<div class="content-center">
+	<div class="user-info">
+		<div><%= image_tag avatar_url(@user)%></div>
+		<h3><%= @user.username %></h3>
+	</div>
+
+	<div class="user-content user-draft">
+		<h4>My draft articles (<%=@draft_articles.count%>)</h4>
+		<table class="table">
+			<tr>
+				<th class="index"></th>
+				<th class="title">Title</th>
+				<th class="category">Category</th>
+				<th class="update">Update Date</th>
+			</tr>
+
+			<% @draft_articles.each_with_index do |da,index| %>
+			<tr>
+				<td class="index">
+					<%= index +1 %>
+				</td>
+				<td class="title">
+					<%= link_to da.title, edit_article_path(da) %>
+				</td>
+				<td class="category">
+						<% category = '' %>
+						<% da.categories.each do |c| %>
+							<% category += c.name + ' ' %>
+						<% end %>
+						<%= category %>
+				</td>
+				<td class="update">
+					<%= da.updated_at %>
+				</td>
+				<% end %><!-- @draft_articles.each_with_index -->
+			</tr>
+		</table>
+	</div>
+</div>

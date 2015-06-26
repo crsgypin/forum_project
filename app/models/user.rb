@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  before_create :create_profile, :set_role
+  before_create :set_role
 
   has_one :user_profile
   has_many :post_articles, :class_name=> "Article", :foreign_key => "author_id"
@@ -19,10 +19,6 @@ class User < ActiveRecord::Base
 
   def admin?
     self.role == "admin"
-  end
-
-  def create_profile
-    build_user_profile(:first_name=>"pop nn")
   end
 
   def set_role

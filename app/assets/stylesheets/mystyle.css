@@ -63,11 +63,15 @@
 	margin-left:30px;
 	float:left;
 	text-align: center;
+	font-size: 1.2em;
 }
 
 .nav-top .message .notice{
 	color:#5f5;
-	font-size: 1.2em;
+}
+
+.nav-top .message .error{
+	color:red;
 }
 
 .nav-top .user-info{
@@ -194,15 +198,20 @@
 
 .content-center .devise-box{
 	margin: 0 auto;
-	width: 200px;
-	/*text-align: center;*/
+	width: 50%;
+
 }
 
 .content-center .devise-box .field{
-	margin-bottom: 20px;
+	margin-bottom: 30px;
+	overflow: hidden;
 }
 
 
+.content-center .devise-box .field>*{
+	width:40%;
+	float: left;
+}
 
 .content-center .article-title{
 	width:400px;

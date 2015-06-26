@@ -1,35 +1,44 @@
 class CommentsController < ApplicationController
 	before_action :authenticate_user!
+
 	def create
 		if current_user
+			@article = Article.find(params[:id])
+			@comments = @article.comments.all
+
 			@comment = Comment.new(params_comment)
-			@comment[:user_id]=current_user.id
-			@comment[:article_id]=params[:id]
+			@comment.user =current_user
+			@comment.article = @article
+
 			if @comment.save
-				flash[:notice]="your comment has been successful posted"
-				respond_to do |format|
-					format.html{
-						redirect_to article_path(params[:id])
-					}
-					format.js {
-						render 'comments/create'
-					}
-				end
-
+				@comment = Comment.new
+				@notice = 'your comment has been successful posted'
 			else
-				@article = Article.find(params[:id])
-				render :template => 'articles/show'
-
+				@notice = @comment.errors.join(' ')
 			end
 
+			respond_to do |format|
+				format.js {
+					render 'comments/update'
+				}
+			end
 
 		else
 			redirect_to new_session(:user)
 		end
 	end
 
+	def edit
+		respond_to do |format|
+			format.js{
+				render 'comments/edit'
+			}
+		end
+	end
+
 	def update
 		@comment = Comment.find(params[:comment_id])
+		@comments = @article.comments.all
 		@comment.update(params_comment)
 		if @comment.save
 			flash[:notice] = "your comment has been successfully updated"
@@ -42,19 +51,23 @@ class CommentsController < ApplicationController
 
 
 	def destroy
+		@article = Article.find(params[:id])
 		@comment = Comment.find(params[:comment_id])
+		@comments = @article.comments.all
 		@comment.destroy
-
-		flash[:notice] = "You comment has been successfully deleted"
+		@comment = Comment.new
+		@notice = "You comment has been successfully deleted"
 
 		respond_to do |format|
-			format.html{ redirect_to article_path(params[:id])}
-			format.js{ 
-
-			@cid = '#comment-' + params[:comment_id]
-			render 'comments/destroy'}
-
+			format.js {
+				render 'comments/update'
+			}
 		end
+			# format.js{ 
+			# @cid = '#comment-' + params[:comment_id]
+			# render 'comments/destroy'}
+
+
 
 	end
 
@@ -62,4 +75,5 @@ private
 	def params_comment
 		params.require(:comment).permit(:content)
 	end
+
 end

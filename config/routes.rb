@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       get :about
     end
     member do
-      resource :comment
+      resources :comments
       post :favorite, :action=>:favorite_create
       delete :favorite, :action=>:favorite_delete
     end

@@ -88,17 +88,13 @@ class ArticlesController < ApplicationController
 		@article = Article.find(@article_id)
 		@poster = @article.user
 		@comments = @article.comments
+		@comment = Comment.new
 
 		if current_user
 			@favorite = Favorite.find_by(:article_id=>@article_id,:user_id=>current_user.id)
 
-			unless params[:comment_id]
-				@comment = Comment.new
-				unless ArticleView.find_by(article_id: @article_id, user_id: current_user.id)
-					ArticleView.create(article_id: @article_id,user_id: current_user.id)
-				end
-			else
-				@comment = Comment.find(params[:comment_id]) 
+			unless ArticleView.find_by(article_id: @article_id, user_id: current_user.id)
+				ArticleView.create(article_id: @article_id,user_id: current_user.id)
 			end
 		end	
 
@@ -107,7 +103,7 @@ class ArticlesController < ApplicationController
 	def favorite_create
 		@favorite = Favorite.new(:user_id=>params[:user_id],:article_id=>params[:id])
 		if @favorite.save
-			flash[:notice]= "You have saved the favrite to this article"
+			flash[:notice]= "You have saved the favorite to this article"
 			redirect_to article_path(params[:id])
 		else
 			render :show

@@ -1,0 +1,65 @@
+<div class="comments">
+	<table class="table">
+		<tr class="table-head">
+			<th>Poster</th>
+			<th>Comment</th>
+			<th>Post time</th>
+			<th></th>
+			<th></th>
+		</tr>
+
+	<% if comments.count>0 %>
+		<% comments.each do |c| %>
+		<tr>
+			<td> <% if c.user %> 
+				<%= link_to c.user.username, user_path(c.user) %>
+				<% end %>
+			</td>
+			<td> <%=c.content %> </td>
+			<td> <%=c.updated_at %></td>
+			<td> <%= if c.user == current_user 
+						 link_to "Edit", edit_article_path(article, c) 
+						 end %>
+			</td>
+			<td> <%= if c.user == current_user
+						 link_to "Delete", comment_path(article, c), :method=>"delete", :remote=>true, :data=>{:confirm=>"Are you sure?"}, :id=>"comment-#{c.id}"
+						 end %>
+
+		  </td>
+		</tr>
+		<% end %><!-- @comments -->
+
+	<% else %>
+
+		<tr class="no-reply">
+			<td colspan="5">
+				<p>No any reply</p>
+			</td>
+		</tr>
+
+	<% end %><!-- if @comments.count>0 -->
+
+	</table>
+
+	<% if current_user %>
+
+		<div class="post">
+			<% method = (comment.new_record?) ? :post : :patch %>
+			<%= form_for comment, :url=>comments_path(article, comment), remote: true, :method => method do |form|%>
+				<%= if current_user
+					 form.label :content,("Hi #{link_to current_user.username, user_path(current_user)}, post your comment").html_safe
+					else 
+					  form.label :content, "Post your comment"
+				 end %>
+				<br>
+				<%= form.text_area :content, :class=>"text-area" %>
+				<br>
+				<%= form.submit "Post", :class=>"btn btn-primary done"%>
+			<% end %>
+		</div><!-- post -->
+
+	<% end %>
+
+	<div class="notice">comment notice</div>
+</div><!--  comments  -->
+

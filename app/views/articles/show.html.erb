@@ -80,7 +80,7 @@
 							 end %>
 				</td>
 				<td> <%= if c.user == current_user
-							 link_to "Delete", comment_path(@article, :comment_id=>c.id), :method=>"delete", :data=>{:confirm=>"Are you sure?"}
+							 link_to "Delete", comment_path(@article, :comment_id=>c.id), :method=>"delete", :remote=>true, :data=>{:confirm=>"Are you sure?"}, :id=>"comment-#{c.id}"
 							 end %>
 
 			  </td>
@@ -101,7 +101,7 @@
 
 			<div class="post">
 				<% method = (@comment.new_record?) ? :post : :patch %>
-				<%= form_for @comment, :url=>comment_path(:comment_id=>@comment.id), :method => method do |form|%>
+				<%= form_for @comment, :url=>comment_path(:comment_id=>@comment.id), remote: true, :method => method do |form|%>
 					<%= if current_user
 						 form.label :content,("Hi #{link_to current_user.username, user_path(current_user)}, post your comment").html_safe
 						else 
@@ -115,6 +115,8 @@
 			</div><!-- post -->
 
 		<% end %>
+<div id="show-check">mm check</div>
+
 
 <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="100" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 

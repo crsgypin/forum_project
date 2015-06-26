@@ -1,0 +1,4 @@
+
+// $('#show-check').html("<p>you've created one comment</p>").css({ backgroundColor: '#ffff99' });
+
+$('.article-comments .table').append("<%= escape_javascript(render :partial => 'new_comment') %>")

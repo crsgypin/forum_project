@@ -17,6 +17,15 @@
 				<p>publised at <%= @article.updated_at %></p>
 			</div>
 
+			<div class="category">
+				<p>category: <% cat = ' '
+									@article.categories.each do |c|
+										cat += c.name + ' '
+									 end %>
+									 <%= cat %>
+				</p>
+			</div>
+
 		</div><!-- user-info -->
 
 		<div class="edit-it">

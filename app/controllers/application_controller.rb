@@ -17,9 +17,9 @@ protected
     	# :category_id, :user_profile_attributes => [:id, :first_name, :last_name, :english_name, :brithdate, :intro]) }
 
     devise_parameter_sanitizer.for(:sign_up){ |u| u.permit(:email, :username, :password, :password_confirmation,
-              :user_profile=>[:first_name, :last_name, :english_name, :birthdate, :intro]) }
+              :user_profile_attributes => [:first_name, :last_name, :english_name, :birthdate, :intro]) }
     devise_parameter_sanitizer.for(:account_update){ |u| u.permit(:email, :username, :password, :password_confirmation, 
-              :user_profile=>[:first_name, :last_name, :english_name, :birthdate, :intro]) }
+              :user_profile_attributes => [:first_name, :last_name, :english_name, :birthdate, :intro]) }
 
 
   end

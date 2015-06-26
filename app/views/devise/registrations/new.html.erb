@@ -7,12 +7,19 @@
 
     <h2>Sign up</h2>
 
+    <% resource.build_user_profile unless resource.user_profile %>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    
       <%= devise_error_messages! %>
 
       <div class="field">
+        <%= f.label :username %><br />
+        <%= f.text_field :username, autofocus: true %>
+      </div>
+
+      <div class="field">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true %>
+        <%= f.email_field :email %>
       </div>
 
       <div class="field">
@@ -28,9 +35,23 @@
         <%= f.password_field :password_confirmation, autocomplete: "off" %>
       </div>
 
+      <%= f.fields_for :user_profile do |u| %>
+        <div class="field">
+          <%= u.label :first_name %><br />
+          <%= u.text_field :first_name %>
+        </div>
+
+        <div class="field">
+          <%= u.label :last_name %><br />
+          <%= u.text_field :last_name %>
+        </div>
+      <% end %>
+
       <div class="actions">
         <%= f.submit "Sign up" %>
       </div>
+
+   
     <% end %>
 
     <%= render "devise/shared/links" %>

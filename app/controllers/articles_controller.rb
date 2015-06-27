@@ -87,7 +87,7 @@ class ArticlesController < ApplicationController
 		@article_id = params[:id]
 		@article = Article.find(@article_id)
 		@poster = @article.user
-		@comments = @article.comments
+		@comments = Comment.all_order_by_updated_at(@article)
 		@comment = Comment.new
 
 		if current_user

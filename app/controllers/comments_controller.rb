@@ -55,7 +55,7 @@ private
 
 	def find_article_and_comments
 		@article = Article.find(params[:article_id])
-		@comments = @article.comments.all
+		@comments = Comment.all_order_by_updated_at(@article)
 	end
 
 	def refresh

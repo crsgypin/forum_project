@@ -8,6 +8,10 @@
 	background-color: red;
 }
 
+#show-check{
+	background-color: green;
+}
+
 
 /*nav item*/
 
@@ -350,6 +354,14 @@
 	height: 40px;
 	margin:0 0 0 10px;
 	width: 400px;
+	color: #aaa;	
+}
+
+.content-center .article-meta .info .category{
+	height: 40px;
+	margin:0 0 0 10px;
+	width: 400px;
+	color: #aaa;	
 }
 
 .content-center .article-meta .edit-it>*{
@@ -412,6 +424,26 @@
 
 }
 
+.article-comments .title{
+	overflow: hidden;
+}
+
+.article-comments .title>*{
+	float: left;
+	width: 50%;
+}
+
+.article-comments .note{
+	height: 30px;
+}
+
+.article-comments .comment-notice{
+	color:green;
+}
+
+.article-comments .comment-alert{
+	color:red;
+}
 
 .article-comments table{
 	min-height: 200px;
@@ -427,7 +459,7 @@
 }
 
 .article-comments .post{
-	margin-top:40px;
+	margin-top:10px;
 	margin-bottom: 70px;
 }
 

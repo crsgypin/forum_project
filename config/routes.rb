@@ -16,11 +16,11 @@ Rails.application.routes.draw do
   end
 
   resources :articles do
+    resources :comments
     collection do
       get :about
     end
     member do
-      resource :comment
       post :favorite, :action=>:favorite_create
       delete :favorite, :action=>:favorite_delete
     end

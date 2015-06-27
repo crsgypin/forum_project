@@ -1,0 +1,21 @@
+
+// $('#show-check').html("<p>you've created one comment</p>").css({ backgroundColor: '#ffff99' });
+
+
+// $('.article-comments .comments').html("<p>334</p>")
+$('.article-comments').html("<%= j (render :partial => 'article_comments', :locals => {:comments => @comments,:comment=>@comment,:article=>@article}) %>")
+$('.article-comments .note').text("")
+<% if @notice %>
+	$('.article-comments .note').addClass("comment-notice").text("<%=@notice%>")
+<% else %>
+	$('.article-comments .note').removeClass("comment-notice")
+<% end %>
+
+<% if @alert %>
+	$('.article-comments .note').addClass("comment-alert").text("<%=@alert%>")
+<% else %>
+	$('.article-comments .note').removeClass("comment-alert")	
+<% end %>
+
+
+

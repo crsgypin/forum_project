@@ -1,10 +1,8 @@
 class CommentsController < ApplicationController
-	before_action :authenticate_user!
+	before_action :authenticate_user!, :find_article_and_comments
 
 	def create
 		if current_user
-			@article = Article.find(params[:id])
-			@comments = @article.comments.all
 
 			@comment = Comment.new(params_comment)
 			@comment.user =current_user
@@ -14,60 +12,63 @@ class CommentsController < ApplicationController
 				@comment = Comment.new
 				@notice = 'your comment has been successful posted'
 			else
-				@notice = @comment.errors.join(' ')
+				@notice = @comment.errors.full_messages.join(' ').html_safe
 			end
 
 			respond_to do |format|
 				format.js {
-					render 'comments/update'
+					render 'comments/refresh'
 				}
 			end
-
 		else
 			redirect_to new_session(:user)
 		end
 	end
 
 	def edit
+
+		@comment = Comment.find(params[:id])
 		respond_to do |format|
-			format.js{
-				render 'comments/edit'
+			format.js {
+				render 'comments/refresh'
 			}
 		end
 	end
 
 	def update
-		@comment = Comment.find(params[:comment_id])
-		@comments = @article.comments.all
+		@comment = Comment.find(params[:id])
 		@comment.update(params_comment)
 		if @comment.save
-			flash[:notice] = "your comment has been successfully updated"
-			redirect_to article_path(params[:id])
+			@notice = "your comment has been successfully updated"
+			@comment = Comment.new
+
 		else
-			@article = Article.find(params[:id])
-			render :template => 'articles/show'
+			@notice = @comment.errors.full_messages.join(' ').html_safe
 		end
+
+		respond_to do |format|
+			format.js {
+				render 'comments/refresh'
+			}
+		end			
+
 	end
 
 
 	def destroy
-		@article = Article.find(params[:id])
-		@comment = Comment.find(params[:comment_id])
-		@comments = @article.comments.all
+		@comment = Comment.find(params[:id])
 		@comment.destroy
 		@comment = Comment.new
 		@notice = "You comment has been successfully deleted"
 
 		respond_to do |format|
 			format.js {
-				render 'comments/update'
+				render 'comments/refresh'
 			}
 		end
 			# format.js{ 
 			# @cid = '#comment-' + params[:comment_id]
 			# render 'comments/destroy'}
-
-
 
 	end
 
@@ -75,5 +76,11 @@ private
 	def params_comment
 		params.require(:comment).permit(:content)
 	end
+
+	def find_article_and_comments
+		@article = Article.find(params[:article_id])
+		@comments = @article.comments.all
+	end
+
 
 end

@@ -47,7 +47,7 @@
 
 
 				<% if current_user.role = "admin" %>
-				<p class="article-show-info-delete"><%= link_to "Delete",article_path, :method=>:delete, :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%></p>
+				<p class="article-show-info-delete"><%= link_to "Delete",article_comment_path(a,c), :method=>:delete, :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%></p>
 				<% end %>
 			<% end %>
 		</div><!-- edit-it -->

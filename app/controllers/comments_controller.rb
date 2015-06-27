@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
 				@comment = Comment.new
 				@notice = 'your comment has been successful posted'
 			else
-				@notice = @comment.errors.full_messages.join(' ').html_safe
+				@alert = @comment.errors.full_messages.join(' ').html_safe
 			end
 
 			refresh
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
 			@comment = Comment.new
 
 		else
-			@notice = @comment.errors.full_messages.join(' ').html_safe
+			@alert = @comment.errors.full_messages.join(' ').html_safe
 		end
 		refresh
 	end

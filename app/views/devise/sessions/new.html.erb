@@ -5,6 +5,8 @@
 
   <div class="devise-box">
 
+  <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+
   <h2>Log in</h2>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>

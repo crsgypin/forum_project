@@ -33,6 +33,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # devise
 gem 'devise'
 
+# facebook
+gem 'omniauth-facebook'
+
+
 # faker
 gem 'faker'
 

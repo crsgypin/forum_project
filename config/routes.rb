@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'articles/new'
+  get 'about', :controller=>'abouts', :action=>'index'
 
   devise_for :users
   resources :users, only: :show do
@@ -15,11 +16,10 @@ Rails.application.routes.draw do
     end
   end
 
+
+
   resources :articles do
     resources :comments
-    collection do
-      get :about
-    end
     member do
       post :favorite, :action=>:favorite_create
       delete :favorite, :action=>:favorite_delete

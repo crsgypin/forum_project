@@ -1,31 +1,27 @@
 class CommentsController < ApplicationController
-	before_action :authenticate_user!, :find_article_and_comments
+	before_action :authenticate_user!, :set_article
 
 	def create		
-		if current_user
-			@comment = Comment.new(params_comment)
-			@comment.user =current_user
-			@comment.article = @article
+		Rails.logger.debug("======== abccc")
+		Rails.logger.debug(@article.inspect)		
+		@comment = Comment.new(params_comment)
+		@comment.user =current_user
+		@comment.article = @article
+		if @comment.save		
 
-			if @comment.save		
-				@comment.article.touch(:last_comment_at)
-				
-				@comment = Comment.new					
-				@notice = 'your comment has been successful posted'
-			else
-				@alert = @comment.errors.full_messages.join(' ').html_safe
-			end
+			# @comment.article.touch(:last_comment_at)
+			
+			@comment = Comment.new					
+			@notice = 'your comment has been successful posted'
 
-			refresh
 		else
-			redirect_to new_session(:user)
+			@alert = @comment.errors.full_messages.join(' ').html_safe
 		end
+
 	end
 
 	def edit
-
 		@comment = Comment.find(params[:id])
-		refresh
 	end
 
 	def update
@@ -38,16 +34,13 @@ class CommentsController < ApplicationController
 		else
 			@alert = @comment.errors.full_messages.join(' ').html_safe
 		end
-		refresh
 	end
 
 
 	def destroy
-		@comment = Comment.find(params[:id])
+		@comment = @article.comments.find(params[:id])
 		@comment.destroy
-		@comment = Comment.new
 		@notice = "You comment has been successfully deleted"
-		refresh
 	end
 
 private
@@ -55,17 +48,8 @@ private
 		params.require(:comment).permit(:content)
 	end
 
-	def find_article_and_comments
+	def set_article
 		@article = Article.find(params[:article_id])
-		@comments = Comment.all_order_by_updated_at(@article)
-	end
-
-	def refresh
-		respond_to do |format|
-			format.js {
-				render 'comments/refresh'
-			}
-		end
 	end
 
 end

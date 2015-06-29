@@ -1,0 +1,12 @@
+
+	<%= form_for @comment, :url => article_comments_path(@article,@comment), :remote=> true do |form| %>
+	<%= form.label :content,("Hi #{link_to current_user.username, user_path(current_user)}, post your comment").html_safe %>
+		<%= form.text_area :content, :class=>"text-area" %>
+
+		<% if @comment.new_record? %>
+			<%= form.submit "Post", :class=>"btn btn-primary done"%>
+		<% else %>
+			<%= form.submit "Post", :class=>"btn btn-primary done"%>		
+			<%# link_to "Cancel", article_comment_path(@article, @comment) ,:remote=>true, :class="btn btn-info"%>
+		<% end %>
+	<% end %><!-- form for -->

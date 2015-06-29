@@ -85,7 +85,6 @@ class ArticlesController < ApplicationController
 		@poster = @article.user
 
 		@comments = @article.comments
-
 		@comment = Comment.new		
 
 		if current_user

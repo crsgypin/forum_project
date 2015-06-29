@@ -57,7 +57,64 @@
 
 	<!-- comments -->
 	<div class="article-comments">
-		<%= render partial: 'comments/article_comments', locals: {:comments => @comments, :comment => @comment, :article=>@article} %>
+		<div class="title">
+			<h4>Reply</h4>
+			<%= content_tag(:div, "", :class=>"note") %>
+		</div>
+	
+		<div class="post">
+			<% if current_user %>
+				<%= render :partial=>'comments/form' %>
+
+			<% else %>
+				<%= link_to "Sign-in to post your comment", user_session_path, :class=>"btn btn-primary" %>
+
+			<% end %><!-- if current_user  -->
+
+		</div><!-- post -->
+
+
+		<table class="table">
+			<tr class="table-head">
+				<th>Poster</th>
+				<th>Comment</th>
+				<th>Post time</th>
+				<th></th>
+				<th></th>
+			</tr>
+
+		<% if @comments.count>0 %>
+			<% @comments.each do |c| %>
+			<tr class="comment-<%=c.id%>">
+				<td> <% if c.user %> 
+					<%= link_to c.user.username, user_path(c.user) %>
+					<% end %>
+				</td>
+				<td> <%=c.content %> </td>
+				<td> <%=c.updated_at %></td>
+
+				<% if c.user == current_user %>
+				<td> 
+					<%= link_to "Edit", edit_article_comment_path(@article, c) , :remote=>true %>
+				</td>
+				<td> 
+					<%= link_to "Delete", article_comment_path(@article, c), :method=>"delete", :remote=>true, :data=>{:confirm=>"Are you sure?"}, :id=>"comment-#{c.id}" %>
+			  </td>
+				<% end %>
+			</tr>
+			<% end %><!-- @comments -->
+
+		<% else %>
+
+			<tr class="no-reply">
+				<td colspan="5">
+					<p>No any reply</p>
+				</td>
+			</tr>
+
+		<% end %><!-- if @comments.count>0 -->
+
+		</table>
 
 	</div><!-- article-comments -->
 

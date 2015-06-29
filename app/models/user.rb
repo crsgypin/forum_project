@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   before_create :set_role
 
   has_one :user_profile
-  has_many :post_articles, :class_name=> "Article", :foreign_key => "author_id"
+  has_many :articles, :class_name=> "Article", :foreign_key => "author_id"
   has_many :comments
   has_many :reply_articles, :through  => :comments, :source=>:article
   has_many :article_views

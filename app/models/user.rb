@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
   has_many :create_categories, :class_name => "Category", :foreign_key => :creator_id
   accepts_nested_attributes_for :user_profile, :allow_destroy => true, :reject_if => :all_blank
 
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+
 
   def admin?
     self.role == "admin"

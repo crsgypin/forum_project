@@ -12,7 +12,7 @@
 		<%= link_to "Back to user", user_profile_path(@user)%>
 		<% end %>
 
-	<%= form_for @user, :url=> user_profile_path(@user), :method=>:patch do |f|%>
+	<%= form_for @user, :url=> user_profile_path(@user), :method=>:patch, :html => { :multipart => true } do |f|%>
 		<%= f.fields_for :user_profile, @user.user_profile do |u| %>
 		<table class="table">
 			<tr>
@@ -39,6 +39,12 @@
 				<td><%= u.label :intro, "Intro" %> </td>
 				<td><%= u.text_area :intro %> </td>
 			</tr>
+
+			<tr>
+				<td></td>
+				<td><%= f.file_field :image %></td>
+			</tr>
+
 			<tr><td>Total visit</td><td><%= @user.post_articles.count %></td></tr>
 			<tr><td>Total posting articles</td><td><%= @user.post_articles.count	%></td></tr>
 			<tr><td>Total replying articles</td><td><%= @user.reply_articles.count %></td></tr>

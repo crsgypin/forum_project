@@ -3,7 +3,7 @@
 		<%= link_to "Back to forum", articles_path, :class=>"btn btn-info"%>
 	</div>
 	<ul class="list">
-		<li><%= link_to "Profile", profile_user_path(@user), :id=>@user_profile ? "highlighted" : "" %></li>
+		<li><%= link_to "Profile", user_profile_path(@user), :id=>@user_profile ? "highlighted" : "" %></li>
 		<li><%= link_to "Article", articles_user_path(@user), :id=>@post_articles ? "highlighted" : ""  %></li>
 		<li><%= link_to "Comments", comments_user_path(@user), :id=>@comments ? "highlighted" : ""  %></li>
 

@@ -1,22 +1,21 @@
 class ArticlesController < ApplicationController
+
 	before_action :authenticate_user!, :except=>[:index, :show, :about]
 
 	def index
-		@per = 10
-		@page = params[:page].to_i
 		set_article_list
-		@articles = @articles.page(@page).per(@per)
-
+		@articles = @articles.page(params[:page]).per(10)
 	end
 
 	def new
 		@article = Article.new
-
 	end
 
 	def create
 		@article = Article.new(post_article_params)
-		@article[:author_id] = current_user.id
+		
+		@article.user = current_user
+
 		if params[:commit] == 'Publish'
 			@article.status = 'published'
 			if @article.save
@@ -35,17 +34,15 @@ class ArticlesController < ApplicationController
 			else
 				render :new				
 			end
-
 		end
-
 	end
 
 	def edit
-		@article = Article.find(params[:id])
+		@article = current_user.articles.find(params[:id])
 	end
 
 	def update
-		@article = Article.find(params[:id])
+		@article = current_user.articles.find(params[:id])
 
 		if params[:commit] == "Update"
 			if @article.update(post_article_params)
@@ -76,7 +73,7 @@ class ArticlesController < ApplicationController
 	end
 
 	def destroy
-		@delete_article = Article.find(params[:id])
+		@delete_article = current_user.articles.find(params[:id])
 		if @delete_article.destroy
 			flash[:notice] = "You had deleted your article"
 			redirect_to articles_path
@@ -84,24 +81,24 @@ class ArticlesController < ApplicationController
 	end
 
 	def show
-		@article_id = params[:id]
-		@article = Article.find(@article_id)
+		@article = Article.find( params[:id] )
 		@poster = @article.user
-		@comments = Comment.all_order_by_updated_at(@article)
-		@comment = Comment.new
+
+		@comments = @article.comments
+
+		@comment = Comment.new		
 
 		if current_user
-			@favorite = Favorite.find_by(:article_id=>@article_id,:user_id=>current_user.id)
+			@favorite = current_user.favorites.find_by_article_id(@article.id)
 
-			unless ArticleView.find_by(article_id: @article_id, user_id: current_user.id)
-				ArticleView.create(article_id: @article_id,user_id: current_user.id)
-			end
+			@article.view!(current_user)
 		end	
 
 	end
 
-	def favorite_create
-		@favorite = Favorite.new(:user_id=>params[:user_id],:article_id=>params[:id])
+	def add_favorite
+		@favorite = current_user.favorites.build( :article_id=> params[:id] )
+
 		if @favorite.save
 			flash[:notice]= "You have saved the favorite to this article"
 			redirect_to article_path(params[:id])
@@ -110,57 +107,36 @@ class ArticlesController < ApplicationController
 		end
 	end
 
-	def favorite_delete
-		@favorite = Favorite.find_by(:user_id=>params[:user_id],:article_id=>params[:id])
+	def remove_favorite
+		@favorite = current_user.favorites.find_by_article_id( params[:id] )
 
 		if @favorite.destroy
 			flash[:notice]= "You have removed the favrite to this article"
-			redirect_to article_path(params[:id])
+			#redirect_to article_path(params[:id])
+			redirect_to :back
 		else
 			render :show
 		end
 	end
 
-	def about
-		@total_articles = Article.all.count
-		@total_users = User.all.count
-		@total_comments = Comment.all.count
-	end
+	private
 
-private
 	def post_article_params	
-			params.require(:article).permit(:title,:content,:category_ids => [])
+		params.require(:article).permit(:title,:content,:category_ids => [])
 	end
-
-	def check_article_category_ship
-		params[:category_ids].present?
-	end	
 
 	def set_article_list
 		@articles = @category? @category.articles : Article.all
-		@articles = @articles.where("status = 'published'")
-    @articles = @articles.select('articles.*, max(comments.updated_at) as last_comment')
-    @articles = @articles.joins('left join comments on articles.id=comments.article_id')
-    @articles = @articles.group('articles.id')    	
+		@articles = @articles.where( :status => 'published' )
 
 		if params[:order] == 'comment'
-      @articles = @articles.select('articles.*, count(comments.id) as comment_count')
-      @articles = @articles.joins('left join comments on articles.id=comments.article_id')
-      @articles = @articles.group('articles.id')
-      @articles = @articles.order('comment_count desc')
-			# select articles.*, count(comments.id) as comment_count, comments.id from articles left join comments on articles.id = comments.article_id group by articles.id order by comment_count desc
-
+      @articles = @articles.order('comments_count desc')
 		elsif params[:order] == 'views'
-      @articles = @articles.select('articles.*, count(article_views.id) as view_count')
-      @articles = @articles.joins('left join article_views on articles.id=article_views.article_id')
-      @articles = @articles.group('articles.id')
-      @articles = @articles.order('view_count desc')			
-
+      @articles = @articles.order('views_count desc')			
     elsif params[:order] == 'last_comment'
-    	@articles = @articles.order('last_comment desc')
+    	@articles = @articles.order('last_comment_at desc')
     else
     	@articles = @articles.order('updated_at desc')
-
 		end
 	end
 

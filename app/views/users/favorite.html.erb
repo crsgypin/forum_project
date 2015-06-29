@@ -25,7 +25,7 @@
 				<td class="poster"><%= link_to fa.user.username, user_path(fa.user)%></td>
 				<td class="comment"><%= fa.comments.count %></td>
 				<td class="update"><%=fa.updated_at%></td>
-				<td class="remove"><%= link_to "Remove", favorite_user_path(current_user.id,:article_id=>fa.id), :method=>:delete, :class=>"btn btn-warning",:data=>{:confirm=>"Are you sure?"} %>
+				<td class="remove"><%= button_to "Remove", remove_favorite_article_path(fa), :class=>"btn btn-warning",:data=>{:confirm=>"Are you sure?"} %>
 				</td>
 			</tr>
 			<% end %><!-- @user.favorite_articles.each_with_index -->

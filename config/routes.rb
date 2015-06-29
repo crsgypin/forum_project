@@ -1,28 +1,28 @@
 Rails.application.routes.draw do
-  get 'articles/new'
-  get 'about', :controller=>'abouts', :action=>'index'
+
+  get 'about' => "abouts#index"
 
   devise_for :users
+
   resources :users, only: :show do
+    
+    resource :profile
+
     member do
-      get :profile, :action=>:show_profile
-      get :edit_profile, :action=>:edit_profile
-      patch :profile, :action=>:update_profile
-      get :articles, :action=>:posted_articles
-      get :comments, :action=>:posted_comments
-      get :draft, :action=>:draft
-      get :favorite, :action=>:favorite
-      delete :favorite, :action=>:favorite_delete
+      get :articles
+      get :comments
+
+      get :draft
+      get :favorite
     end
   end
-
 
 
   resources :articles do
     resources :comments
     member do
-      post :favorite, :action=>:favorite_create
-      delete :favorite, :action=>:favorite_delete
+      post :add_favorite
+      post :remove_favorite
     end
   end
 
@@ -31,7 +31,6 @@ Rails.application.routes.draw do
     resources :categories
     resources :users
   end
-
 
   root :to => 'articles#index'
 

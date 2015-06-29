@@ -18,12 +18,7 @@
 			</div>
 
 			<div class="category">
-				<p>category: <% cat = ' '
-									@article.categories.each do |c|
-										cat += c.name + ' '
-									 end %>
-									 <%= cat %>
-				</p>
+				<p>category: <% @article.category_names %></p>
 			</div>
 
 		</div><!-- user-info -->
@@ -33,9 +28,9 @@
 			<p>
 				<% if current_user %>
 					<% unless @favorite %>
-					<%= link_to "Add to My favorite", favorite_article_path(@article,:user_id=>current_user.id), :method=>:post, :class=>"btn btn-primary" %>
+					<%= button_to "Add to My favorite", add_favorite_article_path(@article), :class=>"btn btn-primary" %>
 					<% else %>
-					<%= link_to "Remove from My favorite", favorite_article_path(@article,:user_id=>current_user.id), :method=>:delete, :class=>"btn btn-warning" %>
+					<%= button_to "Remove from My favorite", remove_favorite_article_path(@article), :class=>"btn btn-warning" %>
 					<% end %>
 				<% end %>
 			</p>

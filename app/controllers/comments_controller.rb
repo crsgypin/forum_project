@@ -7,8 +7,10 @@ class CommentsController < ApplicationController
 			@comment.user =current_user
 			@comment.article = @article
 
-			if @comment.save
-				@comment = Comment.new
+			if @comment.save		
+				@comment.article.touch(:last_comment_at)
+				
+				@comment = Comment.new					
 				@notice = 'your comment has been successful posted'
 			else
 				@alert = @comment.errors.full_messages.join(' ').html_safe

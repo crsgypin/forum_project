@@ -15,8 +15,8 @@
 			</div>
 		
 			<div class="status">
-				<% if @article.status == "published" %>
-				<p> Published at <%= @article.updated_at %> </p>
+				<% if @article.published? %>
+					<p> Published at <%= @article.updated_at %> </p>
 				<% else %>
 				<p> Not published yet </p>
 				<% end %>

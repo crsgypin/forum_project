@@ -9,7 +9,7 @@
 	<div class="user-content user-profile">
 		<h4><%= @user.username%> 's profile</h4>
 		<% if @user == current_user  %>
-		<%= link_to "Edit",edit_profile_user_path(@user), :class=>"btn btn-info"%>
+		<%= link_to "Edit",edit_user_profile_path(@user), :class=>"btn btn-info"%>
 		<% end %>
 
 		<table class="table">

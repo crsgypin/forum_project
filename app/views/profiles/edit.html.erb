@@ -9,10 +9,10 @@
 	<div class="user-content user-profile">
 		<h4><%= @user.username%> 's profile</h4>
 		<% if @user == current_user  %>
-		<%= link_to "Back to user",profile_user_path(@user)%>
+		<%= link_to "Back to user", user_profile_path(@user)%>
 		<% end %>
 
-	<%= form_for @user, :url=>profile_user_path(@user), :method=>:patch do |f|%>
+	<%= form_for @user, :url=> user_profile_path(@user), :method=>:patch do |f|%>
 		<%= f.fields_for :user_profile, @user.user_profile do |u| %>
 		<table class="table">
 			<tr>

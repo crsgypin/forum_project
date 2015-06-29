@@ -7,7 +7,7 @@
 	<div class="article-title">
 		<h1>
 			<% if @category %>
-			<%= @category.name %>
+				<%= @category.name %>
 			<% else %>
 			All
 			<% end %>
@@ -41,7 +41,7 @@
 				<% @articles.each_with_index do |a, index| %>
 			<tr>
 				<td>
-					<%= @page*@per+index+1 %>
+					<%= get_serial(@articles, index) %>
 				</td>
 
 				<td>
@@ -49,36 +49,29 @@
 				</td>
 
 				<td class="text-center">
-					<% category = ''%>
-					<% a.categories.each do |c| %>
-					<%	category += c.name+' ' %>
-					<% end %>
-					<p><%=category %></p>
+					<p><%= display_category(a.categories) %></p>
 				</td>
 
 				<td class="text-center">
 					<% if a.user %>
-					<%= link_to a.user.username, user_path(a.user) %>
+						<%= link_to a.user.username, user_path(a.user) %>
 					<% end %>
 				</td>
 
 				<td class="text-center">
-					<%= a.updated_at %>
+					<%= a.updated_at.to_s(:short) %>
 				</td>
 
 				<td class="text-center">
-					<% if a.try(:last_comment) %>
-					<%= a.last_comment %>
-			     <%#{date.year}/#{date.month}/#{date.day} #{date.hour}:#{date.min}:#{date.sec}"%>
-					<% end %>
+					<%= a.last_comment_at.try(:to_s, :short) %>
 				</td>
 
 				<td class="text-center">
-					<%= a.comments.count%>
+					<%= a.comments_count %>
 				</td>
 
 				<td class="text-center">
-					<%= a.article_views.count%>
+					<%= a.views_count %>
 				</td>				
 
 			</tr>

@@ -6,9 +6,8 @@ class CommentsController < ApplicationController
 			@comment = Comment.new(params_comment)
 			@comment.user =current_user
 			@comment.article = @article
-
 			if @comment.save		
-				@comment.article.touch(:last_comment_at)
+				# @comment.article.touch(:last_comment_at)
 				
 				@comment = Comment.new					
 				@notice = 'your comment has been successful posted'
@@ -57,7 +56,7 @@ private
 
 	def find_article_and_comments
 		@article = Article.find(params[:article_id])
-		@comments = Comment.all_order_by_updated_at(@article)
+		@comments = @article.comments
 	end
 
 	def refresh

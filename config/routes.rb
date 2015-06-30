@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     member do
       post :add_favorite
       post :remove_favorite
+      post :like
     end
   end
 

@@ -1,0 +1,2 @@
+<% like = @like.new_record? ? "Like(#{@article.likes.count})" : "Dislike(#{@article.likes.count})" %>
+<span class="like_update"><%= button_to like, like_article_path(@article), :remote => true, :class => "btn btn-info" %></span>

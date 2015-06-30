@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_many :favorites
   has_many :favorite_articles, :through =>:favorites, :source=>:article
   has_many :create_categories, :class_name => "Category", :foreign_key => :creator_id
+  has_many :likes
+  has_many :like_articles, :through => :likes, :source=>:article
+
   accepts_nested_attributes_for :user_profile, :allow_destroy => true, :reject_if => :all_blank
 
 

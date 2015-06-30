@@ -32,9 +32,9 @@
 					<% else %>
 					<%= button_to "Remove from My favorite", remove_favorite_article_path(@article), :class=>"btn btn-warning" %>
 					<% end %>
+					<%= render :partial=>"like" %>
 				<% end %>
 			</p>
-
 
 			<!-- Edit and delete -->	
 			<% if @article.user == current_user %>

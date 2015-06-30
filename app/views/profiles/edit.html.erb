@@ -41,8 +41,20 @@
 			</tr>
 
 			<tr>
-				<td></td>
-				<td><%= u.file_field :image %></td>
+				<td><%= u.label :image, "Image" %> </td>
+				<td>
+				<% unless @user.user_profile.image.exists? %>
+					<%= u.file_field :image %>
+				<% else %>
+					<%= check_box_tag "destroy_image", "1" %> 刪除檔案
+				<% end %>	
+				</td>
+			</tr>
+
+			<tr>
+				<td>		
+
+				</td>
 			</tr>
 
 			<tr><td>Total visit</td><td><%= @user.post_articles.count %></td></tr>

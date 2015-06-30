@@ -13,6 +13,11 @@ class ProfilesController < ApplicationController
 
 	def update
 		@user = current_user
+
+		if params[:destroy_image]
+        @user.user_profile.image = nil
+    end
+
 		if @user.update(profile_params)
 			flash[:notice] = "You've updated your profile data successfully"
 			redirect_to user_profile_path(@user)
@@ -25,7 +30,7 @@ class ProfilesController < ApplicationController
 
 	def profile_params
 		params.require(:user).permit(:username,
-										:user_profile_attributes => [:id, :first_name, :last_name, :english_name, :birthdate, :intro])
+										:user_profile_attributes => [:id, :first_name, :last_name, :english_name, :birthdate, :intro, :image])
 	end												
 
 

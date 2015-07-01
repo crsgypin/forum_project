@@ -56,7 +56,7 @@
 			<% end %>
 		</td>
 		<td> <%=c.content %> </td>
-		<td> <%=c.updated_at %></td>
+		<td> <%=time_ago_in_words(c.updated_at) %></td>
 		<td> <%= if c.user == current_user 
 					 link_to "Edit", edit_article_comment_path(article, c) , :remote=>true
 					 end %>

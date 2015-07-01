@@ -9,7 +9,7 @@ class Article < ActiveRecord::Base
 	has_many :favorites
 	has_many :user_favorites, :through=>:favorites, :source=>:user
 	has_many :likes
-	has_many :user_likes, :through=>:likes, :source=>:user
+	has_many :like_users, :through=>:likes, :source=>:user
 
 	validates :author_id, presence: true
 	validates :title, presence: true, :unless => :status_draft?

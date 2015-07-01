@@ -1,0 +1,8 @@
+
+
+<% @article.like_users.each do |u| %>
+<p>
+	<%= image_tag u.user_profile.image.url(:thumb) %>
+	<%= link_to u.username, user_path(u) %>
+</p>
+<% end %>

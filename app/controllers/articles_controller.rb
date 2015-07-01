@@ -142,6 +142,17 @@ class ArticlesController < ApplicationController
 
 	end
 
+	def like_users
+		@article = Article.find( params[:id] )	
+
+		respond_to do |format|
+			format.js {
+				render 'articles/like_users'
+			}
+		end
+		
+	end
+
 	private
 
 	def post_article_params	

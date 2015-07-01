@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       post :add_favorite
       post :remove_favorite
       post :like
+      get :like_users
     end
   end
 

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     member do
       get :articles
       get :comments
+      get :like_articles
 
       get :draft
       get :favorite

@@ -1,13 +1,15 @@
-<% like = @like.new_record? ? "Like" : "Dislike" %>
-<span class="like_update"><%= button_to like, like_article_path(@article), :remote => true, :class => "btn btn-info" %>
+<%# input like, article %>
+
+<% like_word = like.new_record? ? "Like" : "Dislike" %>
+<span class="like_update"><%= button_to like_word, like_article_path(article), :remote => true, :class => "btn btn-info" %>
 <% word= ''%>
-<% if @article.likes.count == 0 %>
+<% if article.likes.count == 0 %>
 <% word = "no like" %>
-<% elsif @article.likes.count == 1 %>
+<% elsif article.likes.count == 1 %>
 <% word = "1 like" %>
 <% else %>
-<% word = "Total #{@article.likes.count} likes" %>
+<% word = "Total #{article.likes.count} likes" %>
 <% end %>
-<%= link_to word, like_users_article_path(@article), :class=>"like_users", :"data-toggle"=>"modal", :"data-target"=>"#myModal", :type=>"button", :remote=>true %>
+<%= link_to word, like_users_article_path(article), :class=>"like_users", :"data-toggle"=>"modal", :"data-target"=>"#myModal", :type=>"button", :remote=>true %>
 </span>
 

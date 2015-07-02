@@ -91,10 +91,7 @@ class ArticlesController < ApplicationController
 		if current_user
 			@favorite = current_user.favorites.find_by_article_id(@article.id)
 
-			@like = current_user.likes.find_by(:article_id=>@article.id)
-			@like = current_user.likes.new unless @like
-			# @like = current_user.likes.find_or_create_by(:article_id=>@article.id)
-
+			@like = Like.find_by_user_article(current_user,@article)
 			@article.view!(current_user)
 		end	
 
@@ -126,12 +123,12 @@ class ArticlesController < ApplicationController
 	def like
 		@article = Article.find( params[:id] )		
 		@like = current_user.likes.find_by_article_id(params[:id])
+
 		unless @like
 			@like = current_user.likes.create(:article_id=>params[:id])
 		else
 			@like.destroy
 			@like = Like.new
-
 		end
 
 		respond_to do |format|

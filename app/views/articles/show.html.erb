@@ -32,7 +32,7 @@
 					<% else %>
 					<%= button_to "Remove from My favorite", remove_favorite_article_path(@article), :class=>"btn btn-warning" %>
 					<% end %>
-					<%= render :partial=>"like" %>
+					<%= render :partial=>"like", :locals=>{:like=>@like, :article=>@article} %>
 				<% end %>
 			</p>
 

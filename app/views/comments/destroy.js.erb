@@ -1,0 +1,3 @@
+$('.article-comments .post').html("<%= j (render :partial=> 'form', :locals=> {:comment => @new_comment, :article=> @article}) %>")
+$('.comment-row-<%= @comment.id %>').remove();
+<%= render :partial => 'notice.js' %>

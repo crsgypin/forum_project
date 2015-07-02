@@ -1,0 +1,6 @@
+
+$('.article-comments .post').html("<%= j (render :partial=> 'form', :locals=> {:comment => @new_comment, :article=> @article}) %>")
+$('.article-comments .table .table-head').after("<%= j (render :partial => 'row', :locals => {:c => @comment, :article=>@article}) %>")
+
+<%= render :partial => 'notice.js' %>
+

@@ -1,0 +1,31 @@
+<%# article, comment %>
+<% if current_user %>
+	<% if comment.new_record? %>
+		<%= form_for comment, :url => article_comments_path(article), :remote=> true do |form| %>
+		<%= form.label :content,("Hi #{link_to current_user.username, user_path(current_user)}, post your comment").html_safe %>
+
+			<br>
+			<%= form.text_area :content, :class=>"text-area" %>
+			<br>
+			<%= form.submit "Post", :class=>"btn btn-primary done"%>
+		<% end %><!-- form for -->
+
+	<% else %>
+		<%= form_for comment, :url => article_comment_path(article, comment), :method => :patch, :remote=>true do |form| %>
+		<%= form.label :content,("Hi #{link_to current_user.username, user_path(current_user)}, update your comment").html_safe %>
+		<br>
+		<%= form.text_area :content, :class=>"text-area" %>
+		<br>
+		<%= link_to "Cancel", new_article_comment_path, :remote=>true, :class=>"btn btn-default done"%>
+		<%= form.submit "Update", :class=>"btn btn-info done"%>
+		<% end %><!-- form for -->
+
+	<% end %><!-- comment.new_record? -->
+
+<% else %>
+	<%= link_to "Sign-in to post your comment", user_session_path, :class=>"btn btn-primary" %>
+
+<% end %><!-- if current_user  -->
+
+
+

@@ -1,0 +1,6 @@
+$('.article-comments .post').html("<%= j (render :partial=> 'form', :locals=> {:comment => @new_comment, :article=> @article}) %>")
+var prev = $('.comment-row-<%= @comment.id %>').prev();
+prev.end().remove();
+prev.after("<%= j (render :partial => 'row', :locals => {:c => @comment, :article=>@article}) %>")
+
+<%= render :partial => 'notice.js' %>

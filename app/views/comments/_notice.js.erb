@@ -1,0 +1,11 @@
+<% if @notice %>
+	$('.article-comments .note').addClass("comment-notice").text("<%=@notice%>")
+<% else %>
+	$('.article-comments .note').removeClass("comment-notice")
+<% end %>
+
+<% if @alert %>
+	$('.article-comments .note').addClass("comment-alert").text("<%=@alert%>")
+<% else %>
+	$('.article-comments .note').removeClass("comment-alert")	
+<% end %>

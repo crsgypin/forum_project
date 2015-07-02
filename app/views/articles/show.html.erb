@@ -57,7 +57,37 @@
 
 	<!-- comments -->
 	<div class="article-comments">
-		<%= render partial: 'comments/article_comments', locals: {:comments => @comments, :comment => @comment, :article=>@article} %>
+
+		<div class="title">
+			<h4>Reply</h4>
+			<%= content_tag(:div, "", :class=>"note") %>
+		</div>
+
+		<div class="post">
+			<%= render partial: 'comments/form', locals: {comment: @comment, article: @article} %>
+
+		</div>
+
+		<table class="table table">
+			<tr class="table-head">
+				<th>Poster</th><th>Comment</th><th>Post time</th><th></th><th></th>
+			</tr>
+		<% if @comments.count>0 %>
+			<% @comments.each do |c| %>
+					<%= render partial: 'comments/row', locals: {c: c, article: @article} %>
+			<% end %><!-- @comments -->
+
+		<% else %>
+
+			<tr class="no-reply">
+				<td colspan="5">
+					<p>No any reply</p>
+				</td>
+			</tr>
+		<% end %><!-- if @comments.count>0 -->
+		</table>
+
+
 
 	</div><!-- article-comments -->
 

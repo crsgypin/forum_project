@@ -1,0 +1,4 @@
+$('.article-comments .post').html("<%= j (render :partial=> 'form', :locals=> {:comment => @comment, :article=> @article}) %>")
+
+<%= render :partial => 'notice.js' %>
+

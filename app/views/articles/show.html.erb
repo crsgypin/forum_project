@@ -129,4 +129,9 @@
   </div>
 </div>
 
+<script>
+$('.edit-it .like_update').on('ajax:success', function(evt, data){
+	  $(this).html( data.html );
+});
 
+</script>

@@ -132,6 +132,10 @@ class ArticlesController < ApplicationController
 		end
 
 		respond_to do |format|
+			format.json {
+				html = render_to_string :partial => 'articles/like.html', :locals=>{:like=>@like, :article=>@article}
+				render :json => { :html => html }
+			}
 			format.js {
 				render 'articles/like'
 			}

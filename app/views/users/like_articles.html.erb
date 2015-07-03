@@ -35,9 +35,12 @@
 </div>
 
 <script>
-	$('.user-like .remove').on('click',function(){
-		$(this).parent().remove();
-	});
+
+$('.user-like .btn-info').on('ajax:success', function(){
+
+  $(this).closest("tr").remove();
+  
+});
 
 </script>
 

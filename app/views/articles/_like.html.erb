@@ -1,7 +1,7 @@
 <%# input like, article %>
 
 <% like_word = like.new_record? ? "Like" : "Dislike" %>
-<span class="like_update"><%= button_to like_word, like_article_path(article), :remote => true, :class => "btn btn-info" %>
+<span class="like_update"><%= link_to like_word, like_article_path(article), :remote => true, :data => { :type => :json }, :method => :post, :class => "btn btn-info" %>
 <% word= ''%>
 <% if article.likes.count == 0 %>
 <% word = "no like" %>

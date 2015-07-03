@@ -18,6 +18,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :friends do 
+    member do
+      get :send_invitation
+      get :accept_invitation
+      get :ignore_invitation
+      get :reject_invitation
+      get :block_my_friend
+    end
+  end
 
   resources :articles do
     resources :comments

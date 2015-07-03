@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702235914) do
+ActiveRecord::Schema.define(version: 20150703122524) do
 
   create_table "article_categoryships", force: :cascade do |t|
     t.integer  "category_id"
@@ -63,19 +63,25 @@ ActiveRecord::Schema.define(version: 20150702235914) do
     t.datetime "updated_at", null: false
   end
 
-<<<<<<< HEAD
-=======
-  create_table "friendships", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "friend_id"
+  create_table "friend_relation_tags", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.integer  "friend_relation_tag_id"
+    t.string   "status"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   add_index "friendships", ["friend_id"], name: "index_friendships_on_friend_id"
+  add_index "friendships", ["friend_relation_tag_id"], name: "index_friendships_on_friend_relation_tag_id"
   add_index "friendships", ["user_id"], name: "index_friendships_on_user_id"
 
->>>>>>> Add friend model
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "article_id"

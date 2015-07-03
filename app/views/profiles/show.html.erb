@@ -8,7 +8,15 @@
 	<div class="user-title">
 		<h4><%= @user.username%> 's profile</h4>
 		<% if @user == current_user  %>
-		<%= link_to "Edit",edit_user_profile_path(@user), :class=>"btn btn-info"%>
+			<%= link_to "Edit",edit_user_profile_path(@user), :class=>"btn btn-info"%>
+		<% end %>
+
+		<% if @friendship == nil %>
+			<%= link_to "Add Friend",send_invitation_friend_path(@user), :remote=>true, :class=>"btn btn-info"%>
+		<% elsif @friendship == "pending" %>
+			<%= link_to "Add Friend",accept_invitation_friend_path(@user), :remote=>true, :class=>"btn btn-info"%>
+		<% else %>
+			Your friend
 		<% end %>
 	</div>
 

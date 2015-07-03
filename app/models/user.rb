@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
   has_many :like_articles, :through => :likes, :source=>:article
 
   accepts_nested_attributes_for :user_profile, :allow_destroy => true, :reject_if => :all_blank
+  has_many :friendships
+  has_many :friends, :through => :friendships
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 
 
   def admin?

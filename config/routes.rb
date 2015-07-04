@@ -15,12 +15,14 @@ Rails.application.routes.draw do
 
       get :draft
       get :favorite
+      get :friends
     end
   end
 
   resources :friends do 
     member do
       get :send_invitation
+      get :cancel_invitation
       get :accept_invitation
       get :ignore_invitation
       get :reject_invitation

@@ -29,6 +29,12 @@ class UsersController < ApplicationController
 
 	end
 
+	def friends
+		@completed_friendships = @user.friendships.map{|fs| fs if fs.status=="completed"}.compact
+		@invited_friendships = @user.friendships.map{|fs| fs if fs.status=="invited"}.compact
+		@blocked_friendships = @user.friendships.map{|fs| fs if fs.status=="blocked"}.compact
+	end
+
 	private
 	
 	def set_user

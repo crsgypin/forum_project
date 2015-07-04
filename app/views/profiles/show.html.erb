@@ -19,6 +19,8 @@
 			Your friend
 		<% end %>
 	</div>
+		
+		<p class="friend"> <%= render :partial=>"friends/friend_button", :locals=>{:user=>@user,:friendship_status =>@friendship_status}%> </p>
 
 	<div class="user-content user-profile">
 		<table class="table">

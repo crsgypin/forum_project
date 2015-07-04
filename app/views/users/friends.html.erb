@@ -1,0 +1,71 @@
+<%= render :partial => "side_bar/user", :locals =>{}%>
+
+
+<div class="content-center">
+	<div class="user-info">
+		<div><%= image_tag avatar_url(@user)%></div>
+		<h3><%= @user.username %></h3>
+	</div>
+
+	<div class="user-content user-friends">
+		<div class="invitation">
+			<h4>My invitations (<%= @invited_friendships.count %>)</h4>
+			<table class="table">
+				<tr>
+					<th class="username">Title</th>
+					<th></th>
+				</tr>
+				<% @invited_friendships.each do |fs| %>
+					<tr>
+						<td> <%= fs.friend.username %> </td>
+						<td> <%= link_to "Accepted", accept_invitation_friend_path(fs.friend), :class=>"btn btn-primary" %>
+							<%= link_to "Reject", reject_invitation_friend_path(fs.friend), :class=>"btn btn-danger" %>
+							<%= link_to "Ignore", ignore_invitation_friend_path(fs.friend), :class=>"btn btn-info"%>
+						</td>
+					</tr>
+				<% end %><%# if friendships.each %>
+			</table>
+		</div><!-- invitation -->
+		
+		<div class="My_friends">
+			<h4>My friends (<%= @completed_friendships.count %>)</h4>
+			<table class="table">
+				<tr>
+					<th class="username">Title</th>
+					<th class="relation">Relation</th>
+					<th class="Do something">Invited</th>
+				</tr>
+				<% @completed_friendships.each do |fs| %>
+					<tr>
+						<td> <%= fs.friend.username %> </td>
+						<td> </td>
+						<td> <%= link_to "Block", reject_invitation_friend_path(fs.friend), :class=>"btn btn-danger"%>
+						</td>
+					</tr>
+				<% end %><%# if friendships.each %>
+			</table>
+		</div><!-- My_friends -->
+		
+
+		<div class="My_block_friends">
+			<h4>My block friends (<%= @blocked_friendships.count %>)</h4>
+			<table class="table">
+				<tr>
+					<th class="username">Title</th>
+					<th class="relation">Relation</th>
+					<th class="Do something">Invited</th>
+				</tr>
+				<% @blocked_friendships.each do |fs| %>
+					<tr>
+						<td> <%= fs.friend.username %> </td>
+						<td> </td>
+						<td> <%= link_to "Block", reject_invitation_friend_path(fs.friend), :class=>"btn btn-danger"%>
+						</td>
+					</tr>
+				<% end %><%# if friendships.each %>
+			</table>
+		</div><!-- My_block_friends -->
+
+	</div>	
+
+

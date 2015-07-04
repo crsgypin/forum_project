@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
 	def show
 		@user = User.find( params[:user_id ] )
 		@user_profile = @user.user_profile
-		@friendship = Friendship.friend_status?(current_user,@user)
+		@friendship_status = Friendship.friend_status?(current_user,@user)
 
 	end
 

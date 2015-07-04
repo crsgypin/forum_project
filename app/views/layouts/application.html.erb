@@ -50,7 +50,14 @@
 				<% else %>
 					<%= link_to "login", new_session_path(:user),:class=>"glyphicon glyphicon-user" %>
 				<% end %>
-			</div>
+			</div><!-- login -->
+		</div><!-- user info -->
+
+		<div class="invitation">
+				
+				<% if @invitation_list %>
+					<%= link_to "You have invitation", friends_user_path(current_user)%>
+				<% end %>
 		</div>
 
 	</div><!--nav top-->

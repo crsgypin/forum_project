@@ -30,9 +30,10 @@ class UsersController < ApplicationController
 	end
 
 	def friends
-		@completed_friendships = @user.friendships.map{|fs| fs if fs.status=="completed"}.compact
-		@invited_friendships = @user.friendships.map{|fs| fs if fs.status=="invited"}.compact
-		@blocked_friendships = @user.friendships.map{|fs| fs if fs.status=="blocked"}.compact
+		@friendships = @user.friendships
+		@completed_friendships = @friendships.map{|fs| fs if fs.status=="completed"}.compact
+		@invited_friendships = @friendships.map{|fs| fs if fs.status=="invited"}.compact
+		@other_friendships = @friendships - @invited_friendships - @completed_friendships
 	end
 
 	private

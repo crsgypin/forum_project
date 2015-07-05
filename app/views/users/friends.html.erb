@@ -7,7 +7,10 @@
 		<h3><%= @user.username %></h3>
 	</div>
 
+
 	<div class="user-content user-friends">
+
+		<% if @invited_friendships.count >0 %>
 		<div class="invitation">
 			<h4>My invitations (<%= @invited_friendships.count %>)</h4>
 			<table class="table">
@@ -26,6 +29,8 @@
 				<% end %><%# if friendships.each %>
 			</table>
 		</div><!-- invitation -->
+
+		<% end %><%# @invited_friendships.count >0 %>
 		
 		<div class="My_friends">
 			<h4>My friends (<%= @completed_friendships.count %>)</h4>
@@ -33,13 +38,16 @@
 				<tr>
 					<th class="username">Title</th>
 					<th class="relation">Relation</th>
-					<th class="Do something">Invited</th>
+					<th class="Edit-it"></th>
 				</tr>
 				<% @completed_friendships.each do |fs| %>
 					<tr>
 						<td> <%= fs.friend.username %> </td>
-						<td> </td>
-						<td> <%= link_to "Block", reject_invitation_friend_path(fs.friend), :class=>"btn btn-danger"%>
+						<td> 
+								<%= collection_select fs,:friend_relation_tag_id, FriendRelationTag.all,:id,:name,{:selected =>fs.friend_relation_tag_id},:data=>{:url=>select_relation_tag_friend_path(fs.friend)
+									}, :class=>"relation_select" %>
+						</td>
+						<td> <%= link_to "Block", reject_invitation_friend_path(fs.friend), :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%>
 						</td>
 					</tr>
 				<% end %><%# if friendships.each %>
@@ -47,25 +55,37 @@
 		</div><!-- My_friends -->
 		
 
-		<div class="My_block_friends">
-			<h4>My block friends (<%= @blocked_friendships.count %>)</h4>
+		<div class="My_other_users">
+			<h4>Other users (<%= @other_friendships.count %>)</h4>
 			<table class="table">
 				<tr>
 					<th class="username">Title</th>
-					<th class="relation">Relation</th>
-					<th class="Do something">Invited</th>
+					<th class="status">Relation</th>
+					<th class="Edit-id"></th>
 				</tr>
-				<% @blocked_friendships.each do |fs| %>
+				<% @other_friendships.each do |fs| %>
 					<tr>
 						<td> <%= fs.friend.username %> </td>
-						<td> </td>
-						<td> <%= link_to "Block", reject_invitation_friend_path(fs.friend), :class=>"btn btn-danger"%>
-						</td>
+						<td> <%= fs.status %></td>
 					</tr>
 				<% end %><%# if friendships.each %>
 			</table>
 		</div><!-- My_block_friends -->
 
 	</div>	
+</div><!-- content-center -->
 
+<script>
+	$('.My_friends .relation_select').on('change',function(){
+		 $.ajax({
+	    type: "POST",
+	    url: $(this).data('url') + "?friend_relation_tag_id="+$(this).val(),
+	    dataType: "JSON",
+	    success: function(data) {
+
+		    }
+		  });
+	});
+
+</script>
 

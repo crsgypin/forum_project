@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       get :ignore_invitation
       get :reject_invitation
       get :block_my_friend
+      post :select_relation_tag
     end
   end
 

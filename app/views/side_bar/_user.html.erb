@@ -11,6 +11,7 @@
 			<li><%= link_to "Favorites", favorite_user_path(@user), :id=>@favorite_articles ? "highlighted" : ""  %></li>
 			<li><%= link_to "Draft", draft_user_path(@user), :id=>@draft_articles ? "highlighted" : ""  %></li>
 			<li><%= link_to "Likes", like_articles_user_path(@user), :id=>@like_articles ? "highlighted" : "" %></li>
+			<li><%= link_to "Friends", friends_user_path(@user), :id=>@friendships ? "highlighted" : ""  %></li>
 
 		<% end %>
 

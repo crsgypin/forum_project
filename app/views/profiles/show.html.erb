@@ -2,17 +2,17 @@
 
 <div class="content-center">
 	<div class="user-info">
-		<%= image_tag @user.user_profile.image.url(:thumb) %>
-		<div><%= image_tag avatar_url(@user)%></div>
-		<h3><%= @user.username %></h3>
+		<%= render :partial=>"users/user_info", :locals=>{:user=>@user} %>
 	</div>
 
-	<div class="user-content user-profile">
+	<div class="user-title">
 		<h4><%= @user.username%> 's profile</h4>
 		<% if @user == current_user  %>
 		<%= link_to "Edit",edit_user_profile_path(@user), :class=>"btn btn-info"%>
 		<% end %>
+	</div>
 
+	<div class="user-content user-profile">
 		<table class="table">
 			<tr>
 				<td>First Name</td>

@@ -3,12 +3,14 @@
 
 <div class="content-center">
 	<div class="user-info">
-		<div><%= image_tag avatar_url(@user)%></div>
-		<h3><%= @user.username %></h3>
+		<%= render :partial=>"users/user_info", :locals=>{:user=>@user} %>
+	</div>
+
+	<div class="user-title">
+		<h4>Comments (<%=@comments.count %>)</h4>
 	</div>
 
 	<div class="user-content user-comments">
-		<h4>Comments (<%=@comments.count %>)</h4>
 		<table class="table">
 			<tr>
 				<th class="user-show-comment-table-index"></th>
@@ -27,7 +29,7 @@
 					<%= link_to c.content, article_path(c.article)%>
 				</td>
 				<td class="user-show-comment-table-update">
-					<%= c.updated_at %>
+					<%= time_ago_in_words(c.updated_at) %>
 				</td>
 			</tr>
 				<% end %><!-- if c.article -->

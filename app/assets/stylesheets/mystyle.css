@@ -194,7 +194,7 @@
 	width:80%;
 	margin-left: 0px;
 	margin-right: 0px;
-	padding-top: 40px;
+	padding-top: 20px;
 	background-color: #eee;
 	min-height: 1000px;
 	float: left;
@@ -264,14 +264,20 @@
 }
 
 .content-center .user-info{
-	height: 60px;
-	width:500px;
+	width:90%;
 	margin-left: 5%;
+	border-bottom: 1px solid #aaa;
+}
+
+.content-center .user-info::after{
+	content: "";
+	display:block;
+	clear: both;
 }
 
 .content-center .user-info>*{
 	height: 40px;
-	margin: 10px 10px 10px 0px;
+	margin: 10px 10px 10px 10px;
 	float: left;
 }
 
@@ -280,8 +286,17 @@
 }
 
 .content-center .user-info h3{
-	width:400px;
+	width:calc(100% - 50px -50px);
 	padding-top:5px;
+}
+
+.content-center .user-title{
+	margin:10px 5% 10px 5%;
+	height: 40px;
+}
+
+.content-center .user-title>*{
+	display: inline-block;
 }
 
 .content-center .user-content{

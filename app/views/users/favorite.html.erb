@@ -1,13 +1,16 @@
 <%= render :partial => "side_bar/user", :locals =>{}%>
 
+
 <div class="content-center">
 	<div class="user-info">
-		<div><%= image_tag avatar_url(@user)%></div>
-		<h3><%= @user.username %></h3>
+		<%= render :partial=>"users/user_info", :locals=>{:user=>@user} %>
+	</div>
+
+	<div class="user-title">
+		<h4>My favorite articles (<%= @favorite_articles.count %>)</h4>
 	</div>
 
 	<div class="user-content user-favorite">
-		<h4>My favorite articles (<%= @favorite_articles.count %>)</h4>
 		<table class="table">
 			<tr>
 				<th class="index"></th>

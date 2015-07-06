@@ -1,4 +1,13 @@
 namespace :dev do 
+	task :friendly_id => :environment do
+		
+		User.all.each do |u|
+		 	u.friendly_id = SecureRandom.hex(10)
+		 	u.save!
+	  end
+	end
+
+
 	task :fake => :environment do 
 
 		User.destroy_all

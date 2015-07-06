@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
 
 	def show
-		@user = User.find( params[:user_id ] )
+		@user = User.find_by_friendly_id( params[:user_id ] )
 		@user_profile = @user.user_profile
 		@friendship_status = Friendship.friend_status?(current_user,@user)
 
@@ -30,7 +30,7 @@ class ProfilesController < ApplicationController
 	protected
 
 	def profile_params
-		params.require(:user).permit(:username,
+		params.require(:user).permit(:username, :friendly_id,
 										:user_profile_attributes => [:id, :first_name, :last_name, :english_name, :birthdate, :intro, :image])
 	end												
 

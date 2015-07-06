@@ -20,9 +20,13 @@
 
 		<div class="message">
 			<h4  class="notice"><%=flash[:notice]%></h4>
-			<p class="error"><%if @article %>
-				<%=@article.errors.full_messages.join(', ') %>
+			<p class="error">
+				<%if @article %>
+					<%=@article.errors.full_messages.join(', ') %>
 				<% end %>				
+				<%if @user %>
+					<%=@user.errors.full_messages.join(', ')%>
+				<% end %>
 			</p>
 			<p><%if @category %>
 				<%=@category.errors.full_messages.inspect %>

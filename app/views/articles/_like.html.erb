@@ -1,0 +1,15 @@
+<%# input like, article %>
+
+<% like_word = like.new_record? ? "Like" : "Dislike" %>
+<span class="like_update"><%= link_to like_word, like_article_path(article), :remote => true, :data => { :type => :json }, :method => :post, :class => "btn btn-info" %>
+<% word= ''%>
+<% if article.likes.count == 0 %>
+<% word = "no like" %>
+<% elsif article.likes.count == 1 %>
+<% word = "1 like" %>
+<% else %>
+<% word = "Total #{article.likes.count} likes" %>
+<% end %>
+<%= link_to word, like_users_article_path(article), :class=>"like_users", :"data-toggle"=>"modal", :"data-target"=>"#myModal", :type=>"button", :remote=>true %>
+</span>
+

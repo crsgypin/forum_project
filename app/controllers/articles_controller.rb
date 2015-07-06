@@ -91,6 +91,7 @@ class ArticlesController < ApplicationController
 		if current_user
 			@favorite = current_user.favorites.find_by_article_id(@article.id)
 
+			@like = Like.find_by_user_article(current_user,@article)
 			@article.view!(current_user)
 		end	
 
@@ -117,6 +118,40 @@ class ArticlesController < ApplicationController
 		else
 			render :show
 		end
+	end
+
+	def like
+		@article = Article.find( params[:id] )		
+		@like = current_user.likes.find_by_article_id(params[:id])
+
+		unless @like
+			@like = current_user.likes.create(:article_id=>params[:id])
+		else
+			@like.destroy
+			@like = Like.new
+		end
+
+		respond_to do |format|
+			format.json {
+				html = render_to_string :partial => 'articles/like.html', :locals=>{:like=>@like, :article=>@article}
+				render :json => { :html => html }
+			}
+			format.js {
+				render 'articles/like'
+			}
+		end
+
+	end
+
+	def like_users
+		@article = Article.find( params[:id] )	
+
+		respond_to do |format|
+			format.js {
+				render 'articles/like_users'
+			}
+		end
+		
 	end
 
 	private

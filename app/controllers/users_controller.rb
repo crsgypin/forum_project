@@ -16,6 +16,10 @@ class UsersController < ApplicationController
 		render :template =>"users/comments"
 	end
 
+	def like_articles
+		@like_articles = @user.like_articles
+	end
+
 	def draft
 		@draft_articles = @user.post_articles.where("status = 'draft'").order(:updated_at => :desc)
 	end

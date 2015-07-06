@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     member do
       get :articles
       get :comments
+      get :like_articles
 
       get :draft
       get :favorite
@@ -23,6 +24,8 @@ Rails.application.routes.draw do
     member do
       post :add_favorite
       post :remove_favorite
+      post :like
+      get :like_users
     end
   end
 

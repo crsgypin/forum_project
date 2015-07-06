@@ -1,0 +1,47 @@
+<%= render :partial => "side_bar/user", :locals =>{}%>
+
+<div class="content-center">
+	<div class="user-info">
+		<div><%= image_tag avatar_url(@user)%></div>
+		<h3><%= @user.username %></h3>
+	</div>
+
+	<div class="user-content user-like">
+		<h4>My like articles (<%= @like_articles.count %>)</h4>
+		<table class="table">
+			<tr>
+				<th class="index"></th>
+				<th class="title">Title</th>
+				<th class="poster">Poster</th>
+				<th class="likes">Likes</th>
+				<th class="update">Update Date</th>
+				<th class="remove"></th>
+			</tr>
+
+			<% @like_articles.each_with_index do |la,index|%>
+				<% like = Like.find_by_user_article(@user,la) %>
+			<tr>
+				<td class="index"><%= index+1 %></td>
+				<td class="title"><%= link_to la.title, article_path(la)%></td>
+				<td class="poster"><%= link_to la.user.username, user_path(la.user)%></td>
+				<td class="likes"><%= la.likes_count %></td>
+				<td class="update"><%=la.updated_at%></td>
+				<td class="remove"><%= render :partial=>"articles/like",:locals=>{:like=>like, :article=>la} %>
+				</td>
+			</tr>
+			<% end %><!-- @user.favorite_articles.each_with_index -->
+		</table>
+	</div>
+</div>
+
+<script>
+
+$('.user-like .btn-info').on('ajax:success', function(){
+
+  $(this).closest("tr").remove();
+  
+});
+
+</script>
+
+

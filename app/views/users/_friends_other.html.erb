@@ -1,0 +1,23 @@
+<%# :locals=>{:other_friendships=>@other_friendships} %>
+
+<h4>Other users (<%= other_friendships.count %>)</h4>
+<table class="table">
+	<tr>
+		<th class="username">Username</th>
+		<th class="status">Status</th>
+		<th class="Edit-id"></th>
+	</tr>
+	<% other_friendships.each do |fs| %>
+		<tr>
+			<td> <%= link_to fs.friend.username, user_path(fs.friend) %> </td>
+			<td> <%= fs.status %></td>
+			<td> 
+				<% if fs.status == "block" %>
+					<%= link_to "Unblock", unblock_my_friend_friend_path(fs.friend,:user=>true),  :remote=>true %>
+				<% elsif fs.status == "pending" %>
+					<%= link_to "Accept", accept_invitation_friend_path(fs.friend, :user=>true), :remote=>true %>
+				<% end %>
+			</td>
+		</tr>
+	<% end %><%# if friendships.each %>
+</table>

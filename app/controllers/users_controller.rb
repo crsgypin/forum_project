@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 		@other_friendships = @friendships - @invited_friendships - @completed_friendships
 	end
 
-	private
+private
 	
 	def set_user
 		@user = User.find(params[:id])

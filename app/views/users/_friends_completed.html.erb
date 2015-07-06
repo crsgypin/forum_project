@@ -1,0 +1,21 @@
+<%# :locals=>{:completed_friendships=>@completed_friendships} %>
+
+<h4>My friends (<%= completed_friendships.count %>)</h4>
+<table class="table">
+	<tr>
+		<th class="username">Title</th>
+		<th class="relation">Relation</th>
+		<th class="Edit-it"></th>
+	</tr>
+	<% completed_friendships.each do |fs| %>
+		<tr>
+			<td> <%= link_to fs.friend.username, user_path(fs.friend) %> </td>
+			<td> 
+					<%= collection_select fs,:friend_relation_tag_id, FriendRelationTag.all,:id,:name,{:selected =>fs.friend_relation_tag_id},:data=>{:url=>select_relation_tag_friend_path(fs.friend)
+						}, :class=>"relation_select" %>
+			</td>
+			<td> <%= link_to "Block", block_my_friend_friend_path(fs.friend,:user=>true), :remote=>true,:data=>{:confirm=>"Are you sure?"}%>
+			</td>
+		</tr>
+	<% end %><%# if friendships.each %>
+</table>

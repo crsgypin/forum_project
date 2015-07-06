@@ -16,7 +16,7 @@ class FriendsController < ApplicationController
 	def accept_invitation
 		Friendship.set_status(current_user,@friend,"completed")		
 		Friendship.set_status(@friend,current_user,"completed")	
-		redirect_to friends_user_path(current_user)
+		render_js
 	end
 
 	def ignore_invitation
@@ -24,25 +24,19 @@ class FriendsController < ApplicationController
 		render_js
 	end
 
-	def reject_invitation
-		Friendship.set_status(current_user,@friend,"blocking")		
-		redirect_to friends_user_path(current_user)
-	end
-
 	def block_my_friend
-		Friendship.set_status(current_user,@friend,"blocking")
+
+		Friendship.set_status(current_user,@friend,"block")
 		render_js
 	end
 
 	def unblock_my_friend
 		Friendship.set_status(current_user,@friend,"completed")
-		render_js		
+		render_js
 	end
 
 	def select_relation_tag
-		fs = current_user.friendships.find_by(:friend_id=>@friend.id)
-		fs.friend_relation_tag_id = params[:friend_relation_tag_id]
-		fs.save
+		Friendship.set_relation_tag(current_user,@friend,params[:friend_relation_tag_id])
 		render :text => ""
 	end
 
@@ -60,8 +54,18 @@ private
 		@friendship_status = Friendship.friend_status?(current_user,@friend)
 		respond_to do |format|
 			format.html
-			format.js {render 'update_button.js'}
+			format.js {
+				if params[:user]
+					@friendships = current_user.friendships
+					@completed_friendships = @friendships.map{|fs| fs if fs.status=="completed"}.compact
+					@invited_friendships = @friendships.map{|fs| fs if fs.status=="invited"}.compact
+					@other_friendships = @friendships - @invited_friendships - @completed_friendships				
+
+					render 'users/friends_update.js'
+				else
+					render 'friends/update_button.js'
+				end
+			}
 		end
 	end
-
 end

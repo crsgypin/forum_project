@@ -10,18 +10,8 @@
 		<% if @user == current_user  %>
 			<%= link_to "Edit",edit_user_profile_path(@user), :class=>"btn btn-info"%>
 		<% end %>
-
-		<% if @friendship == nil %>
-			<%= link_to "Add Friend",send_invitation_friend_path(@user), :remote=>true, :class=>"btn btn-info"%>
-		<% elsif @friendship == "pending" %>
-			<%= link_to "Add Friend",accept_invitation_friend_path(@user), :remote=>true, :class=>"btn btn-info"%>
-		<% else %>
-			Your friend
-		<% end %>
 	</div>
 		
-		<p class="friend"> <%= render :partial=>"friends/friend_button", :locals=>{:user=>@user,:friendship_status =>@friendship_status}%> </p>
-
 	<div class="user-content user-profile">
 		<table class="table">
 			<tr>

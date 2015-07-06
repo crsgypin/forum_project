@@ -10,73 +10,25 @@
 
 	<div class="user-content user-friends">
 
-		<% if @invited_friendships.count >0 %>
-		<div class="invitation">
-			<h4>My invitations (<%= @invited_friendships.count %>)</h4>
-			<table class="table">
-				<tr>
-					<th class="username">Title</th>
-					<th></th>
-				</tr>
-				<% @invited_friendships.each do |fs| %>
-					<tr>
-						<td> <%= fs.friend.username %> </td>
-						<td> <%= link_to "Accepted", accept_invitation_friend_path(fs.friend), :class=>"btn btn-primary" %>
-							<%= link_to "Reject", reject_invitation_friend_path(fs.friend), :class=>"btn btn-danger" %>
-							<%= link_to "Ignore", ignore_invitation_friend_path(fs.friend), :class=>"btn btn-info"%>
-						</td>
-					</tr>
-				<% end %><%# if friendships.each %>
-			</table>
-		</div><!-- invitation -->
 
-		<% end %><%# @invited_friendships.count >0 %>
+		<div class="my_invitations">
+			<%= render :partial=>'friends_new.html',:locals=>{:invited_friendships=>@invited_friendships} %>
+		</div><!-- invitation -->
 		
-		<div class="My_friends">
-			<h4>My friends (<%= @completed_friendships.count %>)</h4>
-			<table class="table">
-				<tr>
-					<th class="username">Title</th>
-					<th class="relation">Relation</th>
-					<th class="Edit-it"></th>
-				</tr>
-				<% @completed_friendships.each do |fs| %>
-					<tr>
-						<td> <%= fs.friend.username %> </td>
-						<td> 
-								<%= collection_select fs,:friend_relation_tag_id, FriendRelationTag.all,:id,:name,{:selected =>fs.friend_relation_tag_id},:data=>{:url=>select_relation_tag_friend_path(fs.friend)
-									}, :class=>"relation_select" %>
-						</td>
-						<td> <%= link_to "Block", reject_invitation_friend_path(fs.friend), :class=>"btn btn-danger", :data=>{:confirm=>"Are you sure?"}%>
-						</td>
-					</tr>
-				<% end %><%# if friendships.each %>
-			</table>
+		<div class="my_friends">
+			<%= render :partial=>'friends_completed',:locals=>{:completed_friendships=>@completed_friendships} %>
 		</div><!-- My_friends -->
 		
 
-		<div class="My_other_users">
-			<h4>Other users (<%= @other_friendships.count %>)</h4>
-			<table class="table">
-				<tr>
-					<th class="username">Title</th>
-					<th class="status">Relation</th>
-					<th class="Edit-id"></th>
-				</tr>
-				<% @other_friendships.each do |fs| %>
-					<tr>
-						<td> <%= fs.friend.username %> </td>
-						<td> <%= fs.status %></td>
-					</tr>
-				<% end %><%# if friendships.each %>
-			</table>
-		</div><!-- My_block_friends -->
+		<div class="my_other_users">
+			<%= render :partial=>'friends_other',:locals=>{:other_friendships=>@other_friendships} %>
+		</div><!-- My_other_friends -->
 
 	</div>	
 </div><!-- content-center -->
 
 <script>
-	$('.My_friends .relation_select').on('change',function(){
+	$('.my_friends').on('change','.relation_select',function(){
 		 $.ajax({
 	    type: "POST",
 	    url: $(this).data('url') + "?friend_relation_tag_id="+$(this).val(),

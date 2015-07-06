@@ -33,7 +33,7 @@ protected
   end
 
   def check_invitation
-    @invitation_list = Friendship.invitation_list(current_user)
+    @invitation_list = Friendship.invitation_list(current_user) if current_user
   end
 
   def authenticate_admin 

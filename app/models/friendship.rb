@@ -2,6 +2,7 @@ class Friendship < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :friend, :class_name => "User"
 	belongs_to :friend_relation_tag
+	validates_uniqueness_of :user_id, :scope=>:friend_id
 #status: pending, inviting, completed, blocked
 
 	def self.friend_status?(me,friend)

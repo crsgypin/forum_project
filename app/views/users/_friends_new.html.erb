@@ -1,0 +1,21 @@
+<%# :locals=>{:invited_friendships=>@invited_friendships} %>
+<% if invited_friendships.count >0 %>
+
+<h4>My invitations (<%= invited_friendships.count %>)</h4>
+<table class="table">
+	<tr>
+		<th class="username">Username</th>
+		<th></th>
+	</tr>
+	<% invited_friendships.each do |fs| %>
+		<tr>
+			<td> <%= link_to fs.friend.username, user_path(fs.friend) %> </td>
+			<td> 
+				<%= link_to "Accepted", accept_invitation_friend_path(fs.friend,:user=>true), :remote=>true, :class=>"btn btn-primary" %>
+				<%= link_to "Ignore", ignore_invitation_friend_path(fs.friend, :user=>true), :remote=>true, :class=>"btn btn-info"%>
+			</td>
+		</tr>
+	<% end %><%# if friendships.each %>
+</table>
+
+<% end %><%# invited_friendships.count >0 %>

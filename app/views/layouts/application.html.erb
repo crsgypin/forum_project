@@ -33,7 +33,7 @@
 		<div class="user-info">
 			<div class="user">
 				<% if current_user %>
-				<%= link_to current_user.username, user_path(current_user), :class=>"glyphicon glyphicon-user" %>
+				<%= link_to raw("<span class='glyphicon glyphicon-user'></span> #{current_user.username}"), user_path(current_user), :class=>"" %>
 				<% end %>			
 			</div>
 
@@ -50,7 +50,15 @@
 				<% else %>
 					<%= link_to "login", new_session_path(:user),:class=>"glyphicon glyphicon-user" %>
 				<% end %>
-			</div>
+			</div><!-- login -->
+		</div><!-- user info -->
+
+		<div class="invitation">
+			<% if current_user %>
+				<% if @invitation_list.length>0 %>
+				<%= link_to "You have invitation", friends_user_path(current_user)%>
+				<% end %>
+			<% end %>
 		</div>
 
 	</div><!--nav top-->

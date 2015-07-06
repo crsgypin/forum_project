@@ -105,7 +105,9 @@
 	float: left;
 }
 
-
+.nav-top .invitation a{
+	color:#bfb;
+}
 
 .content-body{
 	min-width: 1000px;

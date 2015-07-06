@@ -1,7 +1,9 @@
-<%# :locals=>{:user=>@user} %>
+<%# :locals=>{:user=>@user, :friendship=>@friendship} %>
 	<%= image_tag @user.user_profile.image.url(:thumb) %>
 	<div><%= image_tag avatar_url(@user)%></div>
 	<h3><%= @user.username %></h3>
 
-
+	<% if user != current_user  %>
+	<p class="friend"> <%= render :partial=>"friends/friend_button", :locals=>{:user=>@user,:friendship_status =>@friendship_status}%> </p>
+	<% end %>
 

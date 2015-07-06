@@ -1,0 +1,11 @@
+<%# :local=>{:user=>@user, :friendship_status=>@friendship_status %>
+
+<% if friendship_status == nil %>
+	<%= link_to "Add Friend",send_invitation_friend_path(user), :remote=>true, :class=>"btn btn-info"%>
+<% elsif friendship_status == "pending" %>
+	<%= link_to "Cancel Inviting",cancel_invitation_friend_path(user), :remote=>true, :class=>"btn btn-info"%>
+<% else %>
+	Your friend
+<% end %>
+
+

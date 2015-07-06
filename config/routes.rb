@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   resources :users, only: :show do
     
     resource :profile
-
     member do
       get :articles
       get :comments
@@ -15,9 +14,23 @@ Rails.application.routes.draw do
 
       get :draft
       get :favorite
+
+      get :friends
     end
   end
 
+  resources :friends do 
+    member do
+      get :send_invitation
+      get :cancel_invitation
+      get :accept_invitation
+      get :ignore_invitation
+      get :reject_invitation
+      get :block_my_friend
+      get :unblock_my_friend
+      post :select_relation_tag
+    end
+  end
 
   resources :articles do
     resources :comments

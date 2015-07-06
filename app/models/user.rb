@@ -19,6 +19,13 @@ class User < ActiveRecord::Base
   has_many :like_articles, :through => :likes, :source=>:article
 
   accepts_nested_attributes_for :user_profile, :allow_destroy => true, :reject_if => :all_blank
+  has_many :friendships
+  has_many :friends, :through => :friendships
+  has_many :friend_relation_tags, :through => :friendships
+
+  def self.check
+    Rails.logger.debug(current_user.inspect)
+  end
 
 
   def admin?

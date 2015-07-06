@@ -29,7 +29,14 @@ class UsersController < ApplicationController
 
 	end
 
-	private
+	def friends
+		@friendships = @user.friendships
+		@completed_friendships = @friendships.map{|fs| fs if fs.status=="completed"}.compact
+		@invited_friendships = @friendships.map{|fs| fs if fs.status=="invited"}.compact
+		@other_friendships = @friendships - @invited_friendships - @completed_friendships
+	end
+
+private
 	
 	def set_user
 		@user = User.find(params[:id])

@@ -1,0 +1,7 @@
+
+
+$('.user-friends .my_invitations').html("<%= j (render :partial=>'users/friends_new', :locals=>{:invited_friendships=>@invited_friendships})%>");
+$('.user-friends .my_friends').html("<%= j (render :partial=>'users/friends_completed', :locals=>{:completed_friendships=>@completed_friendships})%>");
+$('.user-friends .my_other_users').html("<%= j (render :partial=>'users/friends_other', :locals=>{:other_friendships=>@other_friendships})%>");
+
+

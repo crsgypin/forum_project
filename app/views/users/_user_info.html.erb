@@ -1,0 +1,7 @@
+<%# :locals=>{:user=>@user} %>
+	<%= image_tag @user.user_profile.image.url(:thumb) %>
+	<div><%= image_tag avatar_url(@user)%></div>
+	<h3><%= @user.username %></h3>
+
+
+

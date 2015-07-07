@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook]
 
   before_create :set_role
+  validates_presence_of :friendly_id, :username
+  validates_uniqueness_of :friendly_id, :username
 
   has_one :user_profile, :dependent => :destroy
   has_many :post_articles, :class_name=> "Article", :foreign_key => "author_id"
@@ -27,6 +29,9 @@ class User < ActiveRecord::Base
     Rails.logger.debug(current_user.inspect)
   end
 
+  def to_param
+    self.friendly_id
+  end
 
   def admin?
     self.role == "admin"

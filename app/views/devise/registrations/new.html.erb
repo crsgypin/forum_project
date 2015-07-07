@@ -54,6 +54,11 @@
         </div>
 
         <div class="field">
+          <%= f.label :friendly_id, "URL" %>
+          <%= f.email_field :friendly_id %>
+        </div>
+
+        <div class="field">
           <%= u.label :intro %>
           <%= u.text_area :intro %>
         </div>

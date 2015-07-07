@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150707034441) do
     t.datetime "last_comment_at"
     t.integer  "comments_count"
     t.integer  "likes_count"
-    t.integer  "position"
+    t.integer  "row_order"
   end
 
   create_table "categories", force: :cascade do |t|

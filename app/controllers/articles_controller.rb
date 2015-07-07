@@ -143,6 +143,13 @@ class ArticlesController < ApplicationController
 
 	end
 
+	def move
+		@article.row_order_position = params[:position]
+		@article.save!
+
+		redirect_to :back
+	end
+
 	def like_users
 		@article = Article.find( params[:id] )	
 

@@ -51,6 +51,8 @@ gem "paperclip", "~> 4.2"
 
 gem 'ranked-model'
 
+gem 'jquery-ui-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -1,6 +1,6 @@
 class AddRank < ActiveRecord::Migration
   def change
-  	add_column :articles, :position, :integer
+  	add_column :articles, :row_order, :integer
 
   end
 end

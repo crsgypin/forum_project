@@ -39,7 +39,7 @@
 			</tr>
 
 				<% @articles.each_with_index do |a, index| %>
-			<tr>
+			<tr data-reorder-url="<%= move_article_path(a) %>">
 				<td>
 					<%= get_serial(@articles, index) %>
 				</td>
@@ -79,4 +79,28 @@
 		</table>
 	</div><!-- article-content -->
 </div>
+
+
+<script>
+$('.article-content table').sortable({
+	items:"tr",
+	update: function(event,ui){
+		url = ui.item.data("reorder-url");
+		console.log(url);
+		console.log(ui.item);
+
+		$.ajax({
+			type:'post',
+			url:url,
+			dataType: 'json',
+			data:{
+				position:ui.item.index()
+			}
+		});
+
+	}
+});
+
+</script>
+
 

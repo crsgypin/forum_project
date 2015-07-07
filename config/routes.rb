@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       post :remove_favorite
       post :like
       get :like_users
+      post :move
     end
   end
 

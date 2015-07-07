@@ -49,6 +49,8 @@ gem 'kaminari'
 
 gem "paperclip", "~> 4.2"
 
+gem 'ranked-model'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

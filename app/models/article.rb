@@ -18,6 +18,9 @@ class Article < ActiveRecord::Base
 
 	validates_presence_of :content, unless: :status_draft?
 
+  include RankedModel
+  ranks :row_order
+
 	def category_names
 		self.categories.map{ |x| x.name}.join(" ")
 	end

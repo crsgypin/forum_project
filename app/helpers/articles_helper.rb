@@ -12,4 +12,11 @@ module ArticlesHelper
 		safe_join(arr, " ")
 	end
 
+	def display_tag(tags)
+		arr = tags.map{|t| 
+				content_tag(:span, t.name, :class=>"label label-primary")
+		}
+		safe_join(arr," ")
+	end
+
 end

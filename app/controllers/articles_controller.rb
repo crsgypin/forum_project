@@ -38,11 +38,11 @@ class ArticlesController < ApplicationController
 	end
 
 	def edit
-		@article = current_user.articles.find(params[:id])
+		@article = current_user.post_articles.find(params[:id])
 	end
 
 	def update
-		@article = current_user.articles.find(params[:id])
+		@article = current_user.post_articles.find(params[:id])
 
 		if params[:commit] == "Update"
 			if @article.update(post_article_params)

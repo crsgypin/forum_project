@@ -41,19 +41,6 @@ class User < ActiveRecord::Base
     self.role = "user"
   end
 
-  def tag_list
-    self.tags.map{|x| x.name}.join(",")
-  end
-
-  def tag_list=(str)
-    ids = str.split(',').map do |tag_name|
-      tag_name.strip!
-      tag = Tag.find_by_name(tag_name)||Tag.create(:name=>tag_name)
-      tag.id
-    end
-    self.tag_ids = ids
-  end
-
   def self.from_omniauth(auth)
     user = User.find_by(:provider=>auth.provider,:uid=>auth.uid)
     if user

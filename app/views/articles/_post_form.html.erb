@@ -35,5 +35,13 @@
 		</div>
 	</div>
 
+<script type="text/javascript">
+	$('.tag .value').select2({
+		tags:<%= raw(Tag.all.map{|t| t.name}.to_json) %>,
+		tokenSeparators: [',',' ']
+	})
+
+
+</script>
 
 

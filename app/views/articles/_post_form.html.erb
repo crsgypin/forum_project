@@ -22,7 +22,7 @@
 			<%= form.label :tag_list, "Tag" %>
 		</div>
 		<div class="value">
-			<%= form.text_field :tag_list %>
+			<%= form.text_field :tag_list, :class=>"tag_input" %>
 		</div>
 	</div>
 
@@ -36,7 +36,7 @@
 	</div>
 
 <script type="text/javascript">
-	$('.tag .value').select2({
+	$('.tag .tag_input').select2({
 		tags:<%= raw(Tag.all.map{|t| t.name}.to_json) %>,
 		tokenSeparators: [',',' ']
 	})

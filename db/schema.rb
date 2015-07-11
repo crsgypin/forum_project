@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706180811) do
+ActiveRecord::Schema.define(version: 20150706233632) do
 
   create_table "article_categoryships", force: :cascade do |t|
     t.integer  "category_id"
@@ -91,6 +91,24 @@ ActiveRecord::Schema.define(version: 20150706180811) do
 
   add_index "likes", ["article_id"], name: "index_likes_on_article_id"
   add_index "likes", ["user_id"], name: "index_likes_on_user_id"
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "article_id"
+    t.integer  "tag_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "taggings", ["article_id"], name: "index_taggings_on_article_id"
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+  add_index "taggings", ["user_id"], name: "index_taggings_on_user_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "user_profiles", force: :cascade do |t|
     t.string   "first_name"

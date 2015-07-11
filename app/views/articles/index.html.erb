@@ -22,6 +22,7 @@
 			<tr>
 				<th class="index text-center"></th>
 				<th class="topic text-center">Topic</th>
+				<th class="tag text-center">Tag</th>
 				<th class="category text-center">Category</th>
 				<th class="poster text-center">Post User</th>
 				<th class="date text-center">
@@ -43,11 +44,12 @@
 				<td>
 					<%= get_serial(@articles, index) %>
 				</td>
-
 				<td>
 					<%= link_to a.title, article_path(a) %>
 				</td>
-
+				<td>
+					<%= display_tag(a.tags) %>
+				</td>
 				<td class="text-center">
 					<p><%= display_category(a.categories) %></p>
 				</td>
